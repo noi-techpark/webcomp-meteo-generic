@@ -6,9 +6,9 @@ Replace all `ToDo` notes in this file and adjust also the following files:
     - Adjust the general parts like title, description, ...
     - Adjust the configuration part with all possible configuration options (https://webcomponents.opendatahub.bz.it/getting-started)
 
-# ToDo: Project Name
+# Webcomp Meteo Generic
 
-ToDo: Description of the project.
+All the meteo features in one component.
 
 ## Table of contents
 
