@@ -11,9 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, "./work/scripts"),
     filename: "webcomp-meteo-generic.js",
   },
-  plugins: [
-    new Dotenv(),
-  ],
+  plugins: [new Dotenv()],
   // webpack-dev-server configuration
   devServer: {
     contentBase: path.resolve(__dirname, "./work"),
@@ -28,6 +26,20 @@ module.exports = {
   devtool: "inline-source-map",
   module: {
     rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+            plugins: [
+              "@babel/plugin-syntax-class-properties",
+              "@babel/plugin-proposal-class-properties",
+            ],
+          },
+        },
+      },
       {
         test: /\.(s*)css$/,
         use: ["css-loader", "sass-loader"],

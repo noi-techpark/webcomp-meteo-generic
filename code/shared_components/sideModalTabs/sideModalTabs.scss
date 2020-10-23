@@ -8,7 +8,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 8px;
+  padding: 8px 8px 0 8px;
 
   .sideModalTabs__tab {
     &:hover {
@@ -20,6 +20,7 @@
     p {
       @include MixinParagraphRegular;
       margin: 0;
+      margin-bottom: 4px;
       color: $gray-600;
       cursor: pointer;
     }

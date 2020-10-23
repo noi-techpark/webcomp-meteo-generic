@@ -1,8 +1,10 @@
-import L from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
+// import L from "leaflet";
+// import icon from "leaflet/dist/images/marker-icon.png";
+// import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import "@babel/polyfill";
 import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, html, LitElement, unsafeCSS } from "lit-element";
+import { drawUserOnMap, initializeMap } from "./methods/map";
 // import clone from "lodash/clone";
 // import flatten from "lodash/flatten";
 // import { request_get_poi, request_trip } from "./api/efa_sta";
@@ -30,6 +32,9 @@ import { css, html, LitElement, unsafeCSS } from "lit-element";
 // } from "./constants";
 // import fromImage from "./img/from.svg";
 import { observed_properties } from "./observed-properties";
+import "./shared_components/sideModalTabs/sideModalTabs";
+import "./shared_components/tag/tag";
+import { isMobile } from "./utils";
 // import style from "./scss/main.scss";
 // import createTranslator from "./translations";
 // import {
@@ -42,7 +47,6 @@ import { observed_properties } from "./observed-properties";
 //   toLeaflet,
 // } from "./utilities";
 import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
-import { isMobile } from "./utils";
 
 class MeteoGeneric extends LitElement {
   constructor() {
@@ -127,10 +131,15 @@ class MeteoGeneric extends LitElement {
 
     // this.t = createTranslator(this.get_system_language());
 
+    // this.should_render_language_flags = true;
+    this.current_location = { lat: 46.479, lng: 11.331 };
+    this.filters = {
+      radius: 2,
+    };
+
     this.height = "500px";
     this.width = "100%";
-
-    // this.should_render_language_flags = true;
+    this.fontFamily = "";
   }
 
   static get properties() {
@@ -144,35 +153,12 @@ class MeteoGeneric extends LitElement {
     `;
   }
 
-  async initializeMap() {
-    const DefaultIcon = L.icon({
-      iconUrl: icon,
-      iconAnchor: [12.5, 41],
-      shadowUrl: iconShadow,
-    });
-    L.Marker.prototype.options.icon = DefaultIcon;
-
-    this.map = L.map(this.shadowRoot.getElementById("map"), {
-      zoomControl: false,
-    });
-
-    const tileUrl = process.env.HERE_API_KEY
-      ? `${this.tiles_url}${process.env.HERE_API_KEY}`
-      : this.tiles_url;
-
-    console.log(tileUrl);
-
-    L.tileLayer(tileUrl, {
-      attribution: this.attribution,
-    }).addTo(this.map);
-
-    this.map.setView({ lat: 46.49761, lon: 11.349261 }, 13);
-  }
-
   async firstUpdated() {
     console.log(this.width, this.height);
 
-    this.initializeMap();
+    // this.initializeMap();
+    initializeMap.bind(this)();
+    drawUserOnMap.bind(this)();
 
     // this.mapControlsHandlers();
     // this.windowSizeListenerClose();
@@ -483,6 +469,7 @@ class MeteoGeneric extends LitElement {
         * {
           --width: ${this.width};
           --height: ${this.height};
+          --w-c-font-family: ${this.fontFamily};
         }
       </style>
       ${this.tiles_url
@@ -493,8 +480,8 @@ class MeteoGeneric extends LitElement {
 
       <div
         class="meteo_generic 
-          ${this.mobile_open ? `MODE__mobile__open` : `MODE__mobile__closed`}
-          ${isMobile() ? `mobile` : ``}
+          ${/*this.mobile_open ? `MODE__mobile__open` : `MODE__mobile__closed`*/ ""}
+          ${/*isMobile() ? `mobile` : ``*/ ""}
           ${/*this.getAnimationState()*/ ""}"
       >
         ${/*this.should_render_language_flags
@@ -502,6 +489,22 @@ class MeteoGeneric extends LitElement {
         : this.render__language_flags()*/ ""}
         ${/*this.isFullScreen ? this.render_closeFullscreenButton() : null*/ ""}
         ${/*this.render_backgroundMap()*/ ""}
+        <div class="meteo_generic__sideBar">
+          <div class="meteo_generic__sideBar__tabBar">
+            <wc-sidemodal-tabs
+              .action="${(id) => {
+                console.log(`Current new tab ${id}`);
+              }}"
+              .elements="${[
+                { label: "Previsioni", id: 1 },
+                { label: "Video", id: 2 },
+                { label: "In montagna", id: 3 },
+                { label: "Per zona", id: 4 },
+                { label: "Mappa", id: 5 },
+              ]}"
+            ></wc-sidemodal-tabs>
+          </div>
+        </div>
         <div id="map"></div>
         ${/*this.render__mapControls()*/ ""}
         ${/*!this.details_data
