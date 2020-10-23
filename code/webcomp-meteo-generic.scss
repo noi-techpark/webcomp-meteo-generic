@@ -1,0 +1,31 @@
+.meteo_generic {
+  font-family: var(
+    --webcomp-routeplanner-font-family,
+    Suedtirol,
+    KievitWebPro,
+    sans-serif
+  );
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+  overflow: hidden;
+}
+
+#map {
+  width: var(--width);
+  height: var(--height);
+  @media only screen and (min-width: 320px) {
+    // width: 100%;
+    // height: 100vh;
+    // &.closed {
+    //   height: var(--height);
+    // }
+  }
+
+  @media only screen and (min-width: 992px) {
+    height: var(--height);
+    // &.closed {
+    //   height: var(--height);
+    // }
+  }
+}
