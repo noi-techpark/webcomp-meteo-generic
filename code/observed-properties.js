@@ -1,9 +1,15 @@
 export const observed_properties = {
   height: { type: String },
   width: { type: String },
-
+  language: { type: String },
   fontFamily: { type: String },
   tiles_url: { type: String, attribute: "tiles-url" },
+
+  showFilters: { type: Boolean },
+  isLoading: { type: Boolean },
+
+  nominatimQuery: { type: String },
+  nominatimPlacesFound: { type: Array },
 
   // mobile_open: { type: Boolean },
   // current_location: { type: Object },
@@ -35,7 +41,6 @@ export const observed_properties = {
 
   // is_travel_options_panel_open: { type: Boolean },
   // travel_options: { type: Object },
-  // language: { type: String },
   // details_open: { type: Boolean },
 
   // attribution: { type: String },

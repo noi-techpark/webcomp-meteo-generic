@@ -1,3 +1,6 @@
+@import "./shared_components/baseline/colors.scss";
+@import "./shared_components/baseline/typography.scss";
+
 .meteo_generic {
   font-family: var(
     --webcomp-routeplanner-font-family,
@@ -36,10 +39,66 @@
   top: 16px;
   left: 16px;
   width: 350px;
-  max-height: calc(100% - 16px);
+  max-height: calc(100% - 32px);
   z-index: 2;
+  overflow: hidden;
 
   .meteo_generic__sideBar__tabBar {
     background-color: white;
   }
+  .meteo_generic__sideBar__searchBar {
+    background-color: white;
+    .searchBox {
+      .searchBox__resoult_list {
+        max-height: calc(var(--height) - 32px - 86px);
+        overflow-y: auto;
+        ul {
+          list-style: none;
+          padding-left: 8px;
+          margin: 16px 0 0 0;
+          li {
+            @include MixinParagraphRegular;
+            line-height: 18px;
+            display: flex;
+            align-items: center;
+            // padding: 4px 0;
+            margin: 8px 0;
+            cursor: pointer;
+            img {
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.map_controls {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3;
+}
+
+.globalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $gray-600;
+  opacity: 0.6;
+  z-index: 4;
+}
+
+// Globals
+.mt-4px {
+  margin-top: 4px;
+}
+.mt-8px {
+  margin-top: 8px;
+}
+.mt-16px {
+  margin-top: 16px;
 }

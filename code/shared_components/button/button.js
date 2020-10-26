@@ -28,7 +28,7 @@ export class Button extends LitElement {
   render() {
     let classExist = buttonTypes.includes(this.type);
     return html`<button class="${classExist ? this.type : buttonTypes[0]}">
-      ${this.image ? html`<img src="${this.image}" alt="${this.content}" />` : html`${this.content}`}
+      ${this.image ? html`<div><img src="${this.image}" alt="${this.content}" /></div>` : html`${this.content}`}
     </button>`;
   }
 }
