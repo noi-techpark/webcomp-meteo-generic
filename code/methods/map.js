@@ -23,7 +23,10 @@ export async function initializeMap() {
     attribution: this.attribution,
   }).addTo(this.map);
 
-  this.map.setView({ lat: 46.49761, lon: 11.349261 }, 13);
+  this.map.setView(
+    { lat: this.current_location.lat, lon: this.current_location.lng },
+    13
+  );
 }
 
 export function drawUserOnMap() {

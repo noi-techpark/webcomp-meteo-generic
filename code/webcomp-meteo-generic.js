@@ -481,7 +481,7 @@ class MeteoGeneric extends LitElement {
       <div
         class="meteo_generic 
           ${/*this.mobile_open ? `MODE__mobile__open` : `MODE__mobile__closed`*/ ""}
-          ${/*isMobile() ? `mobile` : ``*/ ""}
+          ${isMobile() ? `mobile` : ``}
           ${/*this.getAnimationState()*/ ""}"
       >
         ${/*this.should_render_language_flags
