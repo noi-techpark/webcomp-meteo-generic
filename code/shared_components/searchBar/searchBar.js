@@ -62,8 +62,8 @@ export class SearchBar extends LitElement {
 
       <div class="searchbar__section_filters">
         ${this.filtersNumber
-          ? html`<div class="filterCounter">${this.filtersNumber}</div>`
-          : html`<img src="${FilterGrayIcon}" alt="filter_icon" />`}
+          ? html`<div class="filterCounter" @click="${this.filtersAction}">${this.filtersNumber}</div>`
+          : html`<img src="${FilterGrayIcon}" alt="filter_icon" @click="${this.filtersAction}" />`}
       </div>
     </div>`;
   }
