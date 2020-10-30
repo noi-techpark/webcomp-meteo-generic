@@ -27,6 +27,7 @@ class MeteoGeneric extends LitElement {
     this.height = "500px";
     this.width = "100%";
     this.fontFamily = "";
+    this.mapAttribution = "";
 
     this.isLoading = true;
 
