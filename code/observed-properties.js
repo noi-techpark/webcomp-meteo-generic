@@ -11,6 +11,8 @@ export const observed_properties = {
   nominatimQuery: { type: String },
   nominatimPlacesFound: { type: Array },
 
+  mapAttribution: { type: String },
+
   // mobile_open: { type: Boolean },
   // current_location: { type: Object },
   // // Select places
