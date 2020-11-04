@@ -93,28 +93,32 @@ class MeteoGeneric extends LitElement {
         }
       );
 
-      // marker.on("mousedown", action);
+      const action = () => {
+        console.log(station);
+      };
+
+      marker.on("mousedown", action);
       stations_layer_array.push(marker);
     });
 
-    tourismStations.map((station) => {
-      const marker_position = getLatLongFromStationDetail({
-        x: station.Longitude,
-        y: station.Latitude,
-      });
-      const station_icon = Leaflet.icon({
-        iconUrl: stationIcon,
-        iconSize: [36, 36],
-      });
-      const marker = Leaflet.marker(
-        [marker_position.lat, marker_position.lng],
-        {
-          icon: station_icon,
-        }
-      );
-      // marker.on("mousedown", action);
-      stations_layer_array.push(marker);
-    });
+    // tourismStations.map((station) => {
+    //   const marker_position = getLatLongFromStationDetail({
+    //     x: station.Longitude,
+    //     y: station.Latitude,
+    //   });
+    //   const station_icon = Leaflet.icon({
+    //     iconUrl: stationIcon,
+    //     iconSize: [36, 36],
+    //   });
+    //   const marker = Leaflet.marker(
+    //     [marker_position.lat, marker_position.lng],
+    //     {
+    //       icon: station_icon,
+    //     }
+    //   );
+    //   // marker.on("mousedown", action);
+    //   stations_layer_array.push(marker);
+    // });
 
     if (!this.language) {
       // this.should_render_language_flags = false;

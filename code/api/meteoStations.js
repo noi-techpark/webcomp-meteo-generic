@@ -16,7 +16,9 @@ export const requestTourismMeasuringpoint = async () => {
 export const requestMobilityMeteoStationSelectedData = async () => {
   try {
     const request = await fetch(
-      `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*?limit=-1&select=scoordinate,scode,sname,stype`
+      `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*?limit=-1`
+      // `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*?limit=-1&select=tname,scoordinate`
+      // `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*?limit=-1&select=scoordinate,scode,sname,stype`
     );
     if (request.status !== 200) {
       throw new Error(request.statusText);

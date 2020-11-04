@@ -4,17 +4,31 @@ const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   mode: "production",
-  entry: path.resolve(__dirname, "./src/route_widget.js"),
+  entry: path.resolve(__dirname, "./code/webcomp-meteo-generic.js"),
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "routeplanner_widget.min.js",
+    filename: "webcomp-meteo-generic.js",
   },
   plugins: [new Dotenv()],
   module: {
     rules: [
       {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+            plugins: [
+              "@babel/plugin-syntax-class-properties",
+              "@babel/plugin-proposal-class-properties",
+            ],
+          },
+        },
+      },
+      {
         test: /\.(s*)css$/,
-        use: [{ loader: "css-loader" }, { loader: "sass-loader" }],
+        use: ["css-loader", "sass-loader"],
       },
       {
         test: /\.svg/,
