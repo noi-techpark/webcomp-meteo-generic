@@ -72,3 +72,7 @@ export async function request__get_coordinates_from_search(query) {
     this.nominatimPlacesFound = [];
   }
 }
+
+export function getLatLongFromStationDetail(o) {
+  return { lat: o.y, lng: o.x };
+}

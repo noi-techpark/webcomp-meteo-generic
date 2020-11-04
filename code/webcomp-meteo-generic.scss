@@ -102,3 +102,15 @@
 .mt-16px {
   margin-top: 16px;
 }
+
+// Leaflet clustering
+.leaflet-div-icon {
+  border: 0;
+  border-radius: 100%;
+  background-color: $blue-100;
+  color: $white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

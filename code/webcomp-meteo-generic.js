@@ -1,6 +1,14 @@
 import "@babel/polyfill";
+import Leaflet from "leaflet";
+import leaflet_mrkcls from "leaflet.markercluster";
+// import style__markercluster from "leaflet.markercluster/dist/MarkerCluster.css";
 import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, html, LitElement, unsafeCSS } from "lit-element";
+import {
+  requestMobilityMeteoStationSelectedData,
+  requestTourismMeasuringpoint,
+} from "./api/meteoStations";
+import stationIcon from "./assets/station.svg";
 import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
 import { render_searchPlaces } from "./components/searchPlaces";
@@ -15,6 +23,7 @@ import "./shared_components/tag/tag";
 // import { t } from "./translations";
 import {
   debounce,
+  getLatLongFromStationDetail,
   get_system_language,
   isMobile,
   request__get_coordinates_from_search,
@@ -64,16 +73,71 @@ class MeteoGeneric extends LitElement {
     drawUserOnMap.bind(this)();
     this.isLoading = false;
 
-    // this.mapControlsHandlers();
-    // this.windowSizeListenerClose();
-    // Calculate results height
-    // this.getSearchContainerHeight();
-    // await this.handleDestination();
+    const stations_layer_array = [];
+
+    const mobilityStations = await requestMobilityMeteoStationSelectedData();
+    console.log({ mobilityStations });
+    const tourismStations = await requestTourismMeasuringpoint();
+    console.log({ tourismStations });
+
+    mobilityStations.data.map((station) => {
+      const marker_position = getLatLongFromStationDetail(station.scoordinate);
+      const station_icon = Leaflet.icon({
+        iconUrl: stationIcon,
+        iconSize: [36, 36],
+      });
+      const marker = Leaflet.marker(
+        [marker_position.lat, marker_position.lng],
+        {
+          icon: station_icon,
+        }
+      );
+
+      // marker.on("mousedown", action);
+      stations_layer_array.push(marker);
+    });
+
+    tourismStations.map((station) => {
+      const marker_position = getLatLongFromStationDetail({
+        x: station.Longitude,
+        y: station.Latitude,
+      });
+      const station_icon = Leaflet.icon({
+        iconUrl: stationIcon,
+        iconSize: [36, 36],
+      });
+      const marker = Leaflet.marker(
+        [marker_position.lat, marker_position.lng],
+        {
+          icon: station_icon,
+        }
+      );
+      // marker.on("mousedown", action);
+      stations_layer_array.push(marker);
+    });
 
     if (!this.language) {
       // this.should_render_language_flags = false;
       this.language = get_system_language();
     }
+
+    const stations_layer = Leaflet.layerGroup(stations_layer_array, {});
+
+    this.layer_stations = new leaflet_mrkcls.MarkerClusterGroup({
+      showCoverageOnHover: false,
+      chunkedLoading: true,
+      iconCreateFunction(cluster) {
+        return Leaflet.divIcon({
+          html: `<div class="marker_cluster__marker">${cluster.getChildCount()}</div>`,
+          iconSize: Leaflet.point(36, 36),
+        });
+      },
+    });
+    /** Add maker layer in the cluster group */
+    this.layer_stations.addLayer(stations_layer);
+    /** Add the cluster group to the map */
+    this.map.addLayer(this.layer_stations);
+
     // this.switch_language(this.language);
   }
 
