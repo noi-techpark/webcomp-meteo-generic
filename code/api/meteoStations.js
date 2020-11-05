@@ -29,3 +29,18 @@ export const requestMobilityMeteoStationSelectedData = async () => {
     console.log(error);
   }
 };
+
+export const requestMobilityMeteoStationLatestDetails = async ({ scode, tname }) => {
+  try {
+    const request = await fetch(
+      `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*/latest?limit=-1&where=scode.eq.${scode}&where=tname.eq.${tname}`
+    );
+    if (request.status !== 200) {
+      throw new Error(request.statusText);
+    }
+    const response = await request.json();
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

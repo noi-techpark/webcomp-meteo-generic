@@ -13,6 +13,8 @@ export const observed_properties = {
 
   mapAttribution: { type: String },
 
+  currentStation: { type: Object },
+
   // mobile_open: { type: Boolean },
   // current_location: { type: Object },
   // // Select places
@@ -43,7 +45,8 @@ export const observed_properties = {
 
   // is_travel_options_panel_open: { type: Boolean },
   // travel_options: { type: Object },
-  // details_open: { type: Boolean },
+  detailsOpen: { type: Boolean },
+  mobilityStationMeasurements: { type: Array },
 
   // attribution: { type: String },
 };

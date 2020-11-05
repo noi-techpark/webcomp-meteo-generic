@@ -5,20 +5,22 @@ import leaflet_mrkcls from "leaflet.markercluster";
 import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, html, LitElement, unsafeCSS } from "lit-element";
 import {
+  requestMobilityMeteoStationLatestDetails,
   requestMobilityMeteoStationSelectedData,
   requestTourismMeasuringpoint,
 } from "./api/meteoStations";
 import stationIcon from "./assets/station.svg";
 import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
-import { render_searchPlaces } from "./components/searchPlaces";
 import { drawUserOnMap, initializeMap } from "./mainClassMethods/map";
 import { observed_properties } from "./observed-properties";
 import "./shared_components/button/button";
 // Shared components
 import "./shared_components/searchBar/searchBar";
+import "./shared_components/sideModalHeader/sideModalHeader";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
+import "./shared_components/sideModalRow/sideModalRow";
 // Utils functions
 // import { t } from "./translations";
 import {
@@ -29,6 +31,11 @@ import {
   request__get_coordinates_from_search,
 } from "./utils";
 import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
+
+export const CUSTOMstationCompetenceTypes = {
+  tourism: "tourism",
+  mobility: "mobility",
+};
 
 class MeteoGeneric extends LitElement {
   constructor() {
@@ -51,6 +58,10 @@ class MeteoGeneric extends LitElement {
     };
 
     this.nominatimQuery = "";
+
+    this.currentStation = {};
+    this.detailsOpen = false;
+    this.mobilityStationMeasurements = [];
   }
 
   static get properties() {
@@ -93,32 +104,67 @@ class MeteoGeneric extends LitElement {
         }
       );
 
-      const action = () => {
-        console.log(station);
+      const action = async () => {
+        this.currentStation = {
+          ...station,
+          CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.mobility,
+        };
+
+        const details = await requestMobilityMeteoStationLatestDetails({
+          scode: station.scode,
+          tname: station.tname,
+        });
+        if (details) {
+          console.log(details.data);
+          const data = details.data[0];
+          if (data !== undefined) {
+            const { mvalue, tunit } = data;
+            if (mvalue !== undefined && tunit !== undefined) {
+              this.mobilityStationMeasurements = [
+                {
+                  name: station.tdescription || "---",
+                  value: `${mvalue} ${tunit}`,
+                },
+              ];
+            }
+          } else {
+            this.mobilityStationMeasurements = [];
+          }
+        }
+
+        this.detailsOpen = true;
       };
 
       marker.on("mousedown", action);
       stations_layer_array.push(marker);
     });
 
-    // tourismStations.map((station) => {
-    //   const marker_position = getLatLongFromStationDetail({
-    //     x: station.Longitude,
-    //     y: station.Latitude,
-    //   });
-    //   const station_icon = Leaflet.icon({
-    //     iconUrl: stationIcon,
-    //     iconSize: [36, 36],
-    //   });
-    //   const marker = Leaflet.marker(
-    //     [marker_position.lat, marker_position.lng],
-    //     {
-    //       icon: station_icon,
-    //     }
-    //   );
-    //   // marker.on("mousedown", action);
-    //   stations_layer_array.push(marker);
-    // });
+    tourismStations.map((station) => {
+      const marker_position = getLatLongFromStationDetail({
+        x: station.Longitude,
+        y: station.Latitude,
+      });
+      const station_icon = Leaflet.icon({
+        iconUrl: stationIcon,
+        iconSize: [36, 36],
+      });
+      const marker = Leaflet.marker(
+        [marker_position.lat, marker_position.lng],
+        {
+          icon: station_icon,
+        }
+      );
+      const action = () => {
+        this.currentStation = {
+          ...station,
+          CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.tourism,
+        };
+        this.detailsOpen = true;
+      };
+
+      marker.on("mousedown", action);
+      stations_layer_array.push(marker);
+    });
 
     if (!this.language) {
       // this.should_render_language_flags = false;
@@ -491,18 +537,19 @@ class MeteoGeneric extends LitElement {
               ]}"
             ></wc-sidemodal-tabs>
           </div>
-          <div class="meteo_generic__sideBar__searchBar mt-4px">
-            ${render_searchPlaces.bind(this)()}
-          </div>
+          <!-- <div class="meteo_generic__sideBar__searchBar mt-4px"> -->
+          ${/* render_searchPlaces.bind(this)() */ ""}
+          <!-- </div> -->
+          ${this.detailsOpen
+            ? html`<div class="meteo_generic__sideBar__details mt-4px">
+                ${render_details.bind(this)()}
+              </div>`
+            : ""}
         </div>
 
         <div id="map"></div>
 
-        ${render__mapControls.bind(this)()} ${render_details.bind(this)()}
-        ${/*!this.details_data
-          ? html` ${this.render_search()} `
-          : html` ${this.render_details()} `*/ ""}
-        ${/*this.render__alert()*/ ""}
+        ${render__mapControls.bind(this)()}
       </div>
     `;
   }
