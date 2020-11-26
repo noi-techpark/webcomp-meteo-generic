@@ -15,6 +15,8 @@ export const observed_properties = {
 
   currentStation: { type: Object },
 
+  currentTab: { type: Number },
+
   // mobile_open: { type: Boolean },
   // current_location: { type: Object },
   // // Select places

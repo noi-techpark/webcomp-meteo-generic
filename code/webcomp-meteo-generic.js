@@ -1,18 +1,13 @@
 import "@babel/polyfill";
-import Leaflet from "leaflet";
-import leaflet_mrkcls from "leaflet.markercluster";
-// import style__markercluster from "leaflet.markercluster/dist/MarkerCluster.css";
 import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, html, LitElement, unsafeCSS } from "lit-element";
-import {
-  requestMobilityMeteoStationLatestDetails,
-  requestMobilityMeteoStationSelectedData,
-  requestTourismMeasuringpoint,
-} from "./api/meteoStations";
-import stationIcon from "./assets/station.svg";
 import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
-import { drawUserOnMap, initializeMap } from "./mainClassMethods/map";
+import {
+  drawStationsOnMap,
+  drawUserOnMap,
+  initializeMap,
+} from "./mainClassMethods/map";
 import { observed_properties } from "./observed-properties";
 import "./shared_components/button/button";
 import "./shared_components/languagePicker/languagePicker";
@@ -23,12 +18,8 @@ import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
 import { t } from "./translations";
-// Utils functions
-// import { t } from "./translations";
 import {
   debounce,
-  getLatLongFromStationDetail,
-  get_system_language,
   isMobile,
   LANGUAGES,
   request__get_coordinates_from_search,
@@ -49,6 +40,7 @@ class MeteoGeneric extends LitElement {
     this.mapAttribution = "";
 
     this.isLoading = true;
+    this.currentTab = 1;
 
     this.map = undefined;
     this.current_location = { lat: 46.479, lng: 11.331 };
@@ -86,112 +78,38 @@ class MeteoGeneric extends LitElement {
     initializeMap.bind(this)();
     drawUserOnMap.bind(this)();
     this.isLoading = false;
+    await drawStationsOnMap.bind(this)();
+  }
 
-    const stations_layer_array = [];
+  handleChangeTab(id) {
+    this.currentTab = id;
+  }
 
-    const mobilityStations = await requestMobilityMeteoStationSelectedData();
-    console.log({ mobilityStations });
-    const tourismStations = await requestTourismMeasuringpoint();
-    console.log({ tourismStations });
-
-    mobilityStations.data.map((station) => {
-      const marker_position = getLatLongFromStationDetail(station.scoordinate);
-      const station_icon = Leaflet.icon({
-        iconUrl: stationIcon,
-        iconSize: [36, 36],
-      });
-      const marker = Leaflet.marker(
-        [marker_position.lat, marker_position.lng],
-        {
-          icon: station_icon,
+  updated(changedProperties) {
+    changedProperties.forEach((oldValue, propName) => {
+      if (propName === "currentTab") {
+        if (oldValue === 1) {
+          this.map.off();
+          this.map.remove();
         }
-      );
-
-      const action = async () => {
-        this.currentStation = {
-          ...station,
-          CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.mobility,
-        };
-
-        const details = await requestMobilityMeteoStationLatestDetails({
-          scode: station.scode,
-          tname: station.tname,
-        });
-        if (details) {
-          console.log(details.data);
-          const data = details.data[0];
-          if (data !== undefined) {
-            const { mvalue, tunit } = data;
-            if (mvalue !== undefined && tunit !== undefined) {
-              this.mobilityStationMeasurements = [
-                {
-                  name: station.tdescription || "---",
-                  value: `${mvalue} ${tunit}`,
-                },
-              ];
-            }
-          } else {
-            this.mobilityStationMeasurements = [];
-          }
+        if (this.currentTab === 1 && oldValue !== undefined) {
+          this.isLoading = true;
+          initializeMap
+            .bind(this)()
+            .then(() => {
+              drawUserOnMap
+                .bind(this)()
+                .then(() => {
+                  drawStationsOnMap
+                    .bind(this)()
+                    .then(() => {
+                      this.isLoading = false;
+                    });
+                });
+            });
         }
-
-        this.detailsOpen = true;
-      };
-
-      marker.on("mousedown", action);
-      stations_layer_array.push(marker);
+      }
     });
-
-    tourismStations.map((station) => {
-      const marker_position = getLatLongFromStationDetail({
-        x: station.Longitude,
-        y: station.Latitude,
-      });
-      const station_icon = Leaflet.icon({
-        iconUrl: stationIcon,
-        iconSize: [36, 36],
-      });
-      const marker = Leaflet.marker(
-        [marker_position.lat, marker_position.lng],
-        {
-          icon: station_icon,
-        }
-      );
-      const action = () => {
-        this.currentStation = {
-          ...station,
-          CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.tourism,
-        };
-        this.detailsOpen = true;
-      };
-
-      marker.on("mousedown", action);
-      stations_layer_array.push(marker);
-    });
-
-    if (!this.language) {
-      // this.should_render_language_flags = false;
-      this.language = get_system_language();
-    }
-
-    const stations_layer = Leaflet.layerGroup(stations_layer_array, {});
-
-    this.layer_stations = new leaflet_mrkcls.MarkerClusterGroup({
-      showCoverageOnHover: false,
-      chunkedLoading: true,
-      iconCreateFunction(cluster) {
-        return Leaflet.divIcon({
-          html: `<div class="marker_cluster__marker">${cluster.getChildCount()}</div>`,
-          iconSize: Leaflet.point(36, 36),
-        });
-      },
-    });
-    /** Add maker layer in the cluster group */
-    this.layer_stations.addLayer(stations_layer);
-    /** Add the cluster group to the map */
-    this.map.addLayer(this.layer_stations);
-
-    // this.switch_language(this.language);
   }
 
   // translatePositionByPixelsOnScreen(position, offset) {
@@ -531,10 +449,12 @@ class MeteoGeneric extends LitElement {
         ></wc-languagepicker>
         ${/*this.isFullScreen ? this.render_closeFullscreenButton() : null*/ ""}
         ${/*this.render_backgroundMap()*/ ""}
+
         <div class="meteo_generic__sideBar">
           <div class="meteo_generic__sideBar__tabBar">
             <wc-sidemodal-tabs
               .action="${(id) => {
+                this.currentTab = id;
                 console.log(`Current new tab ${id}`);
               }}"
               .elements="${[
@@ -555,10 +475,12 @@ class MeteoGeneric extends LitElement {
               </div>`
             : ""}
         </div>
-
-        <div id="map"></div>
-
-        ${render__mapControls.bind(this)()}
+        ${this.currentTab === 1
+          ? html`
+              <div id="map"></div>
+              ${render__mapControls.bind(this)()}
+            `
+          : ""}
       </div>
     `;
   }
@@ -566,10 +488,3 @@ class MeteoGeneric extends LitElement {
 
 customElements.get("webcom-meteo-generic") ||
   customElements.define("webcom-meteo-generic", MeteoGeneric);
-
-/* <style>
-${getStyle(style__leaflet)} ${getStyle(style)} * {
-  --width: ${this.width};
-  --height: ${this.height};
-}
-</style> */
