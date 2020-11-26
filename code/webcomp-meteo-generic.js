@@ -1,6 +1,7 @@
 import "@babel/polyfill";
 import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, html, LitElement, unsafeCSS } from "lit-element";
+import { request__get_coordinates_from_search } from "./api/hereMaps";
 import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
 import { render_searchPlaces } from "./components/searchPlaces";
@@ -19,12 +20,7 @@ import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
 import { t } from "./translations";
-import {
-  debounce,
-  isMobile,
-  LANGUAGES,
-  request__get_coordinates_from_search,
-} from "./utils";
+import { debounce, isMobile, LANGUAGES } from "./utils";
 import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
 
 export const CUSTOMstationCompetenceTypes = {
@@ -44,7 +40,7 @@ class MeteoGeneric extends LitElement {
     this.currentTab = 1;
 
     this.map = undefined;
-    this.current_location = { lat: 46.479, lng: 11.331 };
+    this.currentLocation = { lat: 46.479, lng: 11.331 };
 
     this.hereMapsPlacesFound = [];
     this.hereMapsQuery = "";
@@ -416,6 +412,8 @@ class MeteoGeneric extends LitElement {
   );
 
   render() {
+    console.log(this.currentLocation);
+    
     return html`
       <style>
         * {

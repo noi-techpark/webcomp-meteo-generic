@@ -1,5 +1,5 @@
 import { html } from "lit-element";
-import { debounce, request__get_coordinates_from_search } from "../utils";
+// import { debounce, request__get_coordinates_from_search } from "../utils";
 import { t } from "../translations";
 import findPositionBlueIcon from "../assets/find-position-blue.svg";
 
@@ -15,7 +15,7 @@ export function render_searchPlaces() {
   };
 
   const manage_map = (lat, lng) => {
-    this.current_location = { lat: parseFloat(lat), lng: parseFloat(lng) };
+    this.currentLocation = { lat: parseFloat(lat), lng: parseFloat(lng) };
     this.current_station = {};
     this.hereMapsPlacesFound = [];
     this.showFilters = false;

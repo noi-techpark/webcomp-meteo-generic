@@ -31,7 +31,7 @@ export async function initializeMap() {
   }).addTo(this.map);
 
   this.map.setView(
-    { lat: this.current_location.lat, lon: this.current_location.lng },
+    { lat: this.currentLocation.lat, lon: this.currentLocation.lng },
     13
   );
 }
@@ -45,7 +45,7 @@ export function drawUserOnMap() {
     iconSize: [25, 25],
   });
   const user = Leaflet.marker(
-    [this.current_location.lat, this.current_location.lng],
+    [this.currentLocation.lat, this.currentLocation.lng],
     {
       icon: user_icon,
     }
@@ -54,7 +54,7 @@ export function drawUserOnMap() {
    * Circle around the user
    */
   const circle = Leaflet.circle(
-    [this.current_location.lat, this.current_location.lng],
+    [this.currentLocation.lat, this.currentLocation.lng],
     {
       radius: this.filters.radius * 1000,
       color: "rgba(66, 133, 244, 0.6)",

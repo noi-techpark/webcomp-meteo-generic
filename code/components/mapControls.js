@@ -22,7 +22,7 @@ export function render__mapControls() {
       const { latitude, longitude } = coords;
       console.log(latitude, longitude);
 
-      this.current_location = { lat: latitude, lng: longitude };
+      this.currentLocation = { lat: latitude, lng: longitude };
       this.map.flyTo([latitude, longitude], 13);
       // this.map.removeLayer(this.layer_columns);
       this.map.removeLayer(this.layer_user);

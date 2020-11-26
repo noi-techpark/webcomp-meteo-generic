@@ -17,8 +17,9 @@ export const observed_properties = {
 
   currentTab: { type: Number },
 
+  currentLocation: { type: Object },
+
   // mobile_open: { type: Boolean },
-  // current_location: { type: Object },
   // // Select places
   // from: { type: Object },
   // search_results_height: { type: Number },
@@ -36,12 +37,6 @@ export const observed_properties = {
 
   // // Details
   // details_data: { type: Object },
-
-  // // Alert
-  // alert_active: { type: Boolean },
-  // alert_message: { type: String },
-
-  // active_tab: { type: String },
 
   // car_disabled: { type: Boolean, attribute: "disable-car" },
 

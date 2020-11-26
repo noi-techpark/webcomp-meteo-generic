@@ -57,8 +57,6 @@ export class LanguagePicker extends LitElement {
   }
 
   render() {
-    console.log(this.supportedLanguages);
-
     const mapLanguageToFlag = {
       [this.supportedLanguages.IT]: flagIt,
       [this.supportedLanguages.DE]: flagDe,
