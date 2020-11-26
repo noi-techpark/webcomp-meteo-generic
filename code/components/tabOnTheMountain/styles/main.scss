@@ -1,0 +1,286 @@
+@import "../../../shared_components/baseline/colors.scss";
+@import "../../../shared_components/baseline/typography.scss";
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+p {
+  @include MixinParagraphRegular;
+  margin: 0;
+}
+
+.meteo_mountain_widget {
+  font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
+  position: relative;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.meteo_mountain_widget__title {
+  @include MixinH3;
+  color: $black;
+  text-align: center;
+  margin-top: 64px;
+  margin-bottom: 0;
+  @media only screen and (min-width: 768px) {
+    margin-top: 100px;
+    margin-bottom: 0;
+  }
+}
+
+.meteo_mountain_widget__date_title {
+  text-align: center;
+  // margin-bottom: 56px;
+}
+
+.mountain_temperature {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 42px;
+  padding: 8px 24px;
+  @media only screen and (min-width: 768px) {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    margin-top: 42px;
+    padding: 8px 24px;
+    position: relative;
+  }
+}
+
+.meteo_mountain_widget__moutain_level_line {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #758592;
+  padding: 8px 0;
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #758592;
+    padding: 8px 0;
+  }
+}
+
+.meteo_mountain_widget__moutain_level_line__meters {
+  p {
+    font-size: 12px;
+    font-weight: 600;
+    padding-top: 10px;
+    color: #758592;
+    margin: 0;
+    @media only screen and (min-width: 768px) {
+      @include MixinParagraphMedium;
+      font-weight: bold;
+    }
+  }
+}
+
+.meteo_mountain_widget__moutain_level_line__temp {
+  p {
+    color: $black;
+    font-size: 12px;
+    font-weight: 600;
+    padding-top: 10px;
+    margin: 0;
+    @media only screen and (min-width: 768px) {
+      @include MixinParagraphRegular;
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
+}
+
+.meteo_mountain_widget__slide_section {
+  width: 100%;
+  margin-top: 24px;
+  position: relative;
+  @media only screen and (min-width: 768px) {
+    border-right: 2px solid #e2e7e9;
+    padding: 1rem;
+    margin-top: 0;
+  }
+}
+
+.meteo_mountain_widget__moutain_level_wind_container {
+  position: absolute;
+  width: 70%;
+  text-align: center;
+  color: #758592;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @media only screen and (min-width: 768px) {
+    top: 50%;
+  }
+}
+
+.meteo_mountain_widget__slide_section__meteo_details {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  p {
+    @include MixinParagraphRegular;
+    width: 50%;
+    color: #758592;
+    margin-bottom: 8px;
+
+    &:nth-child(even) {
+      text-align: right;
+    }
+
+    @media only screen and (min-width: 768px) {
+    }
+  }
+}
+
+.meteo_mountain_widget__slide_section {
+  h3 {
+    @include MixinH4;
+    font-weight: bold;
+  }
+}
+
+// OLD
+
+.mountain-weather__line {
+  padding-bottom: 2px;
+  border-bottom: 1px solid #b3b1b1;
+  transform: translateY(-50%);
+}
+
+.meteo_mountain_widget__slide_section__conditions {
+  font-size: 17px;
+  color: #97b3c8;
+  font-weight: 400;
+  line-height: 24px;
+}
+.meteo_mountain_widget__slide_section__north_south {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.meteo_mountain_widget__slide_section__north_south img {
+  width: 100px;
+  display: table;
+  margin: 0 auto;
+}
+.meteo_mountain_widget__slide_section__north_south__element {
+  width: 50%;
+}
+.meteo_mountain_widget__slide_section__north_south__element p {
+  margin-top: 16px;
+  line-height: 24px;
+}
+.meteo_mountain_widget__slide_section__north_south__element p strong {
+  color: #758592;
+}
+
+/* Placeholders */
+.meteo_mountain_widget__slide_section .loader__placeholder.title {
+  width: 90%;
+  height: 30px;
+  margin: 0 auto;
+}
+.meteo_mountain_widget__slide_section .loader__placeholder.content {
+  width: 90%;
+  height: 220px;
+  margin: 24px auto 0 auto;
+}
+.loader__placeholder.slide_date {
+  width: 200px;
+  height: 20px;
+  margin: 16px auto;
+}
+
+.meteo_mountain_widget__moutain_level_wind_title {
+  font-weight: bold;
+  font-size: 16px;
+}
+.meteo_mountain_widget__moutain_level_wind_desc {
+  font-size: 16px;
+  font-weight: lighter;
+  margin-top: 16px;
+}
+
+@media only screen and (min-width: 768px) {
+  // .meteo_mountain_widget__container {
+  //   background-color: #fff;
+  //   padding: 24px 60px;
+  // }
+
+  .meteo_mountain_widget__slide {
+    padding: 0 80px;
+  }
+  .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* margin-right: -15px;
+    margin-left: -15px; */
+    align-items: stretch;
+  }
+  .col-4 {
+    -ms-flex: 0 0 33.33333%;
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+    display: flex;
+  }
+
+  .col-4:last-child .meteo_mountain_widget__slide_section {
+    border-right: 0;
+  }
+
+  .mountain-weather__line {
+    padding-bottom: 2px;
+    border-bottom: 1px solid #b3b1b1;
+    transform: translateY(-50%);
+  }
+
+  .meteo_mountain_widget__slide_section__conditions {
+    font-size: 17px;
+    color: #97b3c8;
+    font-weight: 400;
+  }
+  .slick_dots__container {
+    display: none;
+  }
+
+  .meteo_mountain_widget__slide_section__north_south__element {
+    width: 100%;
+  }
+  /* Placeholders */
+  .meteo_mountain_widget__slide_section .loader__placeholder.title {
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+  }
+  .meteo_mountain_widget__slide_section .loader__placeholder.content {
+    width: 90%;
+    height: 200px;
+    margin: 24px auto 0 auto;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  // .meteo_mountain_widget__container {
+  //   background-color: #fff;
+  //   min-height: 500px;
+  //   /* padding: 24px 100px; */
+  //   padding: 24px 0;
+  // }
+  .meteo_mountain_widget__slide_section__north_south__element {
+    width: 50%;
+  }
+}

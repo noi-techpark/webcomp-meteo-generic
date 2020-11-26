@@ -26,8 +26,8 @@ export const t = {
   },
   inTheMountains: {
     it: "In montagna",
-    en: "In the mountains",
-    de: "In the mountains",
+    en: "On the mountains",
+    de: "On the mountains",
   },
   byArea: {
     it: "Per zona",

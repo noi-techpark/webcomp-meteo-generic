@@ -20,9 +20,14 @@ import "./shared_components/sideModalHeader/sideModalHeader";
 import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
+import "./components/tabOnTheMountain/tabOnTheMountain";
 import { t } from "./translations";
 import { debounce, isMobile, LANGUAGES } from "./utils";
 import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
+// import tabOnTheMountainStyle from "./components/tabOnTheMountain/tabOnTheMountain.scss";
+// import styleGlideThemeStyle from "./components/tabOnTheMountain/glide-theme.css";
+// import styleGlideCoreStyle from "./components/tabOnTheMountain/glide.css";
+// import { render__tabOnTheMountain } from "./components/tabOnTheMountain/tabOnTheMountain";
 
 export const CUSTOMstationCompetenceTypes = {
   tourism: "tourism",
@@ -39,7 +44,7 @@ class MeteoGeneric extends LitElement {
     this.language = LANGUAGES.EN;
 
     this.isLoading = true;
-    this.currentTab = 3;
+    this.currentTab = 4;
 
     this.map = undefined;
     this.currentLocation = { lat: 46.479, lng: 11.331 };
@@ -64,6 +69,7 @@ class MeteoGeneric extends LitElement {
 
   static get styles() {
     return css`
+      /* Map */
       ${unsafeCSS(leafletStyle)}
       ${unsafeCSS(MeteoGenericStyle)}
     `;
@@ -489,6 +495,11 @@ class MeteoGeneric extends LitElement {
             `
           : ""}
         ${this.currentTab === 3 ? render__tabVideo.bind(this)() : ""}
+        ${this.currentTab === 4
+          ? html`<meteo-mountain-widget
+              .language_translation="${this.language}"
+            ></meteo-mountain-widget>`
+          : ""}
       </div>
     `;
   }
