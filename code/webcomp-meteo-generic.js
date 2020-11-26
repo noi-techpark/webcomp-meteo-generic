@@ -15,13 +15,14 @@ import { render__mapControls } from "./components/mapControls";
 import { drawUserOnMap, initializeMap } from "./mainClassMethods/map";
 import { observed_properties } from "./observed-properties";
 import "./shared_components/button/button";
+import "./shared_components/languagePicker/languagePicker";
 // Shared components
 import "./shared_components/searchBar/searchBar";
 import "./shared_components/sideModalHeader/sideModalHeader";
+import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
-import "./shared_components/sideModalRow/sideModalRow";
-import "./shared_components/languagePicker/languagePicker";
+import { t } from "./translations";
 // Utils functions
 // import { t } from "./translations";
 import {
@@ -33,7 +34,6 @@ import {
   request__get_coordinates_from_search,
 } from "./utils";
 import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
-import { render__languagePicker } from "./components/languagePicker";
 
 export const CUSTOMstationCompetenceTypes = {
   tourism: "tourism",
@@ -538,11 +538,11 @@ class MeteoGeneric extends LitElement {
                 console.log(`Current new tab ${id}`);
               }}"
               .elements="${[
-                { label: "Mappa", id: 1 },
-                { label: "Previsioni", id: 2 },
-                { label: "Video", id: 3 },
-                { label: "In montagna", id: 4 },
-                { label: "Per zona", id: 5 },
+                { label: t.map[this.language], id: 1 },
+                { label: t.forecasts[this.language], id: 2 },
+                { label: t.video[this.language], id: 3 },
+                { label: t.inTheMountains[this.language], id: 4 },
+                { label: t.byArea[this.language], id: 5 },
               ]}"
             ></wc-sidemodal-tabs>
           </div>
