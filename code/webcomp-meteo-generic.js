@@ -416,8 +416,6 @@ class MeteoGeneric extends LitElement {
   );
 
   render() {
-    console.log(this.currentLocation);
-
     return html`
       <style>
         * {
@@ -441,7 +439,11 @@ class MeteoGeneric extends LitElement {
           ${isMobile() ? `mobile` : ``}
           ${/*this.getAnimationState()*/ ""}"
       >
-        <div class="meteo_generic__language_picker">
+        <div
+          class="meteo_generic__language_picker ${this.currentTab === 1
+            ? "big_margin"
+            : ""}"
+        >
           <wc-languagepicker
             .supportedLanguages="${LANGUAGES}"
             .language="${this.language}"

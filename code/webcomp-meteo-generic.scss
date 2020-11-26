@@ -89,8 +89,12 @@
   display: inline;
   position: absolute;
   right: 16px;
-  top: 114px;
   z-index: 3;
+  top: 80px;
+
+  &.big_margin {
+    top: 114px;
+  }
   @media only screen and (min-width: 768px) {
     top: 16px;
   }
