@@ -38,10 +38,13 @@
   position: absolute;
   top: 16px;
   left: 16px;
-  width: 350px;
   max-height: calc(100% - 32px);
   z-index: 2;
   overflow: hidden;
+  width: calc(100% - 32px);
+  @media only screen and (min-width: 768px) {
+    width: 350px;
+  }
 
   .meteo_generic__sideBar__tabBar {
     background-color: white;
@@ -61,7 +64,6 @@
             line-height: 18px;
             display: flex;
             align-items: center;
-            // padding: 4px 0;
             margin: 8px 0;
             cursor: pointer;
             img {
@@ -80,6 +82,17 @@
     .header {
       padding: 8px 16px;
     }
+  }
+}
+
+.meteo_generic__language_picker {
+  display: inline;
+  position: absolute;
+  right: 16px;
+  top: 114px;
+  z-index: 3;
+  @media only screen and (min-width: 768px) {
+    top: 16px;
   }
 }
 

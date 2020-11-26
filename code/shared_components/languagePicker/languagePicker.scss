@@ -4,15 +4,7 @@
 @import '../baseline/elevations.scss';
 
 .languagePicker {
-  $distance: 16px;
-
-  z-index: 3;
-
-  position: absolute;
-  top: $distance;
-  right: $distance;
-
-  padding: 8px 0;
+  margin-bottom: 8px;
 
   .languagePicker__trigger {
     display: flex;

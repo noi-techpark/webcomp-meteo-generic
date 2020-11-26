@@ -3,6 +3,7 @@ import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, html, LitElement, unsafeCSS } from "lit-element";
 import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
+import { render_searchPlaces } from "./components/searchPlaces";
 import {
   drawStationsOnMap,
   drawUserOnMap,
@@ -97,14 +98,12 @@ class MeteoGeneric extends LitElement {
           initializeMap
             .bind(this)()
             .then(() => {
-              drawUserOnMap
+              console.log(drawUserOnMap);
+              drawUserOnMap.bind(this)();
+              drawStationsOnMap
                 .bind(this)()
                 .then(() => {
-                  drawStationsOnMap
-                    .bind(this)()
-                    .then(() => {
-                      this.isLoading = false;
-                    });
+                  this.isLoading = false;
                 });
             });
         }
@@ -440,13 +439,15 @@ class MeteoGeneric extends LitElement {
           ${isMobile() ? `mobile` : ``}
           ${/*this.getAnimationState()*/ ""}"
       >
-        <wc-languagepicker
-          .supportedLanguages="${LANGUAGES}"
-          .language="${this.language}"
-          .changeLanguageAction="${(language) => {
-            this.language = language;
-          }}"
-        ></wc-languagepicker>
+        <div class="meteo_generic__language_picker">
+          <wc-languagepicker
+            .supportedLanguages="${LANGUAGES}"
+            .language="${this.language}"
+            .changeLanguageAction="${(language) => {
+              this.language = language;
+            }}"
+          ></wc-languagepicker>
+        </div>
         ${/*this.isFullScreen ? this.render_closeFullscreenButton() : null*/ ""}
         ${/*this.render_backgroundMap()*/ ""}
 
@@ -466,9 +467,9 @@ class MeteoGeneric extends LitElement {
               ]}"
             ></wc-sidemodal-tabs>
           </div>
-          <!-- <div class="meteo_generic__sideBar__searchBar mt-4px"> -->
-          ${/* render_searchPlaces.bind(this)() */ ""}
-          <!-- </div> -->
+          <div class="meteo_generic__sideBar__searchBar mt-4px">
+            ${render_searchPlaces.bind(this)()}
+          </div>
           ${this.detailsOpen
             ? html`<div class="meteo_generic__sideBar__details mt-4px">
                 ${render_details.bind(this)()}

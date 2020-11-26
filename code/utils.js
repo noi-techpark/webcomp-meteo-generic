@@ -47,14 +47,6 @@ export function debounce(delay, fn) {
   };
 }
 
-// export const debounce = (delay, fn) => {
-//   let inDebounce = null;
-//   return (args) => {
-//     clearTimeout(inDebounce);
-//     inDebounce = setTimeout(() => fn(args), delay);
-//   };
-// };
-
 export async function request__get_coordinates_from_search(query) {
   try {
     const response = await fetch(

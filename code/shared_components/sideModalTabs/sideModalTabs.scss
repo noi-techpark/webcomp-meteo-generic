@@ -18,11 +18,14 @@
     }
 
     p {
-      @include MixinParagraphRegular;
       margin: 0;
       margin-bottom: 4px;
       color: $gray-600;
       cursor: pointer;
+      @include MixinCaption;
+      @media only screen and (min-width: 768px) {
+        @include MixinParagraphRegular;
+      }
     }
 
     .sideModalTabs__tab__underline {

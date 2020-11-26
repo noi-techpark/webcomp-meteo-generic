@@ -5,7 +5,7 @@
 
 .searchbar {
   @include MixinFontFamily;
-  width: calc(100% - 16px);
+  // width: calc(100% - 16px);
   height: 38px;
   border: 1px solid $gray-300;
   display: flex;
