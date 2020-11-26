@@ -5,6 +5,7 @@ import { request__get_coordinates_from_search } from "./api/hereMaps";
 import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
 import { render_searchPlaces } from "./components/searchPlaces";
+import { render__tabVideo } from "./components/tabVideo";
 import {
   drawStationsOnMap,
   drawUserOnMap,
@@ -35,9 +36,10 @@ class MeteoGeneric extends LitElement {
     this.width = "100%";
     this.fontFamily = "";
     this.mapAttribution = "";
+    this.language = LANGUAGES.EN;
 
     this.isLoading = true;
-    this.currentTab = 1;
+    this.currentTab = 3;
 
     this.map = undefined;
     this.currentLocation = { lat: 46.479, lng: 11.331 };
@@ -72,10 +74,12 @@ class MeteoGeneric extends LitElement {
   }
 
   async firstUpdated() {
-    initializeMap.bind(this)();
-    drawUserOnMap.bind(this)();
+    if (this.currentTab === 1) {
+      initializeMap.bind(this)();
+      drawUserOnMap.bind(this)();
+      await drawStationsOnMap.bind(this)();
+    }
     this.isLoading = false;
-    await drawStationsOnMap.bind(this)();
   }
 
   handleChangeTab(id) {
@@ -413,7 +417,7 @@ class MeteoGeneric extends LitElement {
 
   render() {
     console.log(this.currentLocation);
-    
+
     return html`
       <style>
         * {
@@ -454,8 +458,8 @@ class MeteoGeneric extends LitElement {
             <wc-sidemodal-tabs
               .action="${(id) => {
                 this.currentTab = id;
-                console.log(`Current new tab ${id}`);
               }}"
+              .idSelected="${this.currentTab}"
               .elements="${[
                 { label: t.map[this.language], id: 1 },
                 { label: t.forecasts[this.language], id: 2 },
@@ -465,9 +469,11 @@ class MeteoGeneric extends LitElement {
               ]}"
             ></wc-sidemodal-tabs>
           </div>
-          <div class="meteo_generic__sideBar__searchBar mt-4px">
-            ${render_searchPlaces.bind(this)()}
-          </div>
+          ${this.currentTab === 1
+            ? html`<div class="meteo_generic__sideBar__searchBar mt-4px">
+                ${render_searchPlaces.bind(this)()}
+              </div>`
+            : ""}
           ${this.detailsOpen
             ? html`<div class="meteo_generic__sideBar__details mt-4px">
                 ${render_details.bind(this)()}
@@ -480,6 +486,7 @@ class MeteoGeneric extends LitElement {
               ${render__mapControls.bind(this)()}
             `
           : ""}
+        ${this.currentTab === 3 ? render__tabVideo.bind(this)() : ""}
       </div>
     `;
   }
