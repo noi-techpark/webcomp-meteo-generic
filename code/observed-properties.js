@@ -1,8 +1,8 @@
 export const observed_properties = {
   height: { type: String },
   width: { type: String },
-  language: { type: String },
   fontFamily: { type: String },
+  language: { type: String },
   tiles_url: { type: String, attribute: "tiles-url" },
 
   showFilters: { type: Boolean },

@@ -21,6 +21,7 @@ import "./shared_components/sideModalHeader/sideModalHeader";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
 import "./shared_components/sideModalRow/sideModalRow";
+import "./shared_components/languagePicker/languagePicker";
 // Utils functions
 // import { t } from "./translations";
 import {
@@ -28,9 +29,11 @@ import {
   getLatLongFromStationDetail,
   get_system_language,
   isMobile,
+  LANGUAGES,
   request__get_coordinates_from_search,
 } from "./utils";
 import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
+import { render__languagePicker } from "./components/languagePicker";
 
 export const CUSTOMstationCompetenceTypes = {
   tourism: "tourism",
@@ -513,13 +516,19 @@ class MeteoGeneric extends LitElement {
 
       <div
         class="meteo_generic 
-          ${/*this.mobile_open ? `MODE__mobile__open` : `MODE__mobile__closed`*/ ""}
+          ${
+          /*this.mobile_open ? `MODE__mobile__open` : `MODE__mobile__closed`*/ ""
+        }
           ${isMobile() ? `mobile` : ``}
           ${/*this.getAnimationState()*/ ""}"
       >
-        ${/*this.should_render_language_flags
-          ? ``
-        : this.render__language_flags()*/ ""}
+        <wc-languagepicker
+          .supportedLanguages="${LANGUAGES}"
+          .language="${this.language}"
+          .changeLanguageAction="${(language) => {
+            this.language = language;
+          }}"
+        ></wc-languagepicker>
         ${/*this.isFullScreen ? this.render_closeFullscreenButton() : null*/ ""}
         ${/*this.render_backgroundMap()*/ ""}
         <div class="meteo_generic__sideBar">
@@ -529,11 +538,11 @@ class MeteoGeneric extends LitElement {
                 console.log(`Current new tab ${id}`);
               }}"
               .elements="${[
-                { label: "Previsioni", id: 1 },
-                { label: "Video", id: 2 },
-                { label: "In montagna", id: 3 },
-                { label: "Per zona", id: 4 },
-                { label: "Mappa", id: 5 },
+                { label: "Mappa", id: 1 },
+                { label: "Previsioni", id: 2 },
+                { label: "Video", id: 3 },
+                { label: "In montagna", id: 4 },
+                { label: "Per zona", id: 5 },
               ]}"
             ></wc-sidemodal-tabs>
           </div>
@@ -555,9 +564,8 @@ class MeteoGeneric extends LitElement {
   }
 }
 
-if (!window.customElements.get("webcom-meteo-generic")) {
-  window.customElements.define("webcom-meteo-generic", MeteoGeneric);
-}
+customElements.get("webcom-meteo-generic") ||
+  customElements.define("webcom-meteo-generic", MeteoGeneric);
 
 /* <style>
 ${getStyle(style__leaflet)} ${getStyle(style)} * {
