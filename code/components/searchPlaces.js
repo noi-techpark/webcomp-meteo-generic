@@ -6,18 +6,18 @@ import findPositionBlueIcon from "../assets/find-position-blue.svg";
 export function render_searchPlaces() {
   const handle_onchange = (value) => {
     if (value) {
-      this.nominatimQuery = value;
+      this.hereMapsQuery = value;
       this.debounced__request__get_coordinates_from_search(value);
       this.showFilters = false;
     } else {
-      this.nominatimPlacesFound = [];
+      this.hereMapsPlacesFound = [];
     }
   };
 
   const manage_map = (lat, lng) => {
     this.current_location = { lat: parseFloat(lat), lng: parseFloat(lng) };
     this.current_station = {};
-    this.nominatimPlacesFound = [];
+    this.hereMapsPlacesFound = [];
     this.showFilters = false;
     this.map.flyTo([lat, lng], 15);
     this.map.removeLayer(this.layer_user);
@@ -48,17 +48,19 @@ export function render_searchPlaces() {
 
   const handleMoveToPlace = (lat, lng) => {
     this.isLoading = true;
-    this.nominatimPlacesFound = [];
-    this.nominatimQuery = "";
+    this.hereMapsPlacesFound = [];
+    this.hereMapsQuery = "";
     manage_map(lat, lng);
   };
 
   const handle_focus_input = () => {
-    this.debounced__request__get_coordinates_from_search(this.nominatimQuery);
-    if (this.nominatimQuery.length) {
+    this.debounced__request__get_coordinates_from_search(this.hereMapsQuery);
+    if (this.hereMapsQuery.length) {
       this.showFilters = false;
     }
   };
+
+  // <li @click="${() => handleMoveToPlace(o.lat, o.lon)}" class="">
 
   const render__places_list = () => {
     return html`
@@ -68,10 +70,14 @@ export function render_searchPlaces() {
             <img class="" src="${findPositionBlueIcon}" alt="" />
             ${t.my_location[this.language]}
           </li>
-          ${this.nominatimPlacesFound.map((o) => {
+          ${this.hereMapsPlacesFound.map((o) => {
             return html`
-              <li @click="${() => handleMoveToPlace(o.lat, o.lon)}" class="">
-                ${o.display_name}
+              <li
+                @click="${() =>
+                  handleMoveToPlace(o.position[0], o.position[1])}"
+                class=""
+              >
+                ${o.title}
               </li>
             `;
           })}
@@ -83,7 +89,7 @@ export function render_searchPlaces() {
   return html`
     <div class="searchBox">
       <wc-searchbar
-        .searchValue="${this.nominatimQuery}"
+        .searchValue="${this.hereMapsQuery}"
         placeHolder="${t.search.it}..."
         .filtersNumber="${0}"
         .filtersAction="${this.handleSearchBarFilterAction}"
@@ -91,7 +97,7 @@ export function render_searchPlaces() {
         @focus=${handle_focus_input}
       ></wc-searchbar>
 
-      ${this.nominatimPlacesFound.length && this.nominatimQuery.length
+      ${this.hereMapsPlacesFound.length && this.hereMapsQuery.length
         ? render__places_list()
         : ""}
     </div>

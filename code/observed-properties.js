@@ -8,8 +8,8 @@ export const observed_properties = {
   showFilters: { type: Boolean },
   isLoading: { type: Boolean },
 
-  nominatimQuery: { type: String },
-  nominatimPlacesFound: { type: Array },
+  hereMapsQuery: { type: String },
+  hereMapsPlacesFound: { type: Array },
 
   mapAttribution: { type: String },
 

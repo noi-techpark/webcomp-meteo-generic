@@ -46,14 +46,14 @@ class MeteoGeneric extends LitElement {
     this.map = undefined;
     this.current_location = { lat: 46.479, lng: 11.331 };
 
-    this.nominatimPlacesFound = [];
-    this.nominatimQuery = "";
+    this.hereMapsPlacesFound = [];
+    this.hereMapsQuery = "";
 
     this.filters = {
       radius: 0,
     };
 
-    this.nominatimQuery = "";
+    this.hereMapsQuery = "";
 
     this.currentStation = {};
     this.detailsOpen = false;
