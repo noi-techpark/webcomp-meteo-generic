@@ -10,6 +10,7 @@ import {
 } from "../api/meteoStations";
 import { getLatLongFromStationDetail, get_system_language } from "../utils";
 import stationIcon from "../assets/station.svg";
+import { CUSTOMstationCompetenceTypes } from '../webcomp-meteo-generic';
 
 export async function initializeMap() {
   const DefaultIcon = Leaflet.icon({
