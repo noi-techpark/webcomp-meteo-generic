@@ -7,6 +7,7 @@ import { render__mapControls } from "./components/mapControls";
 import { render_searchPlaces } from "./components/searchPlaces";
 import "./components/tabOnTheMountain/tabOnTheMountain";
 import "./components/tabForecast/tabForecast";
+import "./components/tabByArea/tabByArea";
 import { render__tabVideo } from "./components/tabVideo";
 import {
   drawStationsOnMap,
@@ -215,7 +216,13 @@ class MeteoGeneric extends LitElement {
               .language_translation="${this.language}"
             ></meteo-mountain-widget>`
           : ""}
-        ${this.currentTab === 5 ? render__tabVideo.bind(this)() : ""}
+        ${this.currentTab === 5
+          ? html`<weather-forecast-byarea
+              .forecast_days="4"
+              .selected_district_id="1"
+              .language_translation="${this.language}"
+            ></weather-forecast-byarea>`
+          : ""}
       </div>
     `;
   }
