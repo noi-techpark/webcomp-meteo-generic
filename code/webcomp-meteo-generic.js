@@ -171,6 +171,7 @@ class MeteoGeneric extends LitElement {
           <div class="meteo_generic__sideBar__tabBar">
             <wc-sidemodal-tabs
               .action="${(id) => {
+                this.detailsOpen = false;
                 this.currentTab = id;
               }}"
               .idSelected="${this.currentTab}"
