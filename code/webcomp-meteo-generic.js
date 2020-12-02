@@ -6,6 +6,7 @@ import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
 import { render_searchPlaces } from "./components/searchPlaces";
 import "./components/tabOnTheMountain/tabOnTheMountain";
+import "./components/tabForecast/tabForecast";
 import { render__tabVideo } from "./components/tabVideo";
 import {
   drawStationsOnMap,
@@ -40,7 +41,7 @@ class MeteoGeneric extends LitElement {
     this.language = LANGUAGES.EN;
 
     this.isLoading = true;
-    this.currentTab = 1;
+    this.currentTab = 2;
 
     this.map = undefined;
     this.currentLocation = { lat: 46.479, lng: 11.331 };
@@ -201,7 +202,13 @@ class MeteoGeneric extends LitElement {
               ${render__mapControls.bind(this)()}
             `
           : ""}
-        ${this.currentTab === 2 ? render__tabVideo.bind(this)() : ""}
+        ${this.currentTab === 2
+          ? html`<weather-forecast-widget
+              .forecast_days="4"
+              .selected_district_id="1"
+              .language_translation="${this.language}"
+            ></weather-forecast-widget>`
+          : ""}
         ${this.currentTab === 3 ? render__tabVideo.bind(this)() : ""}
         ${this.currentTab === 4
           ? html`<meteo-mountain-widget

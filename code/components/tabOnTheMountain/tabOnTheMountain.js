@@ -6,7 +6,7 @@ import "moment/locale/en-gb";
 import "moment/locale/it";
 import { basic_weather_request } from "./api";
 import { render__mountain_slide } from "./components/mountain_slide";
-import { API_BASE_PATH, API_TOKEN } from "./constants";
+import { API_BASE_PATH } from "./constants";
 import style_glide_theme from "./styles/glide-theme.css";
 import style_glide_core from "./styles/glide.css";
 import main from "./styles/main.scss";
@@ -19,7 +19,6 @@ class MeteoMountain extends LitElement {
     super();
     this.language_translation = "it";
     this.weather_data = {};
-    this.token = API_TOKEN;
     this.base_url = API_BASE_PATH;
     this.is_loading = true;
     this.current_slide = 0;
@@ -88,7 +87,9 @@ class MeteoMountain extends LitElement {
       <div class="tab__onTheMountain">
         <div class="meteo_mountain_widget">
           <div class="meteo_mountain_widget__container">
-            <h1 class="meteo_mountain_widget__title">${p.mountain_weather[this.language_translation]}</h1>
+            <h1 class="meteo_mountain_widget__title">
+              ${p.mountain_weather[this.language_translation]}
+            </h1>
             <div>
               <div class="loader__placeholder content">
                 <div class="line"></div>
@@ -162,70 +163,3 @@ class MeteoMountain extends LitElement {
 if (!window.customElements.get("meteo-mountain-widget")) {
   window.customElements.define("meteo-mountain-widget", MeteoMountain);
 }
-
-// export function render__tabOnTheMountain() {
-//   return html` <div class="tab__onTheMountain">
-//     <div class="meteo_mountain_widget">
-//       <div class="meteo_mountain_widget__container">
-//         <h1>${p.mountain_weather[this.language_translation]}</h1>
-//         <div>
-//           <div class="loader__placeholder content">
-//             <div class="line"></div>
-//           </div>
-//         </div>
-//         <div id="main_slider" class="glide">
-//           <div class="glide__track" data-glide-el="track">
-//             <ul class="glide__slides">
-//               <li class="glide__slide">${this.today_slide}</li>
-//               <li class="glide__slide">${this.tomorrow_slide}</li>
-//             </ul>
-//           </div>
-//           <div
-//             id="glide__arrows"
-//             class="glide__arrows"
-//             data-glide-el="controls"
-//           >
-//             <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-//               <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 width="32"
-//                 height="32"
-//                 viewBox="0 0 501.5 501.5"
-//               >
-//                 <g>
-//                   <path
-//                     fill="#2E435A"
-//                     d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"
-//                   />
-//                 </g>
-//               </svg>
-//             </button>
-//             <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-//               <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 width="32"
-//                 height="32"
-//                 viewBox="0 0 501.5 501.5"
-//               >
-//                 <g>
-//                   <path
-//                     fill="#2E435A"
-//                     d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"
-//                   />
-//                 </g>
-//               </svg>
-//             </button>
-//           </div>
-//           <div
-//             id="glide__bullets"
-//             class="glide__bullets"
-//             data-glide-el="controls[nav]"
-//           >
-//             <button class="glide__bullet" data-glide-dir="=0"></button>
-//             <button class="glide__bullet" data-glide-dir="=1"></button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   </div>`;
-// }
