@@ -1,66 +1,64 @@
-@media only screen and (min-width: 320px) {
-  .meteo_widget {
-    font-family: var(--weather-forecast-widget-font-family, Suedtirol, KievitWebPro, sans-serif);
-    position: relative;
+.meteo_widget {
+  font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
+  position: relative;
+  margin-top: 100px;
+  @media only screen and (min-width: 768px) {
+    margin-top: 86px;
   }
+}
 
-  .meteo_widget h1 {
-    text-align: center;
-  }
+.meteo_widget__map_container__responsive_manger {
+  width: 100%;
+}
 
-  .meteo_widget__map_container__responsive_manger {
-    width: 100%;
-  }
+.meteo_widget__map_container {
+  width: calc(100% - 16px);
+  position: relative;
+  font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
+  margin-bottom: 36px;
+  padding: 8px;
+}
 
-  .meteo_widget__map_container {
-    width: calc(100% - 16px);
-    position: relative;
-    font-family: var(--weather-forecast-widget-font-family, Suedtirol, KievitWebPro, sans-serif);
-    margin-bottom: 36px;
-    padding: 8px;
-  }
+/* General absolute sytle */
+.weather-map-new__icon {
+  display: none;
+}
 
-  /* General absolute sytle */
-  .weather-map-new__icon {
-    display: none;
-  }
+.weather-map-new__temp {
+  display: none;
+}
 
-  .weather-map-new__temp {
-    display: none;
-  }
+.weather-map-new__town {
+  display: inline-block;
+  position: absolute;
+  line-height: 1.1;
+  -webkit-transform: translateX(-50%);
+  font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
+  color: #50742f;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  text-align: center;
+  // font-size: 12px;
+  pointer-events: none;
+  font-weight: 300;
+}
 
-  .weather-map-new__town {
-    display: inline-block;
-    position: absolute;
-    line-height: 1.1;
-    -webkit-transform: translateX(-50%);
-    font-family: var(--weather-forecast-widget-font-family, Suedtirol, KievitWebPro, sans-serif);
-    color: #50742f;
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    text-align: center;
-    font-size: 12px;
-    pointer-events: none;
-    font-weight: 300;
-  }
+.temp-color-max {
+  color: #b31939;
+}
 
-  .temp-color-max {
-    color: #b31939;
-  }
+/* Loaders */
+.loader__placeholder.map__town {
+  width: 80px;
+  height: 14px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 3px 13px 1px;
+}
 
-  /* Loaders */
-  .loader__placeholder.map__town {
-    width: 80px;
-    height: 14px;
-    box-shadow: rgba(0, 0, 0, 0.08) 0 3px 13px 1px;
-  }
-
-  .loader__placeholder.map__slider {
-    width: 90%;
-    height: 464px;
-    box-shadow: rgba(0, 0, 0, 0.08) 0 3px 13px 1px;
-    margin: 0 auto;
-  }
+.loader__placeholder.map__slider {
+  width: 90%;
+  height: 464px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 3px 13px 1px;
+  margin: 0 auto;
 }
 
 @media only screen and (min-width: 768px) {
@@ -136,14 +134,14 @@
     font-weight: 600;
     line-height: 1;
     color: #333;
-    font-size: 18px;
+    // font-size: 18px;
     pointer-events: none;
-    font-family: var(--weather-forecast-widget-font-family, Suedtirol, KievitWebPro, sans-serif);
+    font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
     display: block;
   }
 
   .weather-map-new__town {
-    font-size: 16px;
+    // font-size: 16px;
   }
 
   .meteo_widget__map_container__responsive_manger {
@@ -183,7 +181,7 @@
 
   .forecast__item__day {
     margin-bottom: 16px;
-    font-size: 1.4rem;
+    // font-size: 1.4rem;
   }
 
   .forecast__item__icon {
@@ -193,11 +191,11 @@
   }
 
   .forecast__item__temp {
-    font-size: 18px;
-    font-weight: 400;
+    // font-size: 18px;
+    // font-weight: 400;
     color: #333;
-    font-size: 24px;
-    line-height: 34px;
+    // font-size: 24px;
+    // line-height: 34px;
     margin-top: 10px;
   }
 
@@ -315,10 +313,10 @@
     margin: 0 auto;
   }
   .forecast__item__temp {
-    font-size: 18px;
+    // font-size: 18px;
     color: #333;
-    font-size: 24px;
-    line-height: 34px;
+    // font-size: 24px;
+    // line-height: 34px;
   }
 
   .forecast__item__temp span:first-child {

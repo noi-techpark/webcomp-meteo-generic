@@ -1,4 +1,4 @@
-import { html, LitElement } from "lit-element";
+import { css, html, LitElement, unsafeCSS } from "lit-element";
 import moment from "moment";
 import "moment/locale/cs";
 import "moment/locale/de";
@@ -8,9 +8,9 @@ import "moment/locale/nl";
 import "moment/locale/ru";
 import { district_details_api_call } from "./api";
 import { API_BASE_PATH, API_TOKEN } from "./constants";
-import main from "./styles/main.css";
+import main from "./styles/main.scss";
 import style__placeholder_loading from "./styles/placeholder-loading.css";
-import style__typography from "./styles/typography.css";
+import style__typography from "./styles/typography.scss";
 
 const WEATHER_ICON_SVG_PATH = `https://www.suedtirol.info/static/img/weatherIcons`;
 
@@ -23,7 +23,7 @@ class WeatherForecast extends LitElement {
     this.district_details = {};
     this.is_loading = true;
     this.selected_district_id = 1;
-    this.forecast_days = 5;
+    this.forecast_days = 4;
 
     this.district_details_api_call = district_details_api_call.bind(this);
   }
@@ -42,8 +42,8 @@ class WeatherForecast extends LitElement {
   static get styles() {
     return css`
       ${unsafeCSS(style__placeholder_loading)}
-      ${unsafeCSS(main)}
       ${unsafeCSS(style__typography)}
+      ${unsafeCSS(main)}
     `;
   }
 
@@ -61,7 +61,7 @@ class WeatherForecast extends LitElement {
 
     return html`
       <div class="meteo_widget">
-        <h1>${DistrictName}</h1>
+        <!-- <h1>${DistrictName}</h1> -->
         <div class="forecast">
           ${slice_of_bezirksforecast.map(
             ({ date, WeatherCode, MinTemp, MaxTemp }) => {
