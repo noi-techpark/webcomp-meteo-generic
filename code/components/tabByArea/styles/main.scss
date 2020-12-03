@@ -26,17 +26,23 @@
 
 .meteo_widget__title {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin: 0 16px;
   @media only screen and (min-width: 768px) {
     margin: 0 32px;
   }
-
+  h1 {
+    margin-right: 16px;
+  }
   select {
-    margin-left: 16px;
     border: 1px solid $gray-500;
     height: 40px;
     padding: 0 8px;
+    margin-top: 16px;
+    @media only screen and (min-width: 768px) {
+      margin-top: 0px;
+    }
     &:active,
     &:focus {
       outline: none;
