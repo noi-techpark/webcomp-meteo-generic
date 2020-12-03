@@ -16,6 +16,8 @@
   bottom: 0;
   right: 0;
   z-index: 4;
+  background-color: $gray-400;
+  opacity: 0.6;
 }
 
 .temp-color-max {
@@ -23,9 +25,22 @@
 }
 
 .meteo_widget__title {
+  display: flex;
+  align-items: center;
   margin: 0 16px;
   @media only screen and (min-width: 768px) {
     margin: 0 32px;
+  }
+
+  select {
+    margin-left: 16px;
+    border: 1px solid $gray-500;
+    height: 40px;
+    padding: 0 8px;
+    &:active,
+    &:focus {
+      outline: none;
+    }
   }
 }
 

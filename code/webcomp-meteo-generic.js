@@ -23,6 +23,7 @@ import "./shared_components/sideModalHeader/sideModalHeader";
 import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
+import "./shared_components/dropdown/dropdown";
 import { t } from "./translations";
 import { debounce, isMobile, LANGUAGES } from "./utils";
 import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
