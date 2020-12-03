@@ -11,6 +11,7 @@ import { API_BASE_PATH, API_TOKEN } from "./constants";
 import main from "./styles/main.scss";
 import style__placeholder_loading from "./styles/placeholder-loading.css";
 import style__typography from "./styles/typography.scss";
+import { p } from "./translations";
 
 const WEATHER_ICON_SVG_PATH = `https://www.suedtirol.info/static/img/weatherIcons`;
 
@@ -61,7 +62,9 @@ class WeatherForecast extends LitElement {
 
     return html`
       <div class="meteo_widget">
-        <!-- <h1>${DistrictName}</h1> -->
+        <div class="meteo_widget__title">
+          <h1>${p["iWantToSeeTheForecastsOf"][this.language_translation]}</h1>
+        </div>
         <div class="forecast">
           ${slice_of_bezirksforecast.map(
             ({ date, WeatherCode, MinTemp, MaxTemp }) => {
