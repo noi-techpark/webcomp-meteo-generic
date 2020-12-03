@@ -43,7 +43,7 @@ class MeteoGeneric extends LitElement {
     this.language = LANGUAGES.EN;
 
     this.isLoading = true;
-    this.currentTab = 5;
+    this.currentTab = 1;
 
     this.map = undefined;
     this.currentLocation = { lat: 46.479, lng: 11.331 };
