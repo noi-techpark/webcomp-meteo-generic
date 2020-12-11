@@ -6,9 +6,9 @@ Replace all `ToDo` notes in this file and adjust also the following files:
     - Adjust the general parts like title, description, ...
     - Adjust the configuration part with all possible configuration options (https://webcomponents.opendatahub.bz.it/getting-started)
 
-# ToDo: Project Name
+# Webcomp Meteo Generic
 
-ToDo: Description of the project.
+All the meteo features in one component.
 
 ## Table of contents
 
@@ -21,26 +21,48 @@ ToDo: Description of the project.
 
 ## Usage
 
-ToDo: Include the webcompscript file `dist/webcomp-boilerplate.min.js` in your HTML and define the web component like this:
+ToDo: Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTML and define the web component like this:
 
 ```html
-<webcomp-boilerplate xxx="test" yyy="2"></webcomp-boilerplate>
+<webcomp-meteo-generic
+    width="100%"
+    height="500px"
+    fontFamily="Arial"
+    language="it"
+    mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+    currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+    tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey=">
+</webcomp-meteo-generic>
 ```
 
 ### Attributes
 
-#### xxxx
+#### width
+The height of the component. Example and recommended: "100%".
 
-The description of the parameter xxx.
 
-Type: string
-Options: "test", "123"
+#### height
+The height of the component. It works for the map and the video tab. Example: "500px".
 
-#### yyy
+#### fontFamily
+The font family to use in the component. Example: "Arial".
 
-The description of the parameter yyy.
+#### language
+The language to use in the widget. Possibilities: en, de, it.
 
-Type: int
+#### currentLocation
+
+The location for the current position pointer. Example: `{ "lat": 46.31, "lng": 11.26 }`.
+
+#### mapAttribution
+
+Map tiles attribution.
+
+
+#### tiles-url
+
+Url of the server's tiles.
+
 
 ## Getting started
 

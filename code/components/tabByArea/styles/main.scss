@@ -1,0 +1,133 @@
+@import "../../../shared_components/baseline/colors.scss";
+
+.meteo_widget {
+  font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
+  position: relative;
+  margin-top: 160px;
+  @media only screen and (min-width: 768px) {
+    margin-top: 160px;
+  }
+}
+
+.meteo_widget__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 4;
+  background-color: $gray-400;
+  opacity: 0.6;
+}
+
+.temp-color-max {
+  color: $red-100;
+}
+
+.meteo_widget__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 16px;
+  @media only screen and (min-width: 768px) {
+    margin: 0 32px;
+  }
+  h1 {
+    margin-right: 16px;
+  }
+  select {
+    border: 1px solid $gray-500;
+    height: 40px;
+    padding: 0 8px;
+    margin-top: 16px;
+    @media only screen and (min-width: 768px) {
+      margin-top: 0px;
+    }
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.forecast {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  @media only screen and (min-width: 1024px) {
+    align-items: center;
+    justify-content: center;
+  }
+  @media only screen and (min-width: 1200px) {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.forecast__item {
+  width: calc(50% - 16px);
+  text-align: center;
+  margin: 0 8px;
+  margin-top: 32px;
+  @media only screen and (min-width: 1200px) {
+    width: calc(25% - 16px);
+    p {
+      margin-bottom: 24px;
+    }
+  }
+}
+
+.forecast__item__day {
+  margin-bottom: 16px;
+}
+
+.forecast__item__icon {
+  width: 60px;
+  display: table;
+  margin: 0 auto;
+  @media only screen and (min-width: 768px) {
+    width: 120px;
+  }
+  @media only screen and (min-width: 1200px) {
+    width: 120px;
+    display: table;
+    margin: 0 auto;
+  }
+}
+
+.forecast__item__temp {
+  color: $black;
+  margin-top: 10px;
+  span:first-child {
+    color: $red-100;
+  }
+  span:last-child {
+    margin-left: 8px;
+    @media only screen and (min-width: 1200px) {
+      margin-left: 8px;
+    }
+  }
+}
+
+/* Loaders */
+.forecast__date {
+  width: 100px;
+  height: 20px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 3px 13px 1px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+
+.forecast__icon {
+  width: 60px;
+  height: 60px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 3px 13px 1px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+  @media only screen and (min-width: 768px) {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 24px;
+  }
+}
