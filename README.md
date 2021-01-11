@@ -1,12 +1,4 @@
-Replace all `ToDo` notes in this file and adjust also the following files:
-- package.json:
-    - Adjust the general parts like name, description, ...
-    - Adjust the three scripts `npm run start`, `npm run build` and `npm run test`
-- wcs-manifest.json:
-    - Adjust the general parts like title, description, ...
-    - Adjust the configuration part with all possible configuration options (https://webcomponents.opendatahub.bz.it/getting-started)
-
-# Webcomp Meteo Generic
+# Meteo Generic - Web component 
 
 All the meteo features in one component.
 
@@ -14,14 +6,12 @@ All the meteo features in one component.
 
 - [Usage](#usage)
 - [Gettings started](#getting-started)
-- [Tests and linting](#tests-and-linting)
 - [Deployment](#deployment)
 - [Docker environment](#docker-environment)
 - [Information](#information)
+<!-- - [Tests and linting](#tests-and-linting) -->
 
 ## Usage
-
-ToDo: Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTML and define the web component like this:
 
 ```html
 <webcomp-meteo-generic
@@ -37,34 +27,50 @@ ToDo: Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTM
 
 ### Attributes
 
-#### width
-The height of the component. Example and recommended: "100%".
+### Attributes
 
+#### width
+
+Give a fixed width to the component. Works only from desktop up. You can use whatever size unit you want.
+
+Examples: `"100%" or "200px"`
 
 #### height
-The height of the component. It works for the map and the video tab. Example: "500px".
+
+Give a fixed height to the component. Works only from desktop up. You can use whatever size unit you want.
+
+Example: `"500px" or "100%"`
 
 #### fontFamily
-The font family to use in the component. Example: "Arial".
+
+Set the typeface.
+
+Example: `"Arial"`
 
 #### language
-The language to use in the widget. Possibilities: en, de, it.
 
-#### currentLocation
+Set the default and starting language.
 
-The location for the current position pointer. Example: `{ "lat": 46.31, "lng": 11.26 }`.
+Example: `"en" or "de" or "it"`
 
 #### mapAttribution
 
-Map tiles attribution.
+Set the acknowledgement for the map tiles provider.
 
+Example: `'Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'`
+
+#### currentLocation
+
+Set the starting point position on the map.
+
+Example: `'{ "lat": 46.31, "lng": 11.26 }'`
 
 #### tiles-url
 
-Url of the server's tiles.
+Set the URL of the API that provides the tiles.
 
+Example: `"https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="`
 
-## Getting started
 
 These instructions will get you a copy of the project up and running
 on your local machine for development and testing purposes.
@@ -73,31 +79,41 @@ on your local machine for development and testing purposes.
 
 To build the project, the following prerequisites must be met:
 
-- ToDo: Check the prerequisites
-- Node 12 / NPM 6
+- Node 14.15.4 / Yarn 1.22.10
 
-For a ready to use Docker environment with all prerequisites already installed and prepared, you can check out the [Docker environment](#docker-environment) section.
+<!-- For a ready to use Docker environment with all prerequisites already installed and prepared, you can check out the [Docker environment](#docker-environment) section. -->
 
 ### Source code
 
 Get a copy of the repository:
 
 ```bash
-ToDo: git clone https://github.com/noi-techpark/project-name.git
+git clone git@github.com:noi-techpark/webcomp-meteo-generic.git
 ```
 
 Change directory:
 
 ```bash
-ToDo: cd project-name/
+cd webcomp-meteo-generic/
 ```
+
+### .env
+
+Create a `.env` file in the main directory.
+Fill it with this content:
+
+```
+TILES_API_KEY=YourKey
+```
+
+Replace `YourKey` with your API token to use the tiles and the search bar.
 
 ### Dependencies
 
 Download all dependencies:
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Build
@@ -105,29 +121,31 @@ npm install
 Build and start the project:
 
 ```bash
-npm run start
+yarn start
 ```
 
 The application will be served and can be accessed at [http://localhost:8080](http://localhost:8080).
 
-## Tests and linting
+<!-- ## Tests and linting
 
 The tests and the linting can be executed with the following commands:
 
 ```bash
 npm run test
 npm run lint
-```
+``` -->
 
 ## Deployment
 
 To create the distributable files, execute the following command:
 
 ```bash
-npm run build
+yarn build
 ```
 
 ## Docker environment
+
+NOT IMPLEMENTED
 
 For the project a Docker environment is already prepared and ready to use with all necessary prerequisites.
 
