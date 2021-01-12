@@ -1,5 +1,6 @@
 import Glide from "@glidejs/glide";
 import { css, html, LitElement, unsafeCSS } from "lit-element";
+import { classMap } from "lit-html/directives/class-map";
 import moment from "moment";
 import "moment/locale/cs";
 import "moment/locale/de";
@@ -35,6 +36,9 @@ class Meteo extends LitElement {
     this.is_loading = true;
     this.selected_district_id = 1;
     this.forecast_days = 4;
+
+    this.height = "";
+    this.width = "";
 
     // binded actions
     this.render__carousel = render__carousel.bind(this);
@@ -153,6 +157,16 @@ class Meteo extends LitElement {
   }
 
   render() {
+    let isSmallWidth = false;
+    if (this.width.includes("px")) {
+      isSmallWidth = parseInt(this.width.replace("px")) <= 800;
+    }
+    let isSmallHeight = false;
+    if (this.height.includes("px")) {
+      isSmallHeight = parseInt(this.height.replace("px")) <= 800;
+    }
+    console.log(isSmallWidth, isSmallHeight);
+
     const { Stationdata, Forecast } = this.weather_data;
 
     /** The first six records are about today */
@@ -177,7 +191,12 @@ class Meteo extends LitElement {
     }
 
     return html`
-      <div class="meteo_widget">
+      <div
+        class=${classMap({
+          meteo_widget: true,
+          isSmallWidth: isSmallWidth,
+        })}
+      >
         <div class="meteo_widget__content">
           <div class="meteo_widget__map_container__responsive_manger">
             <div class="meteo_widget__map_container">

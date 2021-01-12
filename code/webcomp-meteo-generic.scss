@@ -9,30 +9,29 @@
     sans-serif
   );
   position: relative;
-  overflow: hidden;
-  @media only screen and (min-width: 768px) {
-    // width: var(--width);
-    // height: var(--height);
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+
+  @media only screen and (min-width: 992px) {
+    width: var(--width);
+    height: var(--height);
   }
 }
 
 #map {
-  width: var(--width);
-  height: var(--height);
   z-index: 1;
-  @media only screen and (min-width: 320px) {
-    // width: 100%;
-    // height: 100vh;
-    // &.closed {
-    //   height: var(--height);
-    // }
-  }
-
+  width: 100%;
   @media only screen and (min-width: 992px) {
+    width: var(--width);
     height: var(--height);
-    // &.closed {
-    //   height: var(--height);
-    // }
+  }
+}
+
+.mobile {
+  #map {
+    width: 100vw;
+    height: calc(100vh - 80px);
   }
 }
 
@@ -41,11 +40,16 @@
   top: 16px;
   left: 16px;
   max-height: calc(100% - 32px);
-  z-index: 2;
+  z-index: 3;
   overflow: hidden;
   width: calc(100% - 32px);
+
   @media only screen and (min-width: 768px) {
     width: 350px;
+  }
+
+  &.isSmallWidth {
+    width: calc(100% - 32px);
   }
 
   .meteo_generic__sideBar__tabBar {
@@ -53,6 +57,7 @@
   }
   .meteo_generic__sideBar__searchBar {
     background-color: white;
+    width: 100%;
     .searchBox {
       .searchBox__resoult_list {
         max-height: calc(var(--height) - 32px - 86px);
@@ -81,6 +86,13 @@
     height: calc(var(--height) - 32px - 86px);
     background-color: $white;
     overflow-y: auto;
+
+    &.isSmallWidth {
+    }
+    &.isSmallHeight {
+      height: calc(var(--height) - 66px - 86px);
+    }
+
     .header {
       padding: 8px 16px;
     }
@@ -97,6 +109,14 @@
   &.big_margin {
     top: 114px;
   }
+
+  &.isSmallHeight {
+    bottom: 16px;
+    left: 16px;
+    right: auto;
+    top: auto;
+  }
+
   @media only screen and (min-width: 768px) {
     top: 16px;
   }

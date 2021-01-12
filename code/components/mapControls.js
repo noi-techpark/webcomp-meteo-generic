@@ -35,15 +35,6 @@ export function render__mapControls() {
 
   return html`
     <div class="map_controls">
-      ${isMobile()
-        ? html`<div class="mt-16px">
-            <wc-button
-              @click="${() => {}}"
-              type="square"
-              .image="${expandImage}"
-            ></wc-button>
-          </div>`
-        : ""}
       <wc-button
         @click="${handleBtnCenterMap}"
         type="square"
@@ -66,6 +57,16 @@ export function render__mapControls() {
     </div>
   `;
 }
+
+// ${isMobile()
+//         ? html`<div class="mt-16px">
+//             <wc-button
+//               @click="${() => {}}"
+//               type="square"
+//               .image="${expandImage}"
+//             ></wc-button>
+//           </div>`
+//         : ""}
 
 /* <div
         @click=${() => {

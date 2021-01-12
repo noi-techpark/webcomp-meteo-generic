@@ -6,6 +6,7 @@
     "leaflet": "^1.7.1",
     "leaflet.markercluster": "^1.4.1",
     "lit-element": "^2.4.0",
+    "lodash": "^4.17.20",
     "moment": "^2.29.1"
   },
   "devDependencies": {
