@@ -24,8 +24,7 @@ import "./shared_components/sideModalHeader/sideModalHeader";
 import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
-import { t } from "./translations";
-import { debounce, isMobile, LANGUAGES } from "./utils";
+import { ALL_TABS, debounce, filteredTabsList, LANGUAGES } from "./utils";
 
 export const CUSTOMstationCompetenceTypes = {
   tourism: "tourism",
@@ -108,6 +107,29 @@ class MeteoGeneric extends BaseMeteoGeneric {
       }
     }
 
+    if (!this.tiles_url) {
+      return html`
+        <p style="color:red">
+          Required attribute <strong>tiles_url</strong> is missing
+        </p>
+      `;
+    }
+    if (!ALL_TABS.includes(this.startingTab)) {
+      return html`
+        <di>
+          <p style="color:red">
+            Wrong value for <strong>startingTab</strong> parameter:
+          </p>
+          <p style="color:red">Available parameters are:</p>
+          <ul style="color:red">
+            ${ALL_TABS.map((o) => {
+              return html`<li>${o}</li>`;
+            })}
+          </ul>
+        </div>
+      `;
+    }
+
     return html`
       <style>
         * {
@@ -116,11 +138,6 @@ class MeteoGeneric extends BaseMeteoGeneric {
           --w-c-font-family: ${this.fontFamily};
         }
       </style>
-      ${this.tiles_url
-        ? ""
-        : html`
-            <p style="color:red">Required attribute \`tiles_url\` is missing</p>
-          `}
 
       <div
         class=${classMap({
@@ -158,13 +175,7 @@ class MeteoGeneric extends BaseMeteoGeneric {
                 this.currentTab = id;
               }}"
               .idSelected="${this.currentTab}"
-              .elements="${[
-                { label: t.map[this.language], id: 1 },
-                { label: t.forecasts[this.language], id: 2 },
-                { label: t.video[this.language], id: 3 },
-                { label: t.inTheMountains[this.language], id: 4 },
-                { label: t.byArea[this.language], id: 5 },
-              ]}"
+              .elements="${filteredTabsList(this.visibleTabs, this.language)}"
             ></wc-sidemodal-tabs>
           </div>
           ${this.currentTab === 1

@@ -26,4 +26,7 @@ export const observed_properties = {
 
   isSmallWidth: { type: Boolean },
   isSmallHeight: { type: Boolean },
+
+  visibleTabs: { type: Array },
+  startingTab: { type: String },
 };

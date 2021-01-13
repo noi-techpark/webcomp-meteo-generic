@@ -1,3 +1,5 @@
+import { t } from "./translations";
+
 const DEFAULT_GEOLOCATION_TIMEOUT = 10000;
 export const LANGUAGES = {
   EN: "en",
@@ -50,3 +52,31 @@ export function debounce(delay, fn) {
 export function getLatLongFromStationDetail(o) {
   return { lat: o.y, lng: o.x };
 }
+
+// Tabs
+
+export const ALL_TABS = [
+  "map",
+  "forecasts",
+  "video",
+  "onTheMountains",
+  "byArea",
+];
+
+const tabArray = (language) => [
+  { idString: ALL_TABS[0], label: t.map[language], id: 1 },
+  { idString: ALL_TABS[1], label: t.forecasts[language], id: 2 },
+  { idString: ALL_TABS[2], label: t.video[language], id: 3 },
+  { idString: ALL_TABS[3], label: t.onTheMountains[language], id: 4 },
+  { idString: ALL_TABS[4], label: t.byArea[language], id: 5 },
+];
+
+export const filteredTabsList = (visibleTabs, language) => {
+  return tabArray(language).filter((o) => {
+    return visibleTabs.includes(o.idString);
+  });
+};
+
+export const getCurrentTab = (startingTab) => {
+  return ALL_TABS.indexOf(startingTab) + 1;
+};

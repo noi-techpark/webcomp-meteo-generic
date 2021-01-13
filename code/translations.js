@@ -24,7 +24,7 @@ export const t = {
     en: "Video",
     de: "Video",
   },
-  inTheMountains: {
+  onTheMountains: {
     it: "In montagna",
     en: "On the mountains",
     de: "On the mountains",

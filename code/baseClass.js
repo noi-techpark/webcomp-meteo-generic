@@ -1,9 +1,9 @@
 import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, LitElement, unsafeCSS } from "lit-element";
-import { observed_properties } from "./observed-properties";
-import { isMobile, LANGUAGES } from "./utils";
-import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
 import { debounce as _debounce } from "lodash";
+import { observed_properties } from "./observed-properties";
+import { ALL_TABS, getCurrentTab, isMobile, LANGUAGES } from "./utils";
+import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
 
 export class BaseMeteoGeneric extends LitElement {
   constructor() {
@@ -13,6 +13,8 @@ export class BaseMeteoGeneric extends LitElement {
     this.fontFamily = "";
     this.mapAttribution = "";
     this.language = LANGUAGES.EN;
+    this.visibleTabs = ALL_TABS;
+    this.startingTab = "map";
 
     this.isMobile = isMobile();
 
@@ -59,6 +61,9 @@ export class BaseMeteoGeneric extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    this.currentTab = getCurrentTab(this.startingTab);
+
     window.addEventListener(
       "resize",
       _debounce(this.handleWindowResize.bind(this), 150)
