@@ -37,8 +37,8 @@ class Meteo extends LitElement {
     this.selected_district_id = 1;
     this.forecast_days = 4;
 
-    this.height = "";
-    this.width = "";
+    this.isSmallWidth = "";
+    this.isSmallHeight = "";
 
     // binded actions
     this.render__carousel = render__carousel.bind(this);
@@ -53,6 +53,8 @@ class Meteo extends LitElement {
       is_loading: { type: Boolean },
       forecast_days: { type: Number },
       selected_district_id: { type: Number },
+      isSmallWidth: { type: Boolean },
+      isSmallHeight: { type: Boolean },
     };
   }
 
@@ -157,16 +159,6 @@ class Meteo extends LitElement {
   }
 
   render() {
-    let isSmallWidth = false;
-    if (this.width.includes("px")) {
-      isSmallWidth = parseInt(this.width.replace("px")) <= 800;
-    }
-    let isSmallHeight = false;
-    if (this.height.includes("px")) {
-      isSmallHeight = parseInt(this.height.replace("px")) <= 800;
-    }
-    console.log(isSmallWidth, isSmallHeight);
-
     const { Stationdata, Forecast } = this.weather_data;
 
     /** The first six records are about today */
@@ -194,7 +186,7 @@ class Meteo extends LitElement {
       <div
         class=${classMap({
           meteo_widget: true,
-          isSmallWidth: isSmallWidth,
+          isSmallWidth: this.isSmallWidth,
         })}
       >
         <div class="meteo_widget__content">

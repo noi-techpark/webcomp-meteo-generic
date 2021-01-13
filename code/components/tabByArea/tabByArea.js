@@ -1,4 +1,5 @@
 import { css, html, LitElement, unsafeCSS } from "lit-element";
+import { classMap } from "lit-html/directives/class-map";
 import moment from "moment";
 import "moment/locale/cs";
 import "moment/locale/de";
@@ -11,7 +12,7 @@ import { API_BASE_PATH, API_TOKEN } from "./constants";
 import main from "./styles/main.scss";
 import style__placeholder_loading from "./styles/placeholder-loading.css";
 import style__typography from "./styles/typography.scss";
-import { p } from "./translations";
+import { createSelectDiscrictOptions, p } from "./translations";
 
 const WEATHER_ICON_SVG_PATH = `https://www.suedtirol.info/static/img/weatherIcons`;
 
@@ -27,6 +28,9 @@ class WeatherForecast extends LitElement {
     this.forecast_days = 4;
 
     this.district_details_api_call = district_details_api_call.bind(this);
+
+    this.isSmallWidth = false;
+    this.isSmallHeight = false;
   }
   static get properties() {
     return {
@@ -37,6 +41,8 @@ class WeatherForecast extends LitElement {
       district_details: { type: Array },
       is_loading: { type: Boolean },
       forecast_days: { type: Number },
+      isSmallWidth: { type: Boolean },
+      isSmallHeight: { type: Boolean },
     };
   }
 
@@ -71,67 +77,17 @@ class WeatherForecast extends LitElement {
       ? BezirksForecast.slice(1, this.forecast_days + 1)
       : [];
 
-    const selectDiscrictOptions = [
-      {
-        value: "1",
-        label: {
-          en: "Bolzano, Überetsch and Unterland",
-          de: "Bozen, Überetsch und Unterland",
-          it: "Bolzano, Oltradige e Bassa Atesina",
-        }[this.language_translation],
-      },
-      {
-        value: "2",
-        label: {
-          en: "Burggrafenamt - Meran and surroundings",
-          de: "Burggrafenamt - Meran und Umgebung",
-          it: "Burgraviato - Merano e dintorni",
-        }[this.language_translation],
-      },
-      {
-        value: "3",
-        label: {
-          en: "Vinschgau",
-          de: "Vinschgau",
-          it: "Val Venosta",
-        }[this.language_translation],
-      },
-      {
-        value: "4",
-        label: {
-          en: "Eisacktal and Sarntal",
-          de: "Eisacktal und Sarntal",
-          it: "Val d´Isarco e Val Sarentino",
-        }[this.language_translation],
-      },
-      {
-        value: "5",
-        label: {
-          en: "Wipptal - Sterzing and surroundings",
-          de: "Wipptal - Sterzing und Umgebung",
-          it: "Alta Val d'Isarco - Vipiteno e dintorni",
-        }[this.language_translation],
-      },
-      {
-        value: "6",
-        label: {
-          en: "Pustertal",
-          de: "Pustertal",
-          it: "Val Pusteria",
-        }[this.language_translation],
-      },
-      {
-        value: "7",
-        label: {
-          en: "Ladinia - Dolomites",
-          de: "Ladinien - Dolomiten",
-          it: "Ladinia - Dolomiti",
-        }[this.language_translation],
-      },
-    ];
+    const selectDiscrictOptions = createSelectDiscrictOptions(
+      this.language_translation
+    );
 
     return html`
-      <div class="meteo_widget">
+      <div
+        class=${classMap({
+          meteo_widget: true,
+          isSmallWidth: this.isSmallWidth,
+        })}
+      >
         ${this.is_loading
           ? html`<div class="meteo_widget__overlay"></div>`
           : ""}

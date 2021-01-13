@@ -50,6 +50,7 @@
 
   &.isSmallWidth {
     width: calc(100% - 32px);
+    width: calc(80% - 32px);
   }
 
   .meteo_generic__sideBar__tabBar {
@@ -112,10 +113,7 @@
 
   &.isSmallHeight,
   &.isSmallWidth {
-    bottom: 16px;
-    left: 16px;
-    right: auto;
-    top: auto;
+    top: 16px;
   }
 
   @media only screen and (min-width: 768px) {

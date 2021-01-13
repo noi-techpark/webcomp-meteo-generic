@@ -90,12 +90,22 @@ class MeteoGeneric extends BaseMeteoGeneric {
 
   render() {
     let isSmallWidth = false;
-    if (this.width.includes("px")) {
-      isSmallWidth = parseInt(this.width.replace("px")) <= 350;
-    }
     let isSmallHeight = false;
+    if (this.width.includes("px")) {
+      isSmallWidth = parseInt(this.width.replace("px")) <= 400;
+    } else if (this.width.includes("%")) {
+      if (this.shadowRoot.querySelector(".meteo_generic")) {
+        isSmallWidth =
+          this.shadowRoot.querySelector(".meteo_generic").clientWidth <= 400;
+      }
+    }
     if (this.height.includes("px")) {
-      isSmallHeight = parseInt(this.height.replace("px")) <= 350;
+      isSmallHeight = parseInt(this.height.replace("px")) <= 400;
+    } else if (this.height.includes("%")) {
+      if (this.shadowRoot.querySelector(".meteo_generic")) {
+        isSmallHeight =
+          this.shadowRoot.querySelector(".meteo_generic").clientHeight <= 400;
+      }
     }
 
     return html`
@@ -123,7 +133,7 @@ class MeteoGeneric extends BaseMeteoGeneric {
           class=${classMap({
             meteo_generic__language_picker: true,
             big_margin: this.isMobile || isSmallWidth,
-            isSmallHeight: isSmallHeight,
+            isSmallHeight: isSmallHeight || isSmallWidth,
           })}
         >
           <wc-languagepicker
@@ -186,16 +196,16 @@ class MeteoGeneric extends BaseMeteoGeneric {
               .forecast_days="4"
               .selected_district_id="1"
               .language_translation="${this.language}"
-              .height="${this.height}"
-              .width="${this.width}"
+              .isSmallWidth="${isSmallWidth}"
+              .isSmallHeight="${isSmallHeight}"
             ></weather-forecast-widget>`
           : ""}
         ${this.currentTab === 3 ? render__tabVideo.bind(this)() : ""}
         ${this.currentTab === 4
           ? html`<meteo-mountain-widget
               .language_translation="${this.language}"
-              .height="${this.height}"
-              .width="${this.width}"
+              .isSmallWidth="${isSmallWidth}"
+              .isSmallHeight="${isSmallHeight}"
             ></meteo-mountain-widget>`
           : ""}
         ${this.currentTab === 5
@@ -203,8 +213,8 @@ class MeteoGeneric extends BaseMeteoGeneric {
               .forecast_days="4"
               .selected_district_id="1"
               .language_translation="${this.language}"
-              .height="${this.height}"
-              .width="${this.width}"
+              .isSmallWidth="${isSmallWidth}"
+              .isSmallHeight="${isSmallHeight}"
             ></weather-forecast-byarea>`
           : ""}
       </div>

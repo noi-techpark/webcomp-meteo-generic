@@ -23,4 +23,7 @@ export const observed_properties = {
 
   detailsOpen: { type: Boolean },
   mobilityStationMeasurements: { type: Array },
+
+  isSmallWidth: { type: Boolean },
+  isSmallHeight: { type: Boolean },
 };

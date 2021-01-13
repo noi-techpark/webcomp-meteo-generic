@@ -1,5 +1,6 @@
 import Glide from "@glidejs/glide";
 import { css, html, LitElement, unsafeCSS } from "lit-element";
+import { classMap } from "lit-html/directives/class-map";
 import moment from "moment";
 import "moment/locale/de";
 import "moment/locale/en-gb";
@@ -7,8 +8,8 @@ import "moment/locale/it";
 import { basic_weather_request } from "./api";
 import { render__mountain_slide } from "./components/mountain_slide";
 import { API_BASE_PATH } from "./constants";
-import style_glide_theme from "./styles/glide-theme.css";
-import style_glide_core from "./styles/glide.css";
+import style_glide_theme from "./styles/glide-theme.scss";
+import style_glide_core from "./styles/glide.scss";
 import main from "./styles/main.scss";
 import style__placeholder_loading from "./styles/placeholder-loading.css";
 import style__typography from "./styles/typography.css";
@@ -22,6 +23,10 @@ class MeteoMountain extends LitElement {
     this.base_url = API_BASE_PATH;
     this.is_loading = true;
     this.current_slide = 0;
+
+    this.isSmallWidth = false;
+    this.isSmallHeight = false;
+
     // binded actions
     this.basic_weather_request = basic_weather_request.bind(this);
     this.render__mountain_slide = render__mountain_slide.bind(this);
@@ -32,6 +37,8 @@ class MeteoMountain extends LitElement {
       language_translation: { type: String },
       weather_data: { type: Object },
       current_slide: { type: Number },
+      isSmallWidth: { type: Boolean },
+      isSmallHeight: { type: Boolean },
     };
   }
 
@@ -84,7 +91,12 @@ class MeteoMountain extends LitElement {
 
   render() {
     return html`
-      <div class="tab__onTheMountain">
+      <div
+        class=${classMap({
+          tab__onTheMountain: true,
+          isSmallWidth: this.isSmallWidth,
+        })}
+      >
         <div class="meteo_mountain_widget">
           <div class="meteo_mountain_widget__container">
             <h1 class="meteo_mountain_widget__title">

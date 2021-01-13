@@ -33,7 +33,13 @@ p {
 
 .meteo_mountain_widget__date_title {
   text-align: center;
-  // margin-bottom: 56px;
+  margin-bottom: 56px;
+}
+
+.isSmallWidth {
+  .meteo_mountain_widget__date_title {
+    margin-bottom: 16px;
+  }
 }
 
 .mountain_temperature {
@@ -95,6 +101,13 @@ p {
     }
   }
 }
+.isSmallWidth {
+  .meteo_mountain_widget__moutain_level_line__temp {
+    p {
+      font-size: 14px;
+    }
+  }
+}
 
 .meteo_mountain_widget__slide_section {
   width: 100%;
@@ -104,6 +117,12 @@ p {
     border-right: 2px solid #e2e7e9;
     padding: 1rem;
     margin-top: 0;
+  }
+}
+.isSmallWidth {
+  .meteo_mountain_widget__slide_section {
+    border-right: 0;
+    width: calc(100% - 16px);
   }
 }
 
@@ -138,9 +157,6 @@ p {
     &:nth-child(even) {
       text-align: right;
     }
-
-    @media only screen and (min-width: 768px) {
-    }
   }
 }
 
@@ -151,12 +167,15 @@ p {
   }
 }
 
-// OLD
-
 .mountain-weather__line {
   padding-bottom: 2px;
   border-bottom: 1px solid #b3b1b1;
   transform: translateY(-50%);
+  @media only screen and (min-width: 768px) {
+    padding-bottom: 2px;
+    border-bottom: 1px solid #b3b1b1;
+    transform: translateY(-50%);
+  }
 }
 
 .meteo_mountain_widget__slide_section__conditions {
@@ -164,7 +183,13 @@ p {
   color: #97b3c8;
   font-weight: 400;
   line-height: 24px;
+  @media only screen and (min-width: 768px) {
+    font-size: 17px;
+    color: #97b3c8;
+    font-weight: 400;
+  }
 }
+
 .meteo_mountain_widget__slide_section__north_south {
   display: flex;
   flex-wrap: wrap;
@@ -175,112 +200,127 @@ p {
   display: table;
   margin: 0 auto;
 }
+
 .meteo_mountain_widget__slide_section__north_south__element {
   width: 50%;
-}
-.meteo_mountain_widget__slide_section__north_south__element p {
-  margin-top: 16px;
-  line-height: 24px;
-}
-.meteo_mountain_widget__slide_section__north_south__element p strong {
-  color: #758592;
+  @media only screen and (min-width: 768px) {
+    width: 100%;
+  }
+  @media only screen and (min-width: 1024px) {
+    width: 50%;
+  }
+  p {
+    margin-top: 16px;
+    line-height: 24px;
+    strong {
+      color: #758592;
+    }
+  }
 }
 
 /* Placeholders */
-.meteo_mountain_widget__slide_section .loader__placeholder.title {
-  width: 90%;
-  height: 30px;
-  margin: 0 auto;
-}
-.meteo_mountain_widget__slide_section .loader__placeholder.content {
-  width: 90%;
-  height: 220px;
-  margin: 24px auto 0 auto;
-}
-.loader__placeholder.slide_date {
-  width: 200px;
-  height: 20px;
-  margin: 16px auto;
+.meteo_mountain_widget__slide_section {
+  .loader__placeholder {
+    &.title {
+      width: 90%;
+      height: 30px;
+      margin: 0 auto;
+      @media only screen and (min-width: 768px) {
+        width: 90%;
+        height: 30px;
+        margin: 0 auto;
+      }
+    }
+    &.content {
+      width: 90%;
+      height: 220px;
+      margin: 24px auto 0 auto;
+      @media only screen and (min-width: 768px) {
+        width: 90%;
+        height: 200px;
+        margin: 24px auto 0 auto;
+      }
+    }
+    &.slide_date {
+      width: 200px;
+      height: 20px;
+      margin: 16px auto;
+    }
+  }
 }
 
 .meteo_mountain_widget__moutain_level_wind_title {
   font-weight: bold;
   font-size: 16px;
 }
+
 .meteo_mountain_widget__moutain_level_wind_desc {
   font-size: 16px;
   font-weight: lighter;
   margin-top: 16px;
 }
 
-@media only screen and (min-width: 768px) {
-  // .meteo_mountain_widget__container {
-  //   background-color: #fff;
-  //   padding: 24px 60px;
-  // }
+.isSmallWidth {
+  .meteo_mountain_widget__moutain_level_wind_title {
+    font-size: 12px;
+  }
+  .meteo_mountain_widget__moutain_level_wind_desc {
+    font-size: 12px;
+  }
+}
 
-  .meteo_mountain_widget__slide {
+.meteo_mountain_widget__slide {
+  @media only screen and (min-width: 768px) {
     padding: 0 80px;
   }
-  .row {
-    display: -ms-flexbox;
+}
+.isSmallWidth {
+  .meteo_mountain_widget__slide {
+    padding: 0 8px;
+  }
+}
+
+.row {
+  @media only screen and (min-width: 768px) {
     display: flex;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    /* margin-right: -15px;
-    margin-left: -15px; */
     align-items: stretch;
   }
-  .col-4 {
-    -ms-flex: 0 0 33.33333%;
+}
+.isSmallWidth {
+  .row {
+    display: block;
+  }
+}
+
+.col-4 {
+  @media only screen and (min-width: 768px) {
     flex: 0 0 33.33333%;
     max-width: 33.33333%;
     display: flex;
   }
-
-  .col-4:last-child .meteo_mountain_widget__slide_section {
-    border-right: 0;
+  &:last-child {
+    .meteo_mountain_widget__slide_section {
+      @media only screen and (min-width: 768px) {
+        border-right: 0;
+      }
+    }
   }
 
-  .mountain-weather__line {
-    padding-bottom: 2px;
-    border-bottom: 1px solid #b3b1b1;
-    transform: translateY(-50%);
-  }
-
-  .meteo_mountain_widget__slide_section__conditions {
-    font-size: 17px;
-    color: #97b3c8;
-    font-weight: 400;
-  }
   .slick_dots__container {
-    display: none;
-  }
-
-  .meteo_mountain_widget__slide_section__north_south__element {
-    width: 100%;
-  }
-  /* Placeholders */
-  .meteo_mountain_widget__slide_section .loader__placeholder.title {
-    width: 90%;
-    height: 30px;
-    margin: 0 auto;
-  }
-  .meteo_mountain_widget__slide_section .loader__placeholder.content {
-    width: 90%;
-    height: 200px;
-    margin: 24px auto 0 auto;
+    @media only screen and (min-width: 768px) {
+      display: none;
+    }
   }
 }
 
-@media only screen and (min-width: 1024px) {
-  // .meteo_mountain_widget__container {
-  //   background-color: #fff;
-  //   min-height: 500px;
-  //   /* padding: 24px 100px; */
-  //   padding: 24px 0;
-  // }
-  .meteo_mountain_widget__slide_section__north_south__element {
-    width: 50%;
+.isSmallWidth {
+  .col-4 {
+    display: block;
+    flex: none;
+    max-width: 100%;
+    .slick_dots__container {
+      display: block;
+    }
   }
 }
