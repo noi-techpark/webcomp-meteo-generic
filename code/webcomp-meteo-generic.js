@@ -62,7 +62,6 @@ class MeteoGeneric extends BaseMeteoGeneric {
           initializeMap
             .bind(this)()
             .then(() => {
-              console.log(drawUserOnMap);
               drawUserOnMap.bind(this)();
               drawStationsOnMap
                 .bind(this)()

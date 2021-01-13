@@ -110,7 +110,8 @@
     top: 114px;
   }
 
-  &.isSmallHeight {
+  &.isSmallHeight,
+  &.isSmallWidth {
     bottom: 16px;
     left: 16px;
     right: auto;

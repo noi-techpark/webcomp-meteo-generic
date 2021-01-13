@@ -141,6 +141,22 @@
     }
   }
 }
+.isSmallWidth {
+  .loader__placeholder {
+    &.map__town {
+      width: 40px;
+      height: 8px;
+    }
+    &.map__temp {
+      width: 10px;
+      height: 20px;
+    }
+    &.map__icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
 
 #txt_DT_dolo_regionen_ .weather-map-town {
   pointer-events: none;
@@ -168,10 +184,6 @@
   @media only screen and (min-width: 1200px) {
     text-align: center;
   }
-}
-
-/* Loaders */
-.loader__placeholder {
 }
 
 // -------------
