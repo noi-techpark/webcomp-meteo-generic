@@ -59,13 +59,10 @@ export class BaseMeteoGeneric extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    console.log(this.startingTab, this.visibleTabs);
 
     if (this.startingTab) {
       this.currentTab = getCurrentTab(this.startingTab);
     } else {
-      console.log("HERE", this.visibleTabs[0]);
-
       this.currentTab = getCurrentTab(this.visibleTabs[0]);
       this.startingTab = this.visibleTabs[0];
     }

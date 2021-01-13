@@ -78,7 +78,6 @@ class MeteoGeneric extends BaseMeteoGeneric {
   };
 
   handleSearchBarFilterAction = () => {
-    console.log("Toggle filters");
     this.showFilters = !this.showFilters;
   };
 
