@@ -14,12 +14,10 @@ export class BaseMeteoGeneric extends LitElement {
     this.mapAttribution = "";
     this.language = LANGUAGES.EN;
     this.visibleTabs = ALL_TABS;
-    this.startingTab = "map";
 
     this.isMobile = isMobile();
 
     this.isLoading = true;
-    this.currentTab = 1;
 
     this.map = undefined;
     this.currentLocation = { lat: 46.479, lng: 11.331 };
@@ -61,8 +59,16 @@ export class BaseMeteoGeneric extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    console.log(this.startingTab, this.visibleTabs);
 
-    this.currentTab = getCurrentTab(this.startingTab);
+    if (this.startingTab) {
+      this.currentTab = getCurrentTab(this.startingTab);
+    } else {
+      console.log("HERE", this.visibleTabs[0]);
+
+      this.currentTab = getCurrentTab(this.visibleTabs[0]);
+      this.startingTab = this.visibleTabs[0];
+    }
 
     window.addEventListener(
       "resize",
