@@ -2,7 +2,13 @@ import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, LitElement, unsafeCSS } from "lit-element";
 import { debounce as _debounce } from "lodash";
 import { observed_properties } from "./observed-properties";
-import { ALL_TABS, getCurrentTab, isMobile, LANGUAGES } from "./utils";
+import {
+  ALL_TABS,
+  getCurrentTab,
+  get_system_language,
+  isMobile,
+  LANGUAGES,
+} from "./utils";
 import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
 
 export class BaseMeteoGeneric extends LitElement {
@@ -12,7 +18,7 @@ export class BaseMeteoGeneric extends LitElement {
     this.width = "100%";
     this.fontFamily = "";
     this.mapAttribution = "";
-    this.language = LANGUAGES.EN;
+    this.language = get_system_language();
     this.visibleTabs = ALL_TABS;
 
     this.isMobile = isMobile();

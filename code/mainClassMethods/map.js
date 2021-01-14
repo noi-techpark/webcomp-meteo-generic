@@ -73,13 +73,13 @@ export async function drawStationsOnMap() {
   const stations_layer_array = [];
 
   const mobilityStations = await requestMobilityMeteoStationSelectedData();
-  const flatMobilityStations = Object.keys(
-    mobilityStations.data.MeteoStation.stations
-  ).map((id) => {
-    return {
-      ...mobilityStations.data.MeteoStation.stations[id],
-    };
-  });
+  const flatMobilityStations = mobilityStations
+    ? Object.keys(mobilityStations.data.MeteoStation.stations).map((id) => {
+        return {
+          ...mobilityStations.data.MeteoStation.stations[id],
+        };
+      })
+    : [];
   console.log({
     mobilityStations: flatMobilityStations[0],
   });
@@ -148,9 +148,9 @@ export async function drawStationsOnMap() {
     stations_layer_array.push(marker);
   });
 
-  if (!this.language) {
-    this.language = get_system_language();
-  }
+  // if (!this.language) {
+  //   this.language = get_system_language();
+  // }
 
   const stations_layer = Leaflet.layerGroup(stations_layer_array, {});
 

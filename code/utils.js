@@ -29,11 +29,15 @@ export function getCurrentPosition(options = {}) {
 }
 
 export function get_system_language() {
-  const locale = navigator.languages
-    ? navigator.languages[0]
-    : navigator.language;
-  const lang = locale.substr(0, 2);
-  return Object.values(LANGUAGES).includes(lang) ? lang : LANGUAGES.EN;
+  try {
+    const locale = navigator.languages
+      ? navigator.languages[0]
+      : navigator.language;
+    const lang = locale.substr(0, 2);
+    return Object.values(LANGUAGES).includes(lang) ? lang : LANGUAGES.EN;
+  } catch (error) {
+    return LANGUAGES.EN;
+  }
 }
 
 export function debounce(delay, fn) {
