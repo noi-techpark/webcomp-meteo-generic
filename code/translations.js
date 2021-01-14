@@ -1,23 +1,23 @@
 export const t = {
   search: {
     it: "Cerca",
-    en: "Seach",
-    de: "Seach",
+    en: "Search",
+    de: "Suche",
   },
   my_location: {
     it: "La mia posizione",
     en: "My location",
-    de: "My location",
+    de: "Mein Standort",
   },
   map: {
     it: "Mappa",
     en: "Map",
-    de: "Map",
+    de: "Karte",
   },
   forecasts: {
     it: "Previsioni",
     en: "Forecasts",
-    de: "Forecasts",
+    de: "Prognosen",
   },
   video: {
     it: "Video",
@@ -27,11 +27,11 @@ export const t = {
   onTheMountains: {
     it: "In montagna",
     en: "On the mountains",
-    de: "On the mountains",
+    de: "Auf den Bergen",
   },
   byArea: {
     it: "Per zona",
     en: "By area",
-    de: "By area",
+    de: "Nach Gebiet",
   },
 };
