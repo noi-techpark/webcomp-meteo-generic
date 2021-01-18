@@ -9,6 +9,12 @@
   }
 }
 
+.isSmallWidth {
+  &.meteo_widget {
+    margin-top: 120px;
+  }
+}
+
 .meteo_widget__overlay {
   position: absolute;
   top: 0;
@@ -36,6 +42,7 @@
     margin-right: 16px;
   }
   select {
+    max-width: 100%;
     border: 1px solid $gray-500;
     height: 40px;
     padding: 0 8px;
@@ -65,6 +72,12 @@
   }
 }
 
+.isSmallWidth {
+  .forecast {
+    display: block;
+  }
+}
+
 .forecast__item {
   width: calc(50% - 16px);
   text-align: center;
@@ -77,6 +90,11 @@
     }
   }
 }
+.isSmallWidth {
+  .forecast__item {
+    width: calc(100% - 16px);
+  }
+}
 
 .forecast__item__day {
   margin-bottom: 16px;
@@ -86,6 +104,7 @@
   width: 60px;
   display: table;
   margin: 0 auto;
+  max-width: 100%;
   @media only screen and (min-width: 768px) {
     width: 120px;
   }

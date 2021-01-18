@@ -12,18 +12,186 @@
       crossorigin="anonymous"
     />
     <title>Meteo</title>
+
+    <style>
+      [class*="col-"] {
+        padding: 16px;
+        border: 1px solid gray;
+        border-radius: 20px;
+      }
+      pre {
+        padding: 8px 16px;
+        background-color: #5c5c5c;
+        color: white;
+        border-radius: 20px;
+      }
+    </style>
   </head>
   <body>
-    <div class="container">
+    <div class="container py-5">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 mt-5">
+          <pre>visibleTabs='["video", "onTheMountains", "byArea"]' and no language</pre>
+          <webcomp-meteo-generic
+            width="100%"
+            height="500px"
+            fontFamily="Arial"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+            visibleTabs='["video", "onTheMountains", "byArea"]'
+            startingTab="onTheMountains"
+          ></webcomp-meteo-generic>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-5">
+          <pre>visibleTabs='["maps"]' -- wrong value</pre>
           <webcomp-meteo-generic
             width="100%"
             height="500px"
             fontFamily="Arial"
             language="it"
             mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
-            currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+            visibleTabs='["map"]'
+            startingTab="maps"
+          ></webcomp-meteo-generic>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 mt-5">
+          <pre>No startingTab but visibleTabs has values</pre>
+          <webcomp-meteo-generic
+            width="100%"
+            height="500px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+            visibleTabs='["byArea"]'
+          ></webcomp-meteo-generic>
+        </div>
+        <div class="col-6 mt-5">
+          <pre>startingTab but NO visibleTabs</pre>
+          <webcomp-meteo-generic
+            width="100%"
+            height="500px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+            startingTab="byArea"
+          ></webcomp-meteo-generic>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-5">
+          <pre>width="100%" height="500px"</pre>
+          <webcomp-meteo-generic
+            width="100%"
+            height="500px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+          ></webcomp-meteo-generic>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 mt-5">
+          <pre>width="300px" height="300px"</pre>
+          <webcomp-meteo-generic
+            width="300px"
+            height="300px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+          ></webcomp-meteo-generic>
+        </div>
+        <div class="col-6 mt-5">
+          <pre>width="350px" height="350px"</pre>
+          <webcomp-meteo-generic
+            width="350px"
+            height="350px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+          ></webcomp-meteo-generic>
+        </div>
+        <div class="col-6 mt-5">
+          <pre>width="400px" height="400px"</pre>
+          <webcomp-meteo-generic
+            width="400px"
+            height="400px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+          ></webcomp-meteo-generic>
+        </div>
+        <div class="col-6 mt-5">
+          <pre>width="500px" height="500px"</pre>
+          <webcomp-meteo-generic
+            width="500px"
+            height="500px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+          ></webcomp-meteo-generic>
+        </div>
+        <div class="col-12 mt-5">
+          <pre>width="600px" height="600px"</pre>
+          <webcomp-meteo-generic
+            width="600px"
+            height="600px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+          ></webcomp-meteo-generic>
+        </div>
+        <div class="col-12 mt-5">
+          <pre>width="700px" height="700px"</pre>
+          <webcomp-meteo-generic
+            width="700px"
+            height="700px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+          ></webcomp-meteo-generic>
+        </div>
+        <div class="col-12 mt-5">
+          <pre>width="800px" height="800px"</pre>
+          <webcomp-meteo-generic
+            width="800px"
+            height="800px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
+            tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+          ></webcomp-meteo-generic>
+        </div>
+        <div class="col-12 mt-5">
+          <pre>width="900px" height="900px"</pre>
+          <webcomp-meteo-generic
+            width="900px"
+            height="900px"
+            fontFamily="Arial"
+            language="it"
+            mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+            -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
           ></webcomp-meteo-generic>
         </div>

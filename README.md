@@ -32,45 +32,64 @@ Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTML and 
 
 #### width
 
-Give a fixed width to the component. Works only from desktop up. You can use whatever size unit you want.
+Give a fixed width to the component. Works only from desktop up. You can use `px` or `%` as unit size.
 
-Examples: `"100%" or "200px"`
+Examples: `width="100%"`
 
 #### height
 
-Give a fixed height to the component. Works only from desktop up. You can use whatever size unit you want.
+Give a fixed height to the component. Works only from desktop up. You can use `px` or `%` as unit size.
 
-Example: `"500px" or "100%"`
+Example: `height="500px"`
 
 #### fontFamily
 
 Set the typeface.
 
-Example: `"Arial"`
+Example: `fontFamily="Arial"`
 
 #### language
 
-Set the default and starting language.
+Set the default and starting language. Possible values are "en" or "de" or "it"
 
-Example: `"en" or "de" or "it"`
+Example: `language="en"`
 
 #### mapAttribution
 
 Set the acknowledgement for the map tiles provider.
 
-Example: `'Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'`
+Example: `mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'`
 
 #### currentLocation
 
 Set the starting point position on the map.
 
-Example: `'{ "lat": 46.31, "lng": 11.26 }'`
+Example: `currentLocation='{ "lat": 46.31, "lng": 11.26 }'`
 
 #### tiles-url
 
 Set the URL of the API that provides the tiles.
 
-Example: `"https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="`
+Example: `tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="`
+
+
+#### visibleTabs
+
+Set the visible tabs in the menu. The default value is:
+```js
+["map", "forecasts", "video", "onTheMountains", "byArea"]
+```
+With all the tabs enabled.
+
+example: `visibleTabs='["video", "onTheMountains", "byArea"]'`
+
+#### startingTab
+
+Set the initial tab that the user will see. You can choose one between those values:
+`"map", "forecasts", "video", "onTheMountains", "byArea"`
+
+example: `startingTab="onTheMountains"`
+
 
 
 These instructions will get you a copy of the project up and running

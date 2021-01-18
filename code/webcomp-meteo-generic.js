@@ -1,21 +1,22 @@
 import "@babel/polyfill";
-import leafletStyle from "leaflet/dist/leaflet.css";
-import { css, html, LitElement, unsafeCSS } from "lit-element";
+import { html } from "lit-element";
+import { classMap } from "lit-html/directives/class-map";
 import { request__get_coordinates_from_search } from "./api/hereMaps";
+import { BaseMeteoGeneric } from "./baseClass";
 import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
 import { render_searchPlaces } from "./components/searchPlaces";
-import "./components/tabOnTheMountain/tabOnTheMountain";
-import "./components/tabForecast/tabForecast";
 import "./components/tabByArea/tabByArea";
+import "./components/tabForecast/tabForecast";
+import "./components/tabOnTheMountain/tabOnTheMountain";
 import { render__tabVideo } from "./components/tabVideo";
 import {
   drawStationsOnMap,
   drawUserOnMap,
   initializeMap,
 } from "./mainClassMethods/map";
-import { observed_properties } from "./observed-properties";
 import "./shared_components/button/button";
+import "./shared_components/dropdown/dropdown";
 import "./shared_components/languagePicker/languagePicker";
 // Shared components
 import "./shared_components/searchBar/searchBar";
@@ -23,57 +24,14 @@ import "./shared_components/sideModalHeader/sideModalHeader";
 import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
-import "./shared_components/dropdown/dropdown";
-import { t } from "./translations";
-import { debounce, isMobile, LANGUAGES } from "./utils";
-import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
+import { ALL_TABS, debounce, filteredTabsList, LANGUAGES } from "./utils";
 
 export const CUSTOMstationCompetenceTypes = {
   tourism: "tourism",
   mobility: "mobility",
 };
 
-class MeteoGeneric extends LitElement {
-  constructor() {
-    super();
-    this.height = "500px";
-    this.width = "100%";
-    this.fontFamily = "";
-    this.mapAttribution = "";
-    this.language = LANGUAGES.EN;
-
-    this.isLoading = true;
-    this.currentTab = 1;
-
-    this.map = undefined;
-    this.currentLocation = { lat: 46.479, lng: 11.331 };
-
-    this.hereMapsPlacesFound = [];
-    this.hereMapsQuery = "";
-
-    this.filters = {
-      radius: 0,
-    };
-
-    this.hereMapsQuery = "";
-
-    this.currentStation = {};
-    this.detailsOpen = false;
-    this.mobilityStationMeasurements = [];
-  }
-
-  static get properties() {
-    return observed_properties;
-  }
-
-  static get styles() {
-    return css`
-      /* Map */
-      ${unsafeCSS(leafletStyle)}
-      ${unsafeCSS(MeteoGenericStyle)}
-    `;
-  }
-
+class MeteoGeneric extends BaseMeteoGeneric {
   async drawMap() {
     drawUserOnMap.bind(this)();
   }
@@ -103,7 +61,6 @@ class MeteoGeneric extends LitElement {
           initializeMap
             .bind(this)()
             .then(() => {
-              console.log(drawUserOnMap);
               drawUserOnMap.bind(this)();
               drawStationsOnMap
                 .bind(this)()
@@ -121,7 +78,6 @@ class MeteoGeneric extends LitElement {
   };
 
   handleSearchBarFilterAction = () => {
-    console.log("Toggle filters");
     this.showFilters = !this.showFilters;
   };
 
@@ -131,6 +87,48 @@ class MeteoGeneric extends LitElement {
   );
 
   render() {
+    let isSmallWidth = false;
+    let isSmallHeight = false;
+    if (this.width.includes("px")) {
+      isSmallWidth = parseInt(this.width.replace("px")) <= 400;
+    } else if (this.width.includes("%")) {
+      if (this.shadowRoot.querySelector(".meteo_generic")) {
+        isSmallWidth =
+          this.shadowRoot.querySelector(".meteo_generic").clientWidth <= 400;
+      }
+    }
+    if (this.height.includes("px")) {
+      isSmallHeight = parseInt(this.height.replace("px")) <= 400;
+    } else if (this.height.includes("%")) {
+      if (this.shadowRoot.querySelector(".meteo_generic")) {
+        isSmallHeight =
+          this.shadowRoot.querySelector(".meteo_generic").clientHeight <= 400;
+      }
+    }
+
+    if (!this.tiles_url) {
+      return html`
+        <p style="color:red">
+          Required attribute <strong>tiles_url</strong> is missing
+        </p>
+      `;
+    }
+    if (!ALL_TABS.includes(this.startingTab)) {
+      return html`
+        <di>
+          <p style="color:red">
+            Wrong value for <strong>startingTab</strong> parameter:
+          </p>
+          <p style="color:red">Available parameters are:</p>
+          <ul style="color:red">
+            ${ALL_TABS.map((o) => {
+              return html`<li>${o}</li>`;
+            })}
+          </ul>
+        </div>
+      `;
+    }
+
     return html`
       <style>
         * {
@@ -139,25 +137,20 @@ class MeteoGeneric extends LitElement {
           --w-c-font-family: ${this.fontFamily};
         }
       </style>
-      ${this.isLoading ? html`<div class="globalOverlay"></div>` : ""}
-      ${this.tiles_url
-        ? ""
-        : html`
-            <p style="color:red">Required attribute \`tiles_url\` is missing</p>
-          `}
 
       <div
-        class="meteo_generic 
-          ${
-          /*this.mobile_open ? `MODE__mobile__open` : `MODE__mobile__closed`*/ ""
-        }
-          ${isMobile() ? `mobile` : ``}
-          ${/*this.getAnimationState()*/ ""}"
+        class=${classMap({
+          meteo_generic: true,
+          mobile: this.isMobile,
+        })}
       >
+        ${this.isLoading ? html`<div class="globalOverlay"></div>` : ""}
         <div
-          class="meteo_generic__language_picker ${this.currentTab === 1
-            ? "big_margin"
-            : ""}"
+          class=${classMap({
+            meteo_generic__language_picker: true,
+            big_margin: this.isMobile || isSmallWidth,
+            isSmallHeight: isSmallHeight || isSmallWidth,
+          })}
         >
           <wc-languagepicker
             .supportedLanguages="${LANGUAGES}"
@@ -167,10 +160,13 @@ class MeteoGeneric extends LitElement {
             }}"
           ></wc-languagepicker>
         </div>
-        ${/*this.isFullScreen ? this.render_closeFullscreenButton() : null*/ ""}
-        ${/*this.render_backgroundMap()*/ ""}
 
-        <div class="meteo_generic__sideBar">
+        <div
+          class=${classMap({
+            meteo_generic__sideBar: true,
+            isSmallWidth: isSmallWidth,
+          })}
+        >
           <div class="meteo_generic__sideBar__tabBar">
             <wc-sidemodal-tabs
               .action="${(id) => {
@@ -178,13 +174,7 @@ class MeteoGeneric extends LitElement {
                 this.currentTab = id;
               }}"
               .idSelected="${this.currentTab}"
-              .elements="${[
-                { label: t.map[this.language], id: 1 },
-                { label: t.forecasts[this.language], id: 2 },
-                { label: t.video[this.language], id: 3 },
-                { label: t.inTheMountains[this.language], id: 4 },
-                { label: t.byArea[this.language], id: 5 },
-              ]}"
+              .elements="${filteredTabsList(this.visibleTabs, this.language)}"
             ></wc-sidemodal-tabs>
           </div>
           ${this.currentTab === 1
@@ -193,7 +183,14 @@ class MeteoGeneric extends LitElement {
               </div>`
             : ""}
           ${this.detailsOpen
-            ? html`<div class="meteo_generic__sideBar__details mt-4px">
+            ? html`<div
+                class=${classMap({
+                  meteo_generic__sideBar__details: true,
+                  "mt-4px": true,
+                  isSmallWidth: isSmallWidth,
+                  isSmallHeight: isSmallHeight,
+                })}
+              >
                 ${render_details.bind(this)()}
               </div>`
             : ""}
@@ -209,12 +206,16 @@ class MeteoGeneric extends LitElement {
               .forecast_days="4"
               .selected_district_id="1"
               .language_translation="${this.language}"
+              .isSmallWidth="${isSmallWidth}"
+              .isSmallHeight="${isSmallHeight}"
             ></weather-forecast-widget>`
           : ""}
         ${this.currentTab === 3 ? render__tabVideo.bind(this)() : ""}
         ${this.currentTab === 4
           ? html`<meteo-mountain-widget
               .language_translation="${this.language}"
+              .isSmallWidth="${isSmallWidth}"
+              .isSmallHeight="${isSmallHeight}"
             ></meteo-mountain-widget>`
           : ""}
         ${this.currentTab === 5
@@ -222,6 +223,8 @@ class MeteoGeneric extends LitElement {
               .forecast_days="4"
               .selected_district_id="1"
               .language_translation="${this.language}"
+              .isSmallWidth="${isSmallWidth}"
+              .isSmallHeight="${isSmallHeight}"
             ></weather-forecast-byarea>`
           : ""}
       </div>

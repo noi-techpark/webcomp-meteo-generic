@@ -23,3 +23,62 @@ export const p = {
     ru: "I want to see the forecasts of",
   },
 };
+
+export const createSelectDiscrictOptions = (language) => [
+  {
+    value: "1",
+    label: {
+      en: "Bolzano, Überetsch and Unterland",
+      de: "Bozen, Überetsch und Unterland",
+      it: "Bolzano, Oltradige e Bassa Atesina",
+    }[language],
+  },
+  {
+    value: "2",
+    label: {
+      en: "Burggrafenamt - Meran and surroundings",
+      de: "Burggrafenamt - Meran und Umgebung",
+      it: "Burgraviato - Merano e dintorni",
+    }[language],
+  },
+  {
+    value: "3",
+    label: {
+      en: "Vinschgau",
+      de: "Vinschgau",
+      it: "Val Venosta",
+    }[language],
+  },
+  {
+    value: "4",
+    label: {
+      en: "Eisacktal and Sarntal",
+      de: "Eisacktal und Sarntal",
+      it: "Val d´Isarco e Val Sarentino",
+    }[language],
+  },
+  {
+    value: "5",
+    label: {
+      en: "Wipptal - Sterzing and surroundings",
+      de: "Wipptal - Sterzing und Umgebung",
+      it: "Alta Val d'Isarco - Vipiteno e dintorni",
+    }[language],
+  },
+  {
+    value: "6",
+    label: {
+      en: "Pustertal",
+      de: "Pustertal",
+      it: "Val Pusteria",
+    }[language],
+  },
+  {
+    value: "7",
+    label: {
+      en: "Ladinia - Dolomites",
+      de: "Ladinien - Dolomiten",
+      it: "Ladinia - Dolomiti",
+    }[language],
+  },
+];

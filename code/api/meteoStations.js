@@ -16,9 +16,7 @@ export const requestTourismMeasuringpoint = async () => {
 export const requestMobilityMeteoStationSelectedData = async () => {
   try {
     const request = await fetch(
-      `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*?limit=-1`
-      // `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*?limit=-1&select=tname,scoordinate`
-      // `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*?limit=-1&select=scoordinate,scode,sname,stype`
+      `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=sactive.eq.true&select=tname,tunit,tdescription,scoordinate,scode,sname,stype&limit=-1`
     );
     if (request.status !== 200) {
       throw new Error(request.statusText);
@@ -30,10 +28,13 @@ export const requestMobilityMeteoStationSelectedData = async () => {
   }
 };
 
-export const requestMobilityMeteoStationLatestDetails = async ({ scode, tname }) => {
+export const requestMobilityMeteoStationLatestDetails = async ({
+  scode,
+  tname,
+}) => {
   try {
     const request = await fetch(
-      `${BASE_PATH_MOBILITY}/flat,node/MeteoStation/*/latest?limit=-1&where=scode.eq.${scode}&where=tname.eq.${tname}`
+      `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*/latest?limit=-1&where=scode.eq.${scode}`
     );
     if (request.status !== 200) {
       throw new Error(request.statusText);

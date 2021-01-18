@@ -10,7 +10,7 @@ import {
 } from "../api/meteoStations";
 import { getLatLongFromStationDetail, get_system_language } from "../utils";
 import stationIcon from "../assets/station.svg";
-import { CUSTOMstationCompetenceTypes } from '../webcomp-meteo-generic';
+import { CUSTOMstationCompetenceTypes } from "../webcomp-meteo-generic";
 
 export async function initializeMap() {
   const DefaultIcon = Leaflet.icon({
@@ -73,11 +73,21 @@ export async function drawStationsOnMap() {
   const stations_layer_array = [];
 
   const mobilityStations = await requestMobilityMeteoStationSelectedData();
-  console.log({ mobilityStations });
+  const flatMobilityStations = mobilityStations
+    ? Object.keys(mobilityStations.data.MeteoStation.stations).map((id) => {
+        return {
+          ...mobilityStations.data.MeteoStation.stations[id],
+        };
+      })
+    : [];
+  console.log({
+    mobilityStations: flatMobilityStations[0],
+  });
   const tourismStations = await requestTourismMeasuringpoint();
-  console.log({ tourismStations });
+  console.log({ tourismStations: tourismStations[0] });
 
-  mobilityStations.data.map((station) => {
+  // mobilityStations.data.map((station) => {
+  flatMobilityStations.map((station) => {
     const marker_position = getLatLongFromStationDetail(station.scoordinate);
     const station_icon = Leaflet.icon({
       iconUrl: stationIcon,
@@ -98,18 +108,10 @@ export async function drawStationsOnMap() {
         tname: station.tname,
       });
       if (details) {
-        console.log(details.data);
-        const data = details.data[0];
+        const data = Object.values(details.data.MeteoStation.stations)[0];
+        console.log(data);
         if (data !== undefined) {
-          const { mvalue, tunit } = data;
-          if (mvalue !== undefined && tunit !== undefined) {
-            this.mobilityStationMeasurements = [
-              {
-                name: station.tdescription || "---",
-                value: `${mvalue} ${tunit}`,
-              },
-            ];
-          }
+          this.mobilityStationMeasurements = data;
         } else {
           this.mobilityStationMeasurements = [];
         }
@@ -146,9 +148,9 @@ export async function drawStationsOnMap() {
     stations_layer_array.push(marker);
   });
 
-  if (!this.language) {
-    this.language = get_system_language();
-  }
+  // if (!this.language) {
+  //   this.language = get_system_language();
+  // }
 
   const stations_layer = Leaflet.layerGroup(stations_layer_array, {});
 
