@@ -12,15 +12,23 @@ export function render_details() {
   };
   if (CUSTOMstationCompetence === CUSTOMstationCompetenceTypes.mobility) {
     const { smetadata, stype, sdatatypes } = this.mobilityStationMeasurements;
+    console.log(sdatatypes);
 
     data.title = smetadata[`name_${this.language}`];
     data.linkedTagText = stype;
     data.measurements = Object.keys(sdatatypes).map((key) => {
       const { tdescription, tmeasurements, tunit, tname } = sdatatypes[key];
       return {
+        tname,
         name: `${tdescription || tname}`,
         value: `${tmeasurements[0].mvalue}${tunit}`,
       };
+    });
+    data.measurements = data.measurements.filter((m) => {
+      if (this.visibleParameters && this.visibleParameters.length) {
+        return this.visibleParameters.includes(m.tname.toLowerCase());
+      }
+      return true;
     });
   }
 
@@ -30,15 +38,33 @@ export function render_details() {
       Temperature,
       Altitude,
       SnowHeight,
+      AltitudeUnitofMeasure,
     } = this.currentStation;
 
     data.title = Shortname;
     data.linkedTagText = "Measuring Point";
     data.measurements = [
-      { name: t["temperature"][this.language], value: `${Temperature}C` },
-      { name: t["altitude"][this.language], value: `${Altitude}m` },
-      { name: t["snowHeight"][this.language], value: `${SnowHeight}cm` },
-    ];
+      {
+        tname: "Temperature",
+        name: t["temperature"][this.language],
+        value: `${Temperature}C`,
+      },
+      {
+        tname: "Altitude",
+        name: t["altitude"][this.language],
+        value: `${Altitude}${AltitudeUnitofMeasure}`,
+      },
+      {
+        tname: "SnowHeight",
+        name: t["snowHeight"][this.language],
+        value: `${SnowHeight}cm`,
+      },
+    ].filter((m) => {
+      if (this.visibleParameters && this.visibleParameters.length) {
+        return this.visibleParameters.includes(m.tname.toLowerCase());
+      }
+      return true;
+    });
   }
 
   return html` <div class="details">

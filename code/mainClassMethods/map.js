@@ -81,12 +81,13 @@ export async function drawStationsOnMap() {
       })
     : [];
   console.log({
-    mobilityStations: flatMobilityStations[0],
+    mobilityStations: flatMobilityStations,
   });
   const tourismStations = await requestTourismMeasuringpoint();
   console.log({ tourismStations: tourismStations[0] });
 
-  flatMobilityStations
+  // flatMobilityStations
+  []
     .filter((station) => {
       if (this.enabledStation) {
         return station.scode === this.enabledStation;
@@ -135,7 +136,7 @@ export async function drawStationsOnMap() {
 
   tourismStations
     .filter((station) => {
-      console.log(station);
+      // console.log(station);
 
       if (this.enabledStation) {
         return station.Id === this.enabledStation;

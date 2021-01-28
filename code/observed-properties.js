@@ -5,6 +5,7 @@ export const observed_properties = {
   language: { type: String },
   tiles_url: { type: String, attribute: "tiles-url" },
   enabledStation: { type: String },
+  visibleParameters: { type: Array },
 
   showFilters: { type: Boolean },
   isLoading: { type: Boolean },
