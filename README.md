@@ -75,7 +75,7 @@ Example: `tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newe
 
 #### enabledStation
 
-Set the unique station that the map will show.
+Set the unique station that the map will show. The parameter accepts both `Id` and `scode` values.
 
 Example: `"3C461DDEDCE84E25BB8125B0E051344C"`
 
