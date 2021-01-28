@@ -22,7 +22,8 @@ Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTML and 
     language="it"
     mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
     currentLocation='{ "lat": 46.31, "lng": 11.26 }'
-    tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey=">
+    tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+    enabledStation="3C461DDEDCE84E25BB8125B0E051344C">
 </webcomp-meteo-generic>
 ```
 
@@ -71,6 +72,12 @@ Example: `currentLocation='{ "lat": 46.31, "lng": 11.26 }'`
 Set the URL of the API that provides the tiles.
 
 Example: `tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="`
+
+#### enabledStation
+
+Set the unique station that the map will show.
+
+Example: `"3C461DDEDCE84E25BB8125B0E051344C"`
 
 
 #### visibleTabs

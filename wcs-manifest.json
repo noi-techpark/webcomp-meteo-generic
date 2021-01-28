@@ -23,9 +23,7 @@
   "searchTags": ["weather"],
   "dist": {
     "basePath": "dist",
-    "files": [
-      "webcomp-meteo-generic.js"
-    ]
+    "files": ["webcomp-meteo-generic.js"]
   },
   "configuration": {
     "tagName": "webcomp-meteo-generic",
@@ -36,7 +34,7 @@
         "label": "Width of the component as css property (es: '500px' or '100%')",
         "required": false,
         "options": {
-            "default": "100%"
+          "default": "100%"
         }
       },
       {
@@ -45,7 +43,7 @@
         "label": "Height of the component as css property (es: '500px' or '100%')",
         "required": false,
         "options": {
-            "default": "500px"
+          "default": "500px"
         }
       },
       {
@@ -92,6 +90,15 @@
         "required": true,
         "options": {
           "default": "https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+        }
+      },
+      {
+        "key": "enabledStation",
+        "type": "text",
+        "label": "Set the unique station that the map will show.",
+        "required": false,
+        "options": {
+          "default": ""
         }
       }
     ]
