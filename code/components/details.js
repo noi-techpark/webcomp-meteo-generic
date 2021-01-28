@@ -29,16 +29,15 @@ export function render_details() {
       Shortname,
       Temperature,
       Altitude,
-      AltitudeUnitofMeasure,
       SnowHeight,
     } = this.currentStation;
 
     data.title = Shortname;
     data.linkedTagText = "Measuring Point";
     data.measurements = [
-      { name: t["temperature"][this.language], value: Temperature },
-      { name: t["altitude"][this.language], value: Altitude },
-      { name: t["snowHeight"][this.language], value: SnowHeight },
+      { name: t["temperature"][this.language], value: `${Temperature}C` },
+      { name: t["altitude"][this.language], value: `${Altitude}m` },
+      { name: t["snowHeight"][this.language], value: `${SnowHeight}cm` },
     ];
   }
 
