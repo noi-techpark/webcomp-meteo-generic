@@ -1,4 +1,5 @@
 import { html } from "lit-element";
+import { t } from "../translations";
 import { CUSTOMstationCompetenceTypes } from "../webcomp-meteo-generic";
 
 export function render_details() {
@@ -24,10 +25,21 @@ export function render_details() {
   }
 
   if (CUSTOMstationCompetence === CUSTOMstationCompetenceTypes.tourism) {
-    const { Shortname, Temperature } = this.currentStation;
+    const {
+      Shortname,
+      Temperature,
+      Altitude,
+      AltitudeUnitofMeasure,
+      SnowHeight,
+    } = this.currentStation;
+
     data.title = Shortname;
     data.linkedTagText = "Measuring Point";
-    data.measurements = [{ name: "Temperature", value: Temperature }];
+    data.measurements = [
+      { name: t["temperature"][this.language], value: Temperature },
+      { name: t["altitude"][this.language], value: Altitude },
+      { name: t["snowHeight"][this.language], value: SnowHeight },
+    ];
   }
 
   return html` <div class="details">
@@ -45,8 +57,6 @@ export function render_details() {
 
     <div>
       ${data.measurements.map((o) => {
-        console.log(o);
-
         return html`<wc-sidemodal-row
           .type="horizontal"
           .title="${o.name}"

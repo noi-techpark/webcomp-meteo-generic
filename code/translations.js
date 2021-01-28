@@ -34,4 +34,20 @@ export const t = {
     en: "By area",
     de: "Nach Gebiet",
   },
+
+  temperature: {
+    it: "Temperatura",
+    en: "Temperature",
+    de: "Temperatur",
+  },
+  altitude: {
+    it: "Altitudine",
+    en: "Altitude",
+    de: "Höhe",
+  },
+  snowHeight: {
+    it: "Altezza della neve",
+    en: "Snow height",
+    de: "Schneehöhe",
+  },
 };

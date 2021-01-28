@@ -1,4 +1,4 @@
-import { BASE_PATH, BASE_PATH_MOBILITY, BASE_PATH_TOURISM } from "./config";
+import { BASE_PATH_MOBILITY, BASE_PATH_TOURISM } from "./config";
 
 export const requestTourismMeasuringpoint = async () => {
   try {

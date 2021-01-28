@@ -86,67 +86,88 @@ export async function drawStationsOnMap() {
   const tourismStations = await requestTourismMeasuringpoint();
   console.log({ tourismStations: tourismStations[0] });
 
-  // mobilityStations.data.map((station) => {
-  flatMobilityStations.map((station) => {
-    const marker_position = getLatLongFromStationDetail(station.scoordinate);
-    const station_icon = Leaflet.icon({
-      iconUrl: stationIcon,
-      iconSize: [36, 36],
-    });
-    const marker = Leaflet.marker([marker_position.lat, marker_position.lng], {
-      icon: station_icon,
-    });
-
-    const action = async () => {
-      this.currentStation = {
-        ...station,
-        CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.mobility,
-      };
-
-      const details = await requestMobilityMeteoStationLatestDetails({
-        scode: station.scode,
-        tname: station.tname,
-      });
-      if (details) {
-        const data = Object.values(details.data.MeteoStation.stations)[0];
-        console.log(data);
-        if (data !== undefined) {
-          this.mobilityStationMeasurements = data;
-        } else {
-          this.mobilityStationMeasurements = [];
-        }
+  flatMobilityStations
+    .filter((station) => {
+      if (this.enabledStation) {
+        return station.scode === this.enabledStation;
       }
+      return true;
+    })
+    .map((station) => {
+      const marker_position = getLatLongFromStationDetail(station.scoordinate);
+      const station_icon = Leaflet.icon({
+        iconUrl: stationIcon,
+        iconSize: [36, 36],
+      });
+      const marker = Leaflet.marker(
+        [marker_position.lat, marker_position.lng],
+        {
+          icon: station_icon,
+        }
+      );
 
-      this.detailsOpen = true;
-    };
+      const action = async () => {
+        this.currentStation = {
+          ...station,
+          CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.mobility,
+        };
 
-    marker.on("mousedown", action);
-    stations_layer_array.push(marker);
-  });
+        const details = await requestMobilityMeteoStationLatestDetails({
+          scode: station.scode,
+          tname: station.tname,
+        });
+        if (details) {
+          const data = Object.values(details.data.MeteoStation.stations)[0];
+          console.log(data);
+          if (data !== undefined) {
+            this.mobilityStationMeasurements = data;
+          } else {
+            this.mobilityStationMeasurements = [];
+          }
+        }
 
-  tourismStations.map((station) => {
-    const marker_position = getLatLongFromStationDetail({
-      x: station.Longitude,
-      y: station.Latitude,
-    });
-    const station_icon = Leaflet.icon({
-      iconUrl: stationIcon,
-      iconSize: [36, 36],
-    });
-    const marker = Leaflet.marker([marker_position.lat, marker_position.lng], {
-      icon: station_icon,
-    });
-    const action = () => {
-      this.currentStation = {
-        ...station,
-        CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.tourism,
+        this.detailsOpen = true;
       };
-      this.detailsOpen = true;
-    };
 
-    marker.on("mousedown", action);
-    stations_layer_array.push(marker);
-  });
+      marker.on("mousedown", action);
+      stations_layer_array.push(marker);
+    });
+
+  tourismStations
+    .filter((station) => {
+      console.log(station);
+
+      if (this.enabledStation) {
+        return station.Id === this.enabledStation;
+      }
+      return true;
+    })
+    .map((station) => {
+      const marker_position = getLatLongFromStationDetail({
+        x: station.Longitude,
+        y: station.Latitude,
+      });
+      const station_icon = Leaflet.icon({
+        iconUrl: stationIcon,
+        iconSize: [36, 36],
+      });
+      const marker = Leaflet.marker(
+        [marker_position.lat, marker_position.lng],
+        {
+          icon: station_icon,
+        }
+      );
+      const action = () => {
+        this.currentStation = {
+          ...station,
+          CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.tourism,
+        };
+        this.detailsOpen = true;
+      };
+
+      marker.on("mousedown", action);
+      stations_layer_array.push(marker);
+    });
 
   // if (!this.language) {
   //   this.language = get_system_language();
