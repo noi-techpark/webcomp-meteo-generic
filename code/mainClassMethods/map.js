@@ -86,8 +86,7 @@ export async function drawStationsOnMap() {
   const tourismStations = await requestTourismMeasuringpoint();
   console.log({ tourismStations: tourismStations[0] });
 
-  // flatMobilityStations
-  []
+  flatMobilityStations
     .filter((station) => {
       if (this.enabledStation) {
         return station.scode === this.enabledStation;
