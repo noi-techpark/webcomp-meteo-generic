@@ -4,7 +4,7 @@ import { CUSTOMstationCompetenceTypes } from "../webcomp-meteo-generic";
 
 export function render_details() {
   const { CUSTOMstationCompetence } = this.currentStation;
-  console.log(CUSTOMstationCompetence, this.currentStation);
+
   const data = {
     title: "",
     subtitle: "",
@@ -12,7 +12,6 @@ export function render_details() {
   };
   if (CUSTOMstationCompetence === CUSTOMstationCompetenceTypes.mobility) {
     const { smetadata, stype, sdatatypes } = this.mobilityStationMeasurements;
-    console.log(sdatatypes);
 
     data.title = smetadata[`name_${this.language}`];
     data.linkedTagText = stype;

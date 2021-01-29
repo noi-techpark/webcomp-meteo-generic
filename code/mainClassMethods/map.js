@@ -80,11 +80,11 @@ export async function drawStationsOnMap() {
         };
       })
     : [];
-  console.log({
-    mobilityStations: flatMobilityStations,
-  });
+  // console.log({
+  //   mobilityStations: flatMobilityStations,
+  // });
   const tourismStations = await requestTourismMeasuringpoint();
-  console.log({ tourismStations: tourismStations[0] });
+  // console.log({ tourismStations: tourismStations[0] });
 
   flatMobilityStations
     .filter((station) => {
@@ -118,7 +118,6 @@ export async function drawStationsOnMap() {
         });
         if (details) {
           const data = Object.values(details.data.MeteoStation.stations)[0];
-          console.log(data);
           if (data !== undefined) {
             this.mobilityStationMeasurements = data;
           } else {
