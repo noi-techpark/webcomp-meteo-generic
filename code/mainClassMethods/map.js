@@ -86,7 +86,10 @@ export async function drawStationsOnMap() {
   const tourismStations = await requestTourismMeasuringpoint();
   // console.log({ tourismStations: tourismStations[0] });
 
-  const enabledStations = this.enabledStations.split(",");
+  const enabledStations = this.enabledStations
+    ? this.enabledStations.split(",")
+    : [];
+
   flatMobilityStations
     .filter((station) => {
       if (enabledStations.length) {
