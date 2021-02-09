@@ -93,7 +93,7 @@
         }
       },
       {
-        "key": "enabledStation",
+        "key": "enabledStations",
         "type": "text",
         "label": "Set the unique station that the map will show.",
         "required": false,

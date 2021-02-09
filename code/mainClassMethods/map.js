@@ -86,10 +86,14 @@ export async function drawStationsOnMap() {
   const tourismStations = await requestTourismMeasuringpoint();
   // console.log({ tourismStations: tourismStations[0] });
 
+  const enabledStations = this.enabledStations
+    ? this.enabledStations.split(",")
+    : [];
+
   flatMobilityStations
     .filter((station) => {
-      if (this.enabledStation) {
-        return station.scode === this.enabledStation;
+      if (enabledStations.length) {
+        return enabledStations.includes(station.scode);
       }
       return true;
     })
@@ -134,10 +138,8 @@ export async function drawStationsOnMap() {
 
   tourismStations
     .filter((station) => {
-      // console.log(station);
-
-      if (this.enabledStation) {
-        return station.Id === this.enabledStation;
+      if (enabledStations.length) {
+        return enabledStations.includes(station.Id);
       }
       return true;
     })

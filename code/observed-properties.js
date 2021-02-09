@@ -4,7 +4,7 @@ export const observed_properties = {
   fontFamily: { type: String },
   language: { type: String },
   tiles_url: { type: String, attribute: "tiles-url" },
-  enabledStation: { type: String },
+  enabledStations: { type: String },
   visibleParameters: { type: Array },
 
   showFilters: { type: Boolean },
