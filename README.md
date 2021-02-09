@@ -23,7 +23,7 @@ Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTML and 
     mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
     currentLocation='{ "lat": 46.31, "lng": 11.26 }'
     tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
-    enabledStation="3C461DDEDCE84E25BB8125B0E051344C"
+    enabledStations="3C461DDEDCE84E25BB8125B0E051344C,00390SF"
     visibleParameters='["air-temperature","temperature","precipitation"]'>
 </webcomp-meteo-generic>
 ```
@@ -74,11 +74,11 @@ Set the URL of the API that provides the tiles.
 
 Example: `tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="`
 
-#### enabledStation
+#### enabledStations
 
-Set the unique station that the map will show. The parameter accepts both `Id` and `scode` values.
+Set the stations that the map will show. It's a CSV like field. The parameter accepts both `Id` and `scode` values.
 
-Example: `"3C461DDEDCE84E25BB8125B0E051344C"`
+Example: `"3C461DDEDCE84E25BB8125B0E051344C,00390SF"`
 
 #### visibleParameters
 
