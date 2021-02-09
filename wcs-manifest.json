@@ -109,6 +109,24 @@
         "options": {
           "default": ""
         }
+      },
+      {
+        "key": "visibleTabs",
+        "type": "text",
+        "label": "Set the visible tabs in the menu. Default is [\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]",
+        "required": true,
+        "options": {
+          "default": "[\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]"
+        }
+      },
+      {
+        "key": "startingTab",
+        "type": "text",
+        "label": "Set the initial tab that the user will see. You can choose one between those values: \"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"",
+        "required": true,
+        "options": {
+          "default": "onTheMountains"
+        }
       }
     ]
   }
