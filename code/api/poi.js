@@ -22,7 +22,7 @@ export async function request__get_coordinates_from_search(query) {
       //
 
       const tourismResponse = await fetch(
-        `http://tourism.opendatahub.bz.it/api/Poi?pagenumber=1&pagesize=10000&poitype=511&searchfilter=${query}`,
+        `https://tourism.opendatahub.bz.it/api/Poi?pagenumber=1&pagesize=10000&poitype=511&searchfilter=${query}`,
         {
           method: "GET",
           headers: new Headers({
@@ -37,10 +37,6 @@ export async function request__get_coordinates_from_search(query) {
           title: item.Detail[this.language].Title,
         };
       });
-
-      console.log(tourismData);
-
-      console.log([...formattedTourismData, ...formattedHereData]);
 
       this.searchPlacesFound = [...formattedTourismData, ...formattedHereData];
     }
