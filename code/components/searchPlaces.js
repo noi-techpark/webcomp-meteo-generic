@@ -1,7 +1,6 @@
 import { html } from "lit-element";
-// import { debounce, request__get_coordinates_from_search } from "../utils";
-import { t } from "../translations";
 import findPositionBlueIcon from "../assets/find-position-blue.svg";
+import { t } from "../translations";
 
 export function render_searchPlaces() {
   const handle_onchange = (value) => {
@@ -10,14 +9,14 @@ export function render_searchPlaces() {
       this.debounced__request__get_coordinates_from_search(value);
       this.showFilters = false;
     } else {
-      this.hereMapsPlacesFound = [];
+      this.searchPlacesFound = [];
     }
   };
 
   const manage_map = (lat, lng) => {
     this.currentLocation = { lat: parseFloat(lat), lng: parseFloat(lng) };
     this.current_station = {};
-    this.hereMapsPlacesFound = [];
+    this.searchPlacesFound = [];
     this.showFilters = false;
     this.map.flyTo([lat, lng], 15);
     this.map.removeLayer(this.layer_user);
@@ -48,7 +47,7 @@ export function render_searchPlaces() {
 
   const handleMoveToPlace = (lat, lng) => {
     this.isLoading = true;
-    this.hereMapsPlacesFound = [];
+    this.searchPlacesFound = [];
     this.hereMapsQuery = "";
     manage_map(lat, lng);
   };
@@ -60,8 +59,6 @@ export function render_searchPlaces() {
     }
   };
 
-  // <li @click="${() => handleMoveToPlace(o.lat, o.lon)}" class="">
-
   const render__places_list = () => {
     return html`
       <div class="searchBox__resoult_list">
@@ -70,7 +67,7 @@ export function render_searchPlaces() {
             <img class="" src="${findPositionBlueIcon}" alt="" />
             ${t.my_location[this.language]}
           </li>
-          ${this.hereMapsPlacesFound.map((o) => {
+          ${this.searchPlacesFound.map((o) => {
             return html`
               <li
                 @click="${() =>
@@ -97,7 +94,7 @@ export function render_searchPlaces() {
         @focus=${handle_focus_input}
       ></wc-searchbar>
 
-      ${this.hereMapsPlacesFound.length && this.hereMapsQuery.length
+      ${this.searchPlacesFound.length && this.hereMapsQuery.length
         ? render__places_list()
         : ""}
     </div>

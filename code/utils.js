@@ -40,18 +40,6 @@ export function get_system_language() {
   }
 }
 
-export function debounce(delay, fn) {
-  let timerId;
-  return (...args) => {
-    if (timerId) {
-      clearTimeout(timerId);
-    }
-    timerId = setTimeout(async () => {
-      fn(...args);
-      timerId = null;
-    }, delay);
-  };
-}
 
 export function getLatLongFromStationDetail(o) {
   return { lat: o.y, lng: o.x };
