@@ -1,7 +1,7 @@
 {
   "title": "Generic Meteorological Webcomponent",
-  "description": "This web component shows all meteo data (real time and forecasts) provided by the Open Data Hub.",
-  "descriptionAbstract": "A widget that allows to easily integrate the meteo information (both real time and forecast) of all South Tyrol or near a certain location.",
+  "description": "A widget that allows to easily integrate the meteo information (both real time and forecast) of all South Tyrol or near a certain location.",
+  "descriptionAbstract": "This web component shows all meteo data (real time and forecasts) provided by the Open Data Hub.",
   "license": "AGPL-3.0-or-later",
   "copyrightHolders": [
     {
@@ -125,7 +125,7 @@
         "label": "Set the initial tab that the user will see. You can choose one between those values: \"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"",
         "required": true,
         "options": {
-          "default": "onTheMountains"
+          "default": "map"
         }
       }
     ]
