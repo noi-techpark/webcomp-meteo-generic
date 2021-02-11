@@ -68,10 +68,10 @@
       {
         "key": "currentLocation",
         "type": "text",
-        "label": "Coordinates of the current location in the following format: `{ 'lat': 46.31, 'lng': 11.26 }`",
+        "label": "Coordinates of the current location in the following format: { \"lat\": 46.31, \"lng\": 11.26 }",
         "required": true,
         "options": {
-          "default": "{ 'lat': 46.31, 'lng': 11.26 }"
+          "default": "{ \"lat\": 46.31, \"lng\": 11.26 }"
         }
       },
       {
@@ -113,10 +113,10 @@
       {
         "key": "visibleTabs",
         "type": "text",
-        "label": "Set the visible tabs in the menu. Default is '[\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]'",
+        "label": "Set the visible tabs in the menu. Default is \"[\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]\"",
         "required": true,
         "options": {
-          "default": "'[\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]'"
+          "default": "\"[\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]\""
         }
       },
       {
