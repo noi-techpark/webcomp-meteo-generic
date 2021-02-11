@@ -113,10 +113,10 @@
       {
         "key": "visibleTabs",
         "type": "text",
-        "label": "Set the visible tabs in the menu. Default is \"[\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]\"",
+        "label": "Set the visible tabs in the menu. Default is [\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]",
         "required": true,
         "options": {
-          "default": "\"[\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]\""
+          "default": "[\"map\", \"forecasts\", \"video\", \"onTheMountains\", \"byArea\"]"
         }
       },
       {
