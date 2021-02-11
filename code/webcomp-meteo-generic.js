@@ -1,7 +1,7 @@
 import "@babel/polyfill";
 import { html } from "lit-element";
 import { classMap } from "lit-html/directives/class-map";
-import { request__get_coordinates_from_search } from "./api/hereMaps";
+import { request__get_coordinates_from_search } from "./api/poi";
 import { BaseMeteoGeneric } from "./baseClass";
 import { render_details } from "./components/details";
 import { render__mapControls } from "./components/mapControls";
@@ -24,7 +24,8 @@ import "./shared_components/sideModalHeader/sideModalHeader";
 import "./shared_components/sideModalRow/sideModalRow";
 import "./shared_components/sideModalTabs/sideModalTabs";
 import "./shared_components/tag/tag";
-import { ALL_TABS, debounce, filteredTabsList, LANGUAGES } from "./utils";
+import { ALL_TABS, filteredTabsList, LANGUAGES } from "./utils";
+import { debounce as _debounce } from "lodash";
 
 export const CUSTOMstationCompetenceTypes = {
   tourism: "tourism",
@@ -81,9 +82,9 @@ class MeteoGeneric extends BaseMeteoGeneric {
     this.showFilters = !this.showFilters;
   };
 
-  debounced__request__get_coordinates_from_search = debounce(
-    500,
-    request__get_coordinates_from_search.bind(this)
+  debounced__request__get_coordinates_from_search = _debounce(
+    request__get_coordinates_from_search.bind(this),
+    500
   );
 
   render() {
