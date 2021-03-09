@@ -18,7 +18,7 @@ pipeline {
         WC_DIST_PATH = "dist"
 
         // Your environmental variables
-        TILES_API_KEY = credentials("here-api-key")
+        HEREMAPS_API_KEY = credentials("here-api-key")
     }
     stages {
         stage('Clean') {
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 sh '''
                     rm -rf .env
-                    echo "TILES_API_KEY=${TILES_API_KEY}" >> .env
+                    echo "HEREMAPS_API_KEY=${HEREMAPS_API_KEY}" >> .env
                 '''
             }
         }

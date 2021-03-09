@@ -17,18 +17,16 @@ Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTML and 
 ```html
 <webcomp-meteo-generic
     width="100%"
-    height="500px"
+    height="800px"
     fontFamily="Arial"
     language="it"
-    mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'
+    mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
     currentLocation='{ "lat": 46.31, "lng": 11.26 }'
-    tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="
+    tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     enabledStations="3C461DDEDCE84E25BB8125B0E051344C,00390SF"
     visibleParameters='["air-temperature","temperature","precipitation"]'>
 </webcomp-meteo-generic>
 ```
-
-### Attributes
 
 ### Attributes
 
@@ -60,7 +58,7 @@ Example: `language="en"`
 
 Set the acknowledgement for the map tiles provider.
 
-Example: `mapAttribution='Map Tiles &copy; <a href="http://developer.here.com">HERE</a>'`
+Example: `mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"`
 
 #### currentLocation
 
@@ -72,7 +70,7 @@ Example: `currentLocation='{ "lat": 46.31, "lng": 11.26 }'`
 
 Set the URL of the API that provides the tiles.
 
-Example: `tiles-url="https://1.base.maps.ls.hereapi.com/maptile/2.1/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?apiKey="`
+Example: `tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"`
 
 #### enabledStations
 
@@ -138,7 +136,7 @@ Create a `.env` file in the main directory.
 Fill it with this content:
 
 ```
-TILES_API_KEY=YourKey
+HEREMAPS_API_KEY=YourKey
 ```
 
 Replace `YourKey` with your API token to use the tiles and the search bar.
@@ -212,7 +210,9 @@ docker-compose stop
 
 ### Running commands inside the container
 
-When the containers are running, you can execute any command inside the environment. Just replace the dots `...` in the following example with the command you wish to execute:
+When the containers are running, you can execute any command inside the
+environment. Just replace the dots `...` in the following example with the
+command you wish to execute:
 
 ```bash
 docker-compose run --rm app /bin/bash -c "..."

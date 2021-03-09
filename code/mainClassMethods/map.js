@@ -24,9 +24,7 @@ export async function initializeMap() {
     zoomControl: false,
   });
 
-  const tileUrl = `${this.tiles_url}${process.env.TILES_API_KEY || ""}`;
-
-  Leaflet.tileLayer(tileUrl, {
+  Leaflet.tileLayer(this.tiles_url, {
     attribution: this.mapAttribution,
   }).addTo(this.map);
 
