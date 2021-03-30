@@ -92,6 +92,7 @@ export function render_searchPlaces() {
         .filtersAction="${this.handleSearchBarFilterAction}"
         .action="${handle_onchange}"
         @focus=${handle_focus_input}
+        .hideFilter="${true}"
       ></wc-searchbar>
 
       ${this.searchPlacesFound.length && this.hereMapsQuery.length
