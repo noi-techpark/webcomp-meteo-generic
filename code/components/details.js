@@ -13,22 +13,26 @@ export function render_details() {
   if (CUSTOMstationCompetence === CUSTOMstationCompetenceTypes.mobility) {
     const { smetadata, stype, sdatatypes } = this.mobilityStationMeasurements;
 
-    data.title = smetadata[`name_${this.language}`];
-    data.linkedTagText = stype;
-    data.measurements = Object.keys(sdatatypes).map((key) => {
-      const { tdescription, tmeasurements, tunit, tname } = sdatatypes[key];
-      return {
-        tname,
-        name: `${tdescription || tname}`,
-        value: `${tmeasurements[0].mvalue}${tunit}`,
-      };
-    });
-    data.measurements = data.measurements.filter((m) => {
-      if (this.visibleParameters && this.visibleParameters.length) {
-        return this.visibleParameters.includes(m.tname.toLowerCase());
-      }
-      return true;
-    });
+    if (smetadata) {
+      data.title = smetadata[`name_${this.language}`];
+    }
+    data.linkedTagText = stype || "";
+    if (sdatatypes) {
+      data.measurements = Object.keys(sdatatypes).map((key) => {
+        const { tdescription, tmeasurements, tunit, tname } = sdatatypes[key];
+        return {
+          tname,
+          name: `${tdescription || tname}`,
+          value: `${tmeasurements[0].mvalue}${tunit}`,
+        };
+      });
+      data.measurements = data.measurements.filter((m) => {
+        if (this.visibleParameters && this.visibleParameters.length) {
+          return this.visibleParameters.includes(m.tname.toLowerCase());
+        }
+        return true;
+      });
+    }
   }
 
   if (CUSTOMstationCompetence === CUSTOMstationCompetenceTypes.tourism) {
@@ -80,13 +84,15 @@ export function render_details() {
     </div>
 
     <div>
-      ${data.measurements.map((o) => {
-        return html`<wc-sidemodal-row
-          .type="horizontal"
-          .title="${o.name}"
-          .text="${o.value}"
-        ></wc-sidemodal-row> `;
-      })}
+      ${data.measurements.length
+        ? data.measurements.map((o) => {
+            return html`<wc-sidemodal-row
+              .type="horizontal"
+              .title="${o.name}"
+              .text="${o.value}"
+            ></wc-sidemodal-row> `;
+          })
+        : html`<p class="mx-16px emptySet">${t["noData"][this.language]}</p>`}
     </div>
   </div>`;
 }

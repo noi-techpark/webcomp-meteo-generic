@@ -78,11 +78,8 @@ export async function drawStationsOnMap() {
         };
       })
     : [];
-  // console.log({
-  //   mobilityStations: flatMobilityStations,
-  // });
+
   const tourismStations = await requestTourismMeasuringpoint();
-  // console.log({ tourismStations: tourismStations[0] });
 
   const enabledStations = this.enabledStations
     ? this.enabledStations.split(",")
@@ -129,7 +126,7 @@ export async function drawStationsOnMap() {
           this.detailsOpen = true;
         } else {
           this.mobilityStationMeasurements = [];
-          this.detailsOpen = false;
+          this.detailsOpen = true;
         }
       };
 
