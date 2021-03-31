@@ -118,16 +118,19 @@ export async function drawStationsOnMap() {
           scode: station.scode,
           tname: station.tname,
         });
-        if (details) {
+
+        if (details && Object.keys(details.data).length !== 0) {
           const data = Object.values(details.data.MeteoStation.stations)[0];
           if (data !== undefined) {
             this.mobilityStationMeasurements = data;
           } else {
             this.mobilityStationMeasurements = [];
           }
+          this.detailsOpen = true;
+        } else {
+          this.mobilityStationMeasurements = [];
+          this.detailsOpen = false;
         }
-
-        this.detailsOpen = true;
       };
 
       marker.on("mousedown", action);
