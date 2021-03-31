@@ -97,6 +97,11 @@
     .header {
       padding: 8px 16px;
     }
+
+    .emptySet {
+      @include MixinParagraphMedium();
+      font-size: bold;
+    }
   }
 }
 
@@ -145,6 +150,9 @@
 }
 
 // Globals
+.mx-16px {
+  margin: 0 16px;
+}
 .mt-4px {
   margin-top: 4px;
 }

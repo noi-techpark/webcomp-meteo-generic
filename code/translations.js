@@ -50,4 +50,9 @@ export const t = {
     en: "Snow height",
     de: "Schneehöhe",
   },
+  noData: {
+    it: "Non ci sono dati",
+    en: "There is no data",
+    de: "Keine Daten verfügbar",
+  },
 };
