@@ -2,12 +2,10 @@ pipeline {
 	agent any
 	environment {
 		DOCKER_IMAGE = "755952719952.dkr.ecr.eu-west-1.amazonaws.com/webcompbuild:latest"
+		HEREMAP_API_KEY = credentials("here-api-key")
 	}
 	options {
 		ansiColor('xterm')
-	}
-	environment {
-		HEREMAP_API_KEY = credentials("here-api-key")
 	}
 	stages {
 		stage('AWS ECR login') {
