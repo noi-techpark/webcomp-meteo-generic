@@ -2,14 +2,14 @@ import Leaflet from "leaflet";
 import leaflet_mrkcls from "leaflet.markercluster";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import user__marker from "../assets/user.svg";
 import {
   requestMobilityMeteoStationLatestDetails,
   requestMobilityMeteoStationSelectedData,
   requestTourismMeasuringpoint,
 } from "../api/meteoStations";
-import { getLatLongFromStationDetail, get_system_language } from "../utils";
 import stationIcon from "../assets/station.svg";
+import user__marker from "../assets/user.svg";
+import { getLatLongFromStationDetail } from "../utils";
 import { CUSTOMstationCompetenceTypes } from "../webcomp-meteo-generic";
 
 export async function initializeMap() {
@@ -106,6 +106,8 @@ export async function drawStationsOnMap() {
       );
 
       const action = async () => {
+        this.searchPlacesFound = [];
+        this.hereMapsQuery = "";
         this.currentStation = {
           ...station,
           CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.mobility,
@@ -157,6 +159,8 @@ export async function drawStationsOnMap() {
         }
       );
       const action = () => {
+        this.searchPlacesFound = [];
+        this.hereMapsQuery = "";
         this.currentStation = {
           ...station,
           CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.tourism,
