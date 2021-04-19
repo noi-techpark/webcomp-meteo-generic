@@ -1,5 +1,7 @@
 # Meteo Generic - Web component
 
+[![REUSE status](https://api.reuse.software/badge/github.com/noi-techpark/webcomp-meteo-generic)](https://api.reuse.software/info/github.com/noi-techpark/webcomp-meteo-generic)
+
 All the meteo features in one component.
 
 ## Table of contents
