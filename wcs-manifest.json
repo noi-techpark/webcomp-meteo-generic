@@ -23,7 +23,13 @@
   "searchTags": ["weather","meteo"],
   "dist": {
     "basePath": "dist",
-    "files": ["webcomp-meteo-generic.js"]
+    "files": ["webcomp-meteo-generic.js"],
+    "scripts": [
+      {
+        "file": "webcomp-meteo-generic.js",
+        "parameter": ""
+      }
+    ]
   },
   "configuration": {
     "tagName": "webcomp-meteo-generic",
