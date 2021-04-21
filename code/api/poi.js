@@ -4,28 +4,6 @@ export async function request__get_coordinates_from_search(query) {
   const r = 150 * 1000;
   try {
     if (query) {
-      // HereMaps
-
-      let formattedHereData = [];
-      if (process.env.HEREMAPS_API_KEY) {
-        const hereResponse = await fetch(
-          `https://places.ls.hereapi.com/places/v1/browse?apiKey=${process.env.HEREMAPS_API_KEY}&in=46.31,11.26;r=${r}&q=${query}`,
-          {
-            method: "GET",
-            headers: new Headers({
-              Accept: "application/json",
-            }),
-          }
-        );
-        const hereData = await hereResponse.json();
-        formattedHereData = hereData.results.items.map((item) => {
-          return {
-            position: item.position,
-            title: item.title,
-          };
-        });
-      }
-
       // Tourism
 
       const tourismResponse = await fetch(
@@ -73,14 +51,39 @@ export async function request__get_coordinates_from_search(query) {
         });
       }
 
-      this.searchPlacesFound = [
-        ...formattedTourismData,
-        ...formattedMobilityData,
-        ...formattedHereData,
-      ];
+      // HereMaps
+      console.log(formattedTourismData, formattedMobilityData);
+      const noOdhResultsCondition = !(
+        formattedTourismData.length || formattedMobilityData.length
+      );
+      console.log(noOdhResultsCondition);
+      let formattedHereData = [];
+      if (process.env.HEREMAPS_API_KEY && noOdhResultsCondition) {
+        const hereResponse = await fetch(
+          `https://places.ls.hereapi.com/places/v1/browse?apiKey=${process.env.HEREMAPS_API_KEY}&in=46.31,11.26;r=${r}&q=${query}`,
+          {
+            method: "GET",
+            headers: new Headers({
+              Accept: "application/json",
+            }),
+          }
+        );
+        const hereData = await hereResponse.json();
+        formattedHereData = hereData.results.items.map((item) => {
+          return {
+            position: item.position,
+            title: item.title,
+          };
+        });
+      }
+
+      this.searchPlacesFound = {
+        "Open Data Hub": [...formattedTourismData, ...formattedMobilityData],
+        "Here Maps": [...formattedHereData],
+      };
     }
   } catch (error) {
     console.error(error);
-    this.searchPlacesFound = [];
+    this.searchPlacesFound = {};
   }
 }

@@ -106,7 +106,7 @@ export async function drawStationsOnMap() {
       );
 
       const action = async () => {
-        this.searchPlacesFound = [];
+        this.searchPlacesFound = {};
         this.hereMapsQuery = "";
         this.currentStation = {
           ...station,
@@ -159,7 +159,7 @@ export async function drawStationsOnMap() {
         }
       );
       const action = () => {
-        this.searchPlacesFound = [];
+        this.searchPlacesFound = {};
         this.hereMapsQuery = "";
         this.currentStation = {
           ...station,
