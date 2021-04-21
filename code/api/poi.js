@@ -1,9 +1,56 @@
-import { BASE_PATH_MOBILITY } from "./config";
+import { isArray } from "lodash";
+import { BASE_PATH_MOBILITY, BASE_PATH_TOURISM } from "./config";
 
 export async function request__get_coordinates_from_search(query) {
+  this.isLoading = true;
   const r = 150 * 1000;
   try {
     if (query) {
+      // Stations related data
+
+      // Tourism meteo measuring points
+      const tourismMeasuringPointsRequest = await fetch(
+        `${BASE_PATH_TOURISM}/Weather/Measuringpoint?searchfilter=${query}`
+      );
+      const tourismMeasuringPointsResponse = await tourismMeasuringPointsRequest.json();
+      let formattedTourismMeasuringPoints = [];
+      if (isArray(tourismMeasuringPointsResponse)) {
+        formattedTourismMeasuringPoints = tourismMeasuringPointsResponse.map(
+          (o) => {
+            return {
+              position: [o.Latitude, o.Longitude],
+              title: o.LocationInfo.TvInfo.Name[this.language],
+            };
+          }
+        );
+      }
+
+      // Mobility MeteoStation
+
+      const mobilityMeteoStationRequest = await fetch(
+        `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=and(sname.ire."${query}",sactive.eq.true)&limit=-1`
+      );
+      const mobilityMeteoStationResponse = await mobilityMeteoStationRequest.json();
+      console.log(mobilityMeteoStationResponse);
+      let formattedMobilityMeteoStationData = [];
+      if (
+        mobilityMeteoStationResponse.data &&
+        mobilityMeteoStationResponse.data.MeteoStation &&
+        mobilityMeteoStationResponse.data.MeteoStation.stations
+      ) {
+        formattedMobilityMeteoStationData = Object.values(
+          mobilityMeteoStationResponse.data.MeteoStation.stations
+        ).map((item) => {
+          return {
+            position: [item.scoordinate.y, item.scoordinate.x],
+            title: item.smetadata[`name_${this.language}`],
+          };
+        });
+      }
+
+      // try Gargazzone
+      // ---
+
       // Tourism
 
       const tourismResponse = await fetch(
@@ -76,10 +123,18 @@ export async function request__get_coordinates_from_search(query) {
       }
 
       this.searchPlacesFound = {
-        "Open Data Hub": [...formattedTourismData, ...formattedMobilityData],
-        "Here Maps": [...formattedHereData],
+        "Open Data Hub": [
+          ...formattedMobilityMeteoStationData,
+          ...formattedTourismMeasuringPoints,
+        ],
+        "Other results": [
+          ...formattedTourismData,
+          ...formattedMobilityData,
+          ...formattedHereData,
+        ],
       };
     }
+    this.isLoading = false;
   } catch (error) {
     console.error(error);
     this.searchPlacesFound = {};

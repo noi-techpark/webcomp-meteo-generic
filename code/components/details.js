@@ -11,10 +11,15 @@ export function render_details() {
     measurements: [],
   };
   if (CUSTOMstationCompetence === CUSTOMstationCompetenceTypes.mobility) {
-    const { smetadata, stype, sdatatypes } = this.mobilityStationMeasurements;
+    const {
+      smetadata,
+      stype,
+      sdatatypes,
+      sname,
+    } = this.mobilityStationMeasurements;
 
     if (smetadata) {
-      data.title = smetadata[`name_${this.language}`];
+      data.title = smetadata[`name_${this.language}`] || sname;
     }
     data.linkedTagText = stype || "";
     if (sdatatypes) {
@@ -96,6 +101,3 @@ export function render_details() {
     </div>
   </div>`;
 }
-
-// .tOptionalLink="${args.tOptionalLink}"
-// .tIcon="${args.tIcon}"
