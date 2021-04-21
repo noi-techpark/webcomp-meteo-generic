@@ -22,7 +22,6 @@ export const requestMobilityMeteoStationSelectedData = async () => {
       throw new Error(request.statusText);
     }
     const response = await request.json();
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
