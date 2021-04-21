@@ -8,6 +8,7 @@ export function render_searchPlaces() {
       this.hereMapsQuery = value;
       this.debounced__request__get_coordinates_from_search(value);
       this.showFilters = false;
+      this.detailsOpen = false;
     } else {
       this.searchPlacesFound = {};
     }

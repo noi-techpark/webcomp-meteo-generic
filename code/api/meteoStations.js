@@ -16,12 +16,14 @@ export const requestTourismMeasuringpoint = async () => {
 export const requestMobilityMeteoStationSelectedData = async () => {
   try {
     const request = await fetch(
-      `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=sactive.eq.true&select=tname,tunit,tdescription,scoordinate,scode,sname,stype&limit=-1`
+      // `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=sactive.eq.true&select=tname,tunit,tdescription,scoordinate,scode,sname,stype&limit=-1`
+      `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=sactive.eq.true&limit=-1`
     );
     if (request.status !== 200) {
       throw new Error(request.statusText);
     }
     const response = await request.json();
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

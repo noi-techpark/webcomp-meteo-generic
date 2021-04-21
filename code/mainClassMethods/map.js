@@ -102,6 +102,7 @@ export async function drawStationsOnMap() {
         [marker_position.lat, marker_position.lng],
         {
           icon: station_icon,
+          zIndexOffset: 1000,
         }
       );
 
@@ -120,6 +121,7 @@ export async function drawStationsOnMap() {
 
         if (details && Object.keys(details.data).length !== 0) {
           const data = Object.values(details.data.MeteoStation.stations)[0];
+          console.log(data);
           if (data !== undefined) {
             this.mobilityStationMeasurements = data;
           } else {
@@ -156,6 +158,7 @@ export async function drawStationsOnMap() {
         [marker_position.lat, marker_position.lng],
         {
           icon: station_icon,
+          zIndexOffset: 10,
         }
       );
       const action = () => {
