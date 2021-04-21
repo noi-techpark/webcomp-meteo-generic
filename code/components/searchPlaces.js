@@ -9,14 +9,14 @@ export function render_searchPlaces() {
       this.debounced__request__get_coordinates_from_search(value);
       this.showFilters = false;
     } else {
-      this.searchPlacesFound = [];
+      this.searchPlacesFound = {};
     }
   };
 
   const manage_map = (lat, lng) => {
     this.currentLocation = { lat: parseFloat(lat), lng: parseFloat(lng) };
     this.current_station = {};
-    this.searchPlacesFound = [];
+    this.searchPlacesFound = {};
     this.showFilters = false;
     this.map.flyTo([lat, lng], 15);
     this.map.removeLayer(this.layer_user);
@@ -47,7 +47,7 @@ export function render_searchPlaces() {
 
   const handleMoveToPlace = (lat, lng) => {
     this.isLoading = true;
-    this.searchPlacesFound = [];
+    this.searchPlacesFound = {};
     this.hereMapsQuery = "";
     manage_map(lat, lng);
   };
@@ -60,6 +60,7 @@ export function render_searchPlaces() {
   };
 
   const render__places_list = () => {
+    const keys = Object.keys(this.searchPlacesFound);
     return html`
       <div class="searchBox__resoult_list">
         <ul>
@@ -67,20 +68,39 @@ export function render_searchPlaces() {
             <img class="" src="${findPositionBlueIcon}" alt="" />
             ${t.my_location[this.language]}
           </li>
-          ${this.searchPlacesFound.map((o) => {
-            return html`
-              <li
-                @click="${() =>
-                  handleMoveToPlace(o.position[0], o.position[1])}"
-                class=""
-              >
-                ${o.title}
-              </li>
-            `;
+          ${keys.map((key) => {
+            if (this.searchPlacesFound[key].length) {
+              return html`
+                <span class="caption uppercase bold block mt-16px">${key}</span>
+                ${this.searchPlacesFound[key].map((o) => {
+                  return html`
+                    <li
+                      @click="${() =>
+                        handleMoveToPlace(o.position[0], o.position[1])}"
+                      class=""
+                    >
+                      ${o.title}
+                    </li>
+                  `;
+                })}
+              `;
+            }
+            return html``;
           })}
         </ul>
       </div>
     `;
+  };
+
+  const checkIfPlacesFound = (results) => {
+    const keys = Object.keys(results);
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i];
+      if (results[k].length) {
+        return true;
+      }
+    }
+    return false;
   };
 
   return html`
@@ -95,7 +115,7 @@ export function render_searchPlaces() {
         .hideFilter="${true}"
       ></wc-searchbar>
 
-      ${this.searchPlacesFound.length && this.hereMapsQuery.length
+      ${checkIfPlacesFound(this.searchPlacesFound) && this.hereMapsQuery.length
         ? render__places_list()
         : ""}
     </div>

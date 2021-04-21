@@ -1,6 +1,19 @@
 @import "./shared_components/baseline/colors.scss";
 @import "./shared_components/baseline/typography.scss";
 
+.caption {
+  @include MixinCaption;
+  &.uppercase {
+    text-transform: uppercase;
+  }
+  &.bold {
+    font-weight: 700;
+  }
+  &.block {
+    display: block;
+  }
+}
+
 .meteo_generic {
   font-family: var(
     --webcomp-routeplanner-font-family,
@@ -88,8 +101,8 @@
     background-color: $white;
     overflow-y: auto;
 
-    &.isSmallWidth {
-    }
+    // &.isSmallWidth {
+    // }
     &.isSmallHeight {
       height: calc(var(--height) - 66px - 86px);
     }
