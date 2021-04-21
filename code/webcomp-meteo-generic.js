@@ -74,10 +74,6 @@ class MeteoGeneric extends BaseMeteoGeneric {
     });
   }
 
-  handleSearch = (searchValue) => {
-    console.log(searchValue);
-  };
-
   handleSearchBarFilterAction = () => {
     this.showFilters = !this.showFilters;
   };
