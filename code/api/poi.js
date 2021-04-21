@@ -27,11 +27,11 @@ export async function request__get_coordinates_from_search(query) {
 
       // Mobility MeteoStation
 
+      // try Gargazzone as query
       const mobilityMeteoStationRequest = await fetch(
         `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=and(sname.ire."${query}",sactive.eq.true)&limit=-1`
       );
       const mobilityMeteoStationResponse = await mobilityMeteoStationRequest.json();
-      console.log(mobilityMeteoStationResponse);
       let formattedMobilityMeteoStationData = [];
       if (
         mobilityMeteoStationResponse.data &&
@@ -48,7 +48,6 @@ export async function request__get_coordinates_from_search(query) {
         });
       }
 
-      // try Gargazzone
       // ---
 
       // Tourism
