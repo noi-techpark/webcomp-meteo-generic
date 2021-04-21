@@ -121,7 +121,6 @@ export async function drawStationsOnMap() {
 
         if (details && Object.keys(details.data).length !== 0) {
           const data = Object.values(details.data.MeteoStation.stations)[0];
-          console.log(data);
           if (data !== undefined) {
             this.mobilityStationMeasurements = data;
           } else {
