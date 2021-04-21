@@ -157,7 +157,7 @@ export async function drawStationsOnMap() {
         [marker_position.lat, marker_position.lng],
         {
           icon: station_icon,
-          zIndexOffset: 10,
+          zIndexOffset: 1000,
         }
       );
       const action = () => {
