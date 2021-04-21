@@ -33,8 +33,6 @@ export async function request__get_coordinates_from_search(query) {
         `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*/latest?limit=-1&where=or(smetadata.name_it.ire."${query}",smetadata.name_en.ire."${query}",smetadata.name_de.ire."${query}",sname.ire."${query}")`
       );
       const mobilityData = await mobilityReponse.json();
-      console.log(query, mobilityData);
-
       let formattedMobilityData = [];
       if (
         mobilityData.data &&
@@ -52,11 +50,11 @@ export async function request__get_coordinates_from_search(query) {
       }
 
       // HereMaps
-      console.log(formattedTourismData, formattedMobilityData);
+
       const noOdhResultsCondition = !(
         formattedTourismData.length || formattedMobilityData.length
       );
-      console.log(noOdhResultsCondition);
+
       let formattedHereData = [];
       if (process.env.HEREMAPS_API_KEY && noOdhResultsCondition) {
         const hereResponse = await fetch(
