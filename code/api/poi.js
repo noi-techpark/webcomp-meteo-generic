@@ -29,7 +29,7 @@ export async function request__get_coordinates_from_search(query) {
 
       // try Gargazzone as query
       const mobilityMeteoStationRequest = await fetch(
-        `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=and(sname.ire."${query}",sactive.eq.true)&limit=-1`
+        `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=and(or(smetadata.name_it.ire."${query}",smetadata.name_en.ire."${query}",smetadata.name_de.ire."${query}",sname.ire."${query}"),sactive.eq.true)&limit=-1`
       );
       const mobilityMeteoStationResponse = await mobilityMeteoStationRequest.json();
       let formattedMobilityMeteoStationData = [];
