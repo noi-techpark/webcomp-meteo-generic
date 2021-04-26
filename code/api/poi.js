@@ -42,7 +42,8 @@ export async function request__get_coordinates_from_search(query) {
         ).map((item) => {
           return {
             position: [item.scoordinate.y, item.scoordinate.x],
-            title: item.smetadata[`name_${this.language}`],
+            title:
+              item.smetadata[`name_${this.language}`] || item.sname || "---",
           };
         });
       }
