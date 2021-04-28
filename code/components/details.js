@@ -1,6 +1,6 @@
 import { html } from "lit-element";
 import { t } from "../translations";
-import { CUSTOMstationCompetenceTypes } from "../webcomp-meteo-generic";
+import { CUSTOMstationCompetenceTypes } from "../odh-meteo-generic";
 
 export function render_details() {
   const { CUSTOMstationCompetence } = this.currentStation;

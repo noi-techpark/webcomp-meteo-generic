@@ -1,5 +1,5 @@
 {
-  "name": "webcomp-meteo-generic",
+  "name": "odh-meteo-generic",
   "private": true,
   "dependencies": {
     "@glidejs/glide": "^3.4.1",

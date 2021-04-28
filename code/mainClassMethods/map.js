@@ -10,7 +10,7 @@ import {
 import stationIcon from "../assets/station.svg";
 import user__marker from "../assets/user.svg";
 import { getLatLongFromStationDetail } from "../utils";
-import { CUSTOMstationCompetenceTypes } from "../webcomp-meteo-generic";
+import { CUSTOMstationCompetenceTypes } from "../odh-meteo-generic";
 
 export async function initializeMap() {
   const DefaultIcon = Leaflet.icon({

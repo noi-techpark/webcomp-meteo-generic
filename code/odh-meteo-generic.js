@@ -235,5 +235,5 @@ class MeteoGeneric extends BaseMeteoGeneric {
   }
 }
 
-customElements.get("webcomp-meteo-generic") ||
-  customElements.define("webcomp-meteo-generic", MeteoGeneric);
+customElements.get("odh-meteo-generic") ||
+  customElements.define("odh-meteo-generic", MeteoGeneric);

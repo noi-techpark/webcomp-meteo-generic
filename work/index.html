@@ -43,7 +43,7 @@
             enabledStations="3C461DDEDCE84E25BB8125B0E051344C,00390SF"
           </pre>
           <div style="height: 500px">
-            <webcomp-meteo-generic
+            <odh-meteo-generic
               width="100%"
               height="100%"
               fontFamily="Arial"
@@ -53,7 +53,7 @@
               -startingTab="onTheMountains"
               -enabledStations="00390SF"
               -enabledStations="3C461DDEDCE84E25BB8125B0E051344C,00390SF"
-            ></webcomp-meteo-generic>
+            ></odh-meteo-generic>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
             -enabledStations="3C461DDEDCE84E25BB8125B0E051344C"
             visibleParameters='["air-temperature","temperature","precipitation"]'
           </pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="100%"
             height="500px"
             fontFamily="Arial"
@@ -82,13 +82,13 @@
             -enabledStations="00390SF"
             -enabledStations="3C461DDEDCE84E25BB8125B0E051344C"
             visibleParameters='["air-temperature","temperature","precipitation"]'
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
       </div> -->
       <!-- <div class="row">
         <div class="col-12 mt-5">
           <pre>visibleTabs='["maps"]' -- wrong value</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="100%"
             height="500px"
             fontFamily="Arial"
@@ -97,13 +97,13 @@
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             visibleTabs='["map"]'
             startingTab="maps"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
       </div>
       <div class="row">
         <div class="col-6 mt-5">
           <pre>No startingTab but visibleTabs has values</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="100%"
             height="500px"
             fontFamily="Arial"
@@ -111,11 +111,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             visibleTabs='["byArea"]'
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
         <div class="col-6 mt-5">
           <pre>startingTab but NO visibleTabs</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="100%"
             height="500px"
             fontFamily="Arial"
@@ -123,13 +123,13 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             startingTab="byArea"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
       </div>
       <div class="row">
         <div class="col-12 mt-5">
           <pre>width="100%" height="500px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="100%"
             height="500px"
             fontFamily="Arial"
@@ -137,13 +137,13 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
       </div>
       <div class="row">
         <div class="col-6 mt-5">
           <pre>width="300px" height="300px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="300px"
             height="300px"
             fontFamily="Arial"
@@ -151,11 +151,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
         <div class="col-6 mt-5">
           <pre>width="350px" height="350px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="350px"
             height="350px"
             fontFamily="Arial"
@@ -163,11 +163,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
         <div class="col-6 mt-5">
           <pre>width="400px" height="400px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="400px"
             height="400px"
             fontFamily="Arial"
@@ -175,11 +175,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
         <div class="col-6 mt-5">
           <pre>width="500px" height="500px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="500px"
             height="500px"
             fontFamily="Arial"
@@ -187,11 +187,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
         <div class="col-12 mt-5">
           <pre>width="600px" height="600px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="600px"
             height="600px"
             fontFamily="Arial"
@@ -199,11 +199,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
         <div class="col-12 mt-5">
           <pre>width="700px" height="700px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="700px"
             height="700px"
             fontFamily="Arial"
@@ -211,11 +211,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
         <div class="col-12 mt-5">
           <pre>width="800px" height="800px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="800px"
             height="800px"
             fontFamily="Arial"
@@ -223,11 +223,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
         <div class="col-12 mt-5">
           <pre>width="900px" height="900px"</pre>
-          <webcomp-meteo-generic
+          <odh-meteo-generic
             width="900px"
             height="900px"
             fontFamily="Arial"
@@ -235,11 +235,11 @@
             mapAttribution="&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
             -currentLocation='{ "lat": 46.31, "lng": 11.26 }'
             tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          ></webcomp-meteo-generic>
+          ></odh-meteo-generic>
         </div>
       </div> -->
     </div>
 
-    <script src="/scripts/webcomp-meteo-generic.js"></script>
+    <script src="/scripts/odh-meteo-generic.js"></script>
   </body>
 </html>
