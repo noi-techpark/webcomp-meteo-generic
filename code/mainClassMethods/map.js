@@ -2,14 +2,14 @@ import Leaflet from "leaflet";
 import leaflet_mrkcls from "leaflet.markercluster";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import user__marker from "../assets/user.svg";
 import {
   requestMobilityMeteoStationLatestDetails,
   requestMobilityMeteoStationSelectedData,
   requestTourismMeasuringpoint,
 } from "../api/meteoStations";
-import { getLatLongFromStationDetail, get_system_language } from "../utils";
 import stationIcon from "../assets/station.svg";
+import user__marker from "../assets/user.svg";
+import { getLatLongFromStationDetail } from "../utils";
 import { CUSTOMstationCompetenceTypes } from "../webcomp-meteo-generic";
 
 export async function initializeMap() {
@@ -78,11 +78,8 @@ export async function drawStationsOnMap() {
         };
       })
     : [];
-  // console.log({
-  //   mobilityStations: flatMobilityStations,
-  // });
+
   const tourismStations = await requestTourismMeasuringpoint();
-  // console.log({ tourismStations: tourismStations[0] });
 
   const enabledStations = this.enabledStations
     ? this.enabledStations.split(",")
@@ -105,10 +102,13 @@ export async function drawStationsOnMap() {
         [marker_position.lat, marker_position.lng],
         {
           icon: station_icon,
+          zIndexOffset: 1000,
         }
       );
 
       const action = async () => {
+        this.searchPlacesFound = {};
+        this.hereMapsQuery = "";
         this.currentStation = {
           ...station,
           CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.mobility,
@@ -118,16 +118,19 @@ export async function drawStationsOnMap() {
           scode: station.scode,
           tname: station.tname,
         });
-        if (details) {
+
+        if (details && Object.keys(details.data).length !== 0) {
           const data = Object.values(details.data.MeteoStation.stations)[0];
           if (data !== undefined) {
             this.mobilityStationMeasurements = data;
           } else {
             this.mobilityStationMeasurements = [];
           }
+          this.detailsOpen = true;
+        } else {
+          this.mobilityStationMeasurements = [];
+          this.detailsOpen = true;
         }
-
-        this.detailsOpen = true;
       };
 
       marker.on("mousedown", action);
@@ -154,9 +157,12 @@ export async function drawStationsOnMap() {
         [marker_position.lat, marker_position.lng],
         {
           icon: station_icon,
+          zIndexOffset: 1000,
         }
       );
       const action = () => {
+        this.searchPlacesFound = {};
+        this.hereMapsQuery = "";
         this.currentStation = {
           ...station,
           CUSTOMstationCompetence: CUSTOMstationCompetenceTypes.tourism,

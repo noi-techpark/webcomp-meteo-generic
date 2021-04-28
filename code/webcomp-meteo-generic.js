@@ -74,10 +74,6 @@ class MeteoGeneric extends BaseMeteoGeneric {
     });
   }
 
-  handleSearch = (searchValue) => {
-    console.log(searchValue);
-  };
-
   handleSearchBarFilterAction = () => {
     this.showFilters = !this.showFilters;
   };
@@ -98,10 +94,16 @@ class MeteoGeneric extends BaseMeteoGeneric {
           this.shadowRoot.querySelector(".meteo_generic").clientWidth <= 400;
       }
     }
+
+    let height = `${this.height}`;
+
     if (this.height.includes("px")) {
       isSmallHeight = parseInt(this.height.replace("px")) <= 400;
     } else if (this.height.includes("%")) {
       if (this.shadowRoot.querySelector(".meteo_generic")) {
+        height = `${
+          this.shadowRoot.querySelector(".meteo_generic").clientHeight
+        }px`;
         isSmallHeight =
           this.shadowRoot.querySelector(".meteo_generic").clientHeight <= 400;
       }
@@ -134,7 +136,7 @@ class MeteoGeneric extends BaseMeteoGeneric {
       <style>
         * {
           --width: ${this.width};
-          --height: ${this.height};
+          --height: ${height};
           --w-c-font-family: ${this.fontFamily};
         }
       </style>
