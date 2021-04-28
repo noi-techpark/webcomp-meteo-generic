@@ -4,6 +4,8 @@
 
 All the meteorological features in one component.
 
+Do you want to see it in action? Go to our [web component store](https://webcomponents.opendatahub.bz.it/webcomponent/8ed52ba6-ce1d-45c8-83bb-062d688b4326)!
+
 - [Generic Meteorology](#generic-meteorology)
   - [Usage](#usage)
     - [Attributes](#attributes)
