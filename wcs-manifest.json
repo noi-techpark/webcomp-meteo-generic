@@ -20,10 +20,16 @@
     }
   ],
   "image": "wcs-logo.png",
-  "searchTags": ["weather","meteo"],
+  "searchTags": [
+    "weather",
+    "meteo"
+  ],
   "dist": {
     "basePath": "dist",
-    "files": ["odh-meteo-generic.js"],
+    "files": [
+      "odh-meteo-generic.js",
+      "odh-meteo-generic.js.LICENSE.txt"
+    ],
     "scripts": [
       {
         "file": "odh-meteo-generic.js",
@@ -58,7 +64,11 @@
         "label": "Two letter key for the language to be used, if omitted the widget will use the language of the browser (navigator.language[?s]) if supported. Fallback is `en`",
         "required": false,
         "options": {
-          "values": ["en", "de", "it"],
+          "values": [
+            "en",
+            "de",
+            "it"
+          ],
           "default": "en"
         }
       },
