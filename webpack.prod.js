@@ -4,10 +4,10 @@ const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   mode: "production",
-  entry: path.resolve(__dirname, "./code/webcomp-meteo-generic.js"),
+  entry: path.resolve(__dirname, "./code/odh-meteo-generic.js"),
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "webcomp-meteo-generic.js",
+    filename: "odh-meteo-generic.js",
   },
   plugins: [new Dotenv()],
   module: {

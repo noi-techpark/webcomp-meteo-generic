@@ -9,7 +9,7 @@ import {
   isMobile,
   LANGUAGES,
 } from "./utils";
-import MeteoGenericStyle from "./webcomp-meteo-generic.scss";
+import MeteoGenericStyle from "./odh-meteo-generic.scss";
 
 export class BaseMeteoGeneric extends LitElement {
   constructor() {

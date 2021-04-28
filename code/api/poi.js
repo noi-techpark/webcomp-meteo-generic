@@ -27,9 +27,8 @@ export async function request__get_coordinates_from_search(query) {
 
       // Mobility MeteoStation
 
-      // try Gargazzone as query
       const mobilityMeteoStationRequest = await fetch(
-        `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=and(sname.ire."${query}",sactive.eq.true)&limit=-1`
+        `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=and(or(smetadata.name_it.ire."${query}",smetadata.name_en.ire."${query}",smetadata.name_de.ire."${query}",sname.ire."${query}"),sactive.eq.true)&limit=-1`
       );
       const mobilityMeteoStationResponse = await mobilityMeteoStationRequest.json();
       let formattedMobilityMeteoStationData = [];
@@ -43,7 +42,8 @@ export async function request__get_coordinates_from_search(query) {
         ).map((item) => {
           return {
             position: [item.scoordinate.y, item.scoordinate.x],
-            title: item.smetadata[`name_${this.language}`],
+            title:
+              item.smetadata[`name_${this.language}`] || item.sname || "---",
           };
         });
       }
@@ -73,33 +73,9 @@ export async function request__get_coordinates_from_search(query) {
         });
       }
 
-      // Mobility
-
-      const mobilityReponse = await fetch(
-        `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*/latest?limit=-1&where=or(smetadata.name_it.ire."${query}",smetadata.name_en.ire."${query}",smetadata.name_de.ire."${query}",sname.ire."${query}")`
-      );
-      const mobilityData = await mobilityReponse.json();
-      let formattedMobilityData = [];
-      if (
-        mobilityData.data &&
-        mobilityData.data.MeteoStation &&
-        mobilityData.data.MeteoStation.stations
-      ) {
-        formattedMobilityData = Object.values(
-          mobilityData.data.MeteoStation.stations
-        ).map((item) => {
-          return {
-            position: [item.scoordinate.y, item.scoordinate.x],
-            title: item.smetadata[`name_${this.language}`],
-          };
-        });
-      }
-
       // HereMaps
 
-      const noOdhResultsCondition = !(
-        formattedTourismData.length || formattedMobilityData.length
-      );
+      const noOdhResultsCondition = !formattedTourismData.length;
 
       let formattedHereData = [];
       if (process.env.HEREMAPS_API_KEY && noOdhResultsCondition) {
@@ -126,11 +102,7 @@ export async function request__get_coordinates_from_search(query) {
           ...formattedMobilityMeteoStationData,
           ...formattedTourismMeasuringPoints,
         ],
-        "Other results": [
-          ...formattedTourismData,
-          ...formattedMobilityData,
-          ...formattedHereData,
-        ],
+        "Other results": [...formattedTourismData, ...formattedHereData],
       };
     }
     this.isLoading = false;

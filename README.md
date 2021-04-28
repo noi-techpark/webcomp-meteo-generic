@@ -1,23 +1,46 @@
-# Meteo Generic - Web component
+# Generic Meteorology
 
 [![REUSE status](https://api.reuse.software/badge/github.com/noi-techpark/webcomp-meteo-generic)](https://api.reuse.software/info/github.com/noi-techpark/webcomp-meteo-generic)
 
-All the meteo features in one component.
+All the meteorological features in one component.
 
-## Table of contents
+- [Generic Meteorology](#generic-meteorology)
+  - [Usage](#usage)
+    - [Attributes](#attributes)
+      - [width](#width)
+      - [height](#height)
+      - [fontFamily](#fontfamily)
+      - [language](#language)
+      - [mapAttribution](#mapattribution)
+      - [currentLocation](#currentlocation)
+      - [tiles-url](#tiles-url)
+      - [enabledStations](#enabledstations)
+      - [visibleParameters](#visibleparameters)
+      - [visibleTabs](#visibletabs)
+      - [startingTab](#startingtab)
+    - [Prerequisites](#prerequisites)
+    - [Source code](#source-code)
+    - [.env](#env)
+    - [Dependencies](#dependencies)
+    - [Build](#build)
+  - [Docker environment](#docker-environment)
+    - [Installation](#installation)
+    - [Dependenices](#dependenices)
+    - [Start and stop the containers](#start-and-stop-the-containers)
+    - [Running commands inside the container](#running-commands-inside-the-container)
+  - [Information](#information)
+    - [Support](#support)
+    - [Contributing](#contributing)
+    - [Documentation](#documentation)
+    - [Boilerplate](#boilerplate)
+    - [License](#license)
 
-- [Usage](#usage)
-- [Gettings started](#getting-started)
-- [Deployment](#deployment)
-- [Docker environment](#docker-environment)
-- [Information](#information)
-<!-- - [Tests and linting](#tests-and-linting) -->
 
 ## Usage
 
-Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTML and define the web component like this:
+Include the web component script file `dist/odh-meteo-generic.js` in your HTML and define the web component like this:
 ```html
-<webcomp-meteo-generic
+<odh-meteo-generic
     width="100%"
     height="800px"
     fontFamily="Arial"
@@ -27,7 +50,7 @@ Include the webcompscript file `dist/webcomp-meteo-generic.js` in your HTML and 
     tiles-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     enabledStations="3C461DDEDCE84E25BB8125B0E051344C,00390SF"
     visibleParameters='["air-temperature","temperature","precipitation"]'>
-</webcomp-meteo-generic>
+</odh-meteo-generic>
 ```
 
 ### Attributes
