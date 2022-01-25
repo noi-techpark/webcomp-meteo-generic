@@ -1,6 +1,7 @@
 # Generic Meteorology
 
 [![REUSE status](https://api.reuse.software/badge/github.com/noi-techpark/webcomp-meteo-generic)](https://api.reuse.software/info/github.com/noi-techpark/webcomp-meteo-generic)
+[![CI](https://github.com/noi-techpark/webcomp-meteo-generic/actions/workflows/ci.yml/badge.svg)](https://github.com/noi-techpark/webcomp-meteo-generic/actions/workflows/ci.yml)
 
 All the meteorological features in one component.
 
