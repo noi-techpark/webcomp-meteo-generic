@@ -3,6 +3,7 @@
   "description": "A widget that allows to easily integrate the meteo information (both real time and forecast) of all South Tyrol or near a certain location.",
   "descriptionAbstract": "This web component shows all meteo data (real time and forecasts) provided by the Open Data Hub.",
   "license": "AGPL-3.0-or-later",
+  "repositoryUrl" : "https://github.com/noi-techpark/webcomp-meteo-generic.git",
   "copyrightHolders": [
     {
       "name": "NOI",
