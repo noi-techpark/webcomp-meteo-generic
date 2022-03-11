@@ -180,7 +180,7 @@ export async function drawStationsOnMap() {
 
   const stations_layer = Leaflet.layerGroup(stations_layer_array, {});
 
-  this.layer_stations = new leaflet_mrkcls.MarkerClusterGroup({
+  this.layer_stations = new Leaflet.MarkerClusterGroup({
     showCoverageOnHover: false,
     chunkedLoading: true,
     iconCreateFunction(cluster) {
