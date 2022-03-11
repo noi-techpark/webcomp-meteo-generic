@@ -1,5 +1,5 @@
 import { isArray } from "lodash";
-import { BASE_PATH_MOBILITY, BASE_PATH_TOURISM } from "./config";
+import { BASE_PATH_MOBILITY, BASE_PATH_TOURISM, ORIGIN } from "./config";
 
 export async function request__get_coordinates_from_search(query) {
   this.isLoading = true;
@@ -10,7 +10,7 @@ export async function request__get_coordinates_from_search(query) {
 
       // Tourism meteo measuring points
       const tourismMeasuringPointsRequest = await fetch(
-        `${BASE_PATH_TOURISM}/Weather/Measuringpoint?searchfilter=${query}`
+        `${BASE_PATH_TOURISM}/Weather/Measuringpoint?searchfilter=${query}&` + ORIGIN
       );
       const tourismMeasuringPointsResponse = await tourismMeasuringPointsRequest.json();
       let formattedTourismMeasuringPoints = [];
@@ -28,7 +28,7 @@ export async function request__get_coordinates_from_search(query) {
       // Mobility MeteoStation
 
       const mobilityMeteoStationRequest = await fetch(
-        `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=and(or(smetadata.name_it.ire."${query}",smetadata.name_en.ire."${query}",smetadata.name_de.ire."${query}",sname.ire."${query}"),sactive.eq.true)&limit=-1`
+        `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=and(or(smetadata.name_it.ire."${query}",smetadata.name_en.ire."${query}",smetadata.name_de.ire."${query}",sname.ire."${query}"),sactive.eq.true)&limit=-1&` + ORIGIN
       );
       const mobilityMeteoStationResponse = await mobilityMeteoStationRequest.json();
       let formattedMobilityMeteoStationData = [];
@@ -53,7 +53,7 @@ export async function request__get_coordinates_from_search(query) {
       // Tourism
 
       const tourismResponse = await fetch(
-        `https://tourism.opendatahub.bz.it/api/Poi?pagenumber=1&pagesize=10000&poitype=511&searchfilter=${query}`,
+        `${BASE_PATH_TOURISM}/Poi?pagenumber=1&pagesize=10000&poitype=511&searchfilter=${query}&` + ORIGIN,
         {
           method: "GET",
           headers: new Headers({
@@ -80,7 +80,7 @@ export async function request__get_coordinates_from_search(query) {
       let formattedHereData = [];
       if (process.env.HEREMAPS_API_KEY && noOdhResultsCondition) {
         const hereResponse = await fetch(
-          `https://places.ls.hereapi.com/places/v1/browse?apiKey=${process.env.HEREMAPS_API_KEY}&in=46.31,11.26;r=${r}&q=${query}`,
+          `https://places.ls.hereapi.com/places/v1/browse?apiKey=${process.env.HEREMAPS_API_KEY}&in=46.31,11.26;r=${r}&q=${query}&` + ORIGIN,
           {
             method: "GET",
             headers: new Headers({

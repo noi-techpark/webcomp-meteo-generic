@@ -1,4 +1,4 @@
-export const API_BASE_PATH = `https://tourism.opendatahub.bz.it/api/Weather`;
+export const API_BASE_PATH = `https://tourism.opendatahub.bz.it/v1/Weather`;
 
 /** City id */
 export const localities_class = {

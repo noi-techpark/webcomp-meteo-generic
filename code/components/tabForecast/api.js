@@ -1,4 +1,6 @@
 import { API_BASE_PATH } from "./constants";
+import { ORIGIN } from "../../api/config";
+
 
 export async function basic_weather_request() {
   let language =
@@ -7,7 +9,7 @@ export async function basic_weather_request() {
     this.language_translation === "de"
       ? this.language_translation
       : "en";
-  let request = await fetch(this.base_url + `?language=${language}`, {
+  let request = await fetch(this.base_url + `?language=${language}&` + ORIGIN, {
     method: "GET",
     headers: new Headers({
       Accept: "application/json",
@@ -31,7 +33,7 @@ export async function districts_details_api_call() {
   let tmp_districs_details = [];
   for (let i = 1; i < 8; i++) {
     let request = await fetch(
-      `${API_BASE_PATH}/District?language=${language}&locfilter=${i}`,
+      `${API_BASE_PATH}/District?language=${language}&locfilter=${i}&` + ORIGIN,
       {
         method: "GET",
         headers: new Headers({

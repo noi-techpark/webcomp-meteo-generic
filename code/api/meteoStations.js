@@ -1,8 +1,8 @@
-import { BASE_PATH_MOBILITY, BASE_PATH_TOURISM } from "./config";
+import { BASE_PATH_MOBILITY, BASE_PATH_TOURISM, ORIGIN } from "./config";
 
 export const requestTourismMeasuringpoint = async () => {
   try {
-    const request = await fetch(`${BASE_PATH_TOURISM}/Weather/Measuringpoint`);
+    const request = await fetch(`${BASE_PATH_TOURISM}/Weather/Measuringpoint?` + ORIGIN);
     if (request.status !== 200) {
       throw new Error(request.statusText);
     }
@@ -16,7 +16,7 @@ export const requestTourismMeasuringpoint = async () => {
 export const requestMobilityMeteoStationSelectedData = async () => {
   try {
     const request = await fetch(
-      `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=sactive.eq.true&limit=-1`
+      `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*?where=sactive.eq.true&limit=-1&`+ ORIGIN
     );
     if (request.status !== 200) {
       throw new Error(request.statusText);
@@ -34,7 +34,7 @@ export const requestMobilityMeteoStationLatestDetails = async ({
 }) => {
   try {
     const request = await fetch(
-      `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*/latest?limit=-1&where=scode.eq.${scode}`
+      `${BASE_PATH_MOBILITY}/tree,node/MeteoStation/*/latest?limit=-1&where=scode.eq.${scode}&` + ORIGIN
     );
     if (request.status !== 200) {
       throw new Error(request.statusText);
