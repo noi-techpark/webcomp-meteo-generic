@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 const BASE_PATH_WEATHER = 'https://tourism.opendatahub.bz.it/api/Weather';
 
 export async function district_details_api_call(id) {

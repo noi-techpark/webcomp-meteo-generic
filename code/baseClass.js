@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import leafletStyle from "leaflet/dist/leaflet.css";
 import { css, LitElement, unsafeCSS } from "lit-element";
 import { debounce as _debounce } from "lodash";

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import { isArray } from "lodash";
 import { BASE_PATH_MOBILITY, BASE_PATH_TOURISM, ORIGIN } from "./config";
 
