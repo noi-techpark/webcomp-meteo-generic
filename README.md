@@ -12,7 +12,7 @@ SPDX-License-Identifier: CC0-1.0
 
 All the meteorological features in one component.
 
-Do you want to see it in action? Go to our [web component store](https://webcomponents.opendatahub.bz.it/webcomponent/8ed52ba6-ce1d-45c8-83bb-062d688b4326)!
+Do you want to see it in action? Go to our [web component store](https://webcomponents.opendatahub.com/webcomponent/8ed52ba6-ce1d-45c8-83bb-062d688b4326)!
 
 - [Generic Meteorology](#generic-meteorology)
   - [Usage](#usage)
@@ -263,7 +263,7 @@ docker-compose run --rm app /bin/bash -c "npm run start"
 
 ### Support
 
-ToDo: For support, please contact [help@opendatahub.bz.it](mailto:help@opendatahub.bz.it).
+ToDo: For support, please contact [help@opendatahub.com](mailto:help@opendatahub.com).
 
 ### Contributing
 
