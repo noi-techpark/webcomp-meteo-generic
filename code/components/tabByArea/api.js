@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-const BASE_PATH_WEATHER = 'https://tourism.opendatahub.bz.it/api/Weather';
+const BASE_PATH_WEATHER = 'https://tourism.opendatahub.com/api/Weather';
 
 export async function district_details_api_call(id) {
   this.is_loading = true;

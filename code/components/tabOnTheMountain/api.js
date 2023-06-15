@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-// const BASE_PATH_WEATHER = 'https://tourism.opendatahub.bz.it/api/Weather';
+// const BASE_PATH_WEATHER = 'https://tourism.opendatahub.com/api/Weather';
 // import { html } from "lit-element";
 // import Glide from "@glidejs/glide";
 
