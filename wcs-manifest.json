@@ -3,7 +3,7 @@
   "description": "A widget that allows to easily integrate the meteo information (both real time and forecast) of all South Tyrol or near a certain location.",
   "descriptionAbstract": "This web component shows all meteo data (real time and forecasts) provided by the Open Data Hub.",
   "license": "AGPL-3.0-or-later",
-  "repositoryUrl" : "https://github.com/noi-techpark/webcomp-meteo-generic.git",
+  "repositoryUrl": "https://github.com/noi-techpark/webcomp-meteo-generic.git",
   "shortName": "generic-meteorology",
   "copyrightHolders": [
     {
@@ -98,7 +98,7 @@
         "label": "Attribution text for the tiles, can contain html (without double-quotes)",
         "required": true,
         "options": {
-          "default": "&copy; <a href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
+          "default": "<a target='_blank' href='https://opendatahub.com'>OpenDataHub.com </a> | &copy; <a target='_blank' href='https://openstreetmap.org/copyright'>OpenStreetMap contributors</a>"
         }
       },
       {
