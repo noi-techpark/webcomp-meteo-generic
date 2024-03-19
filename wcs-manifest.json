@@ -24,7 +24,7 @@
   "image": "wcs-logo.png",
   "searchTags": [
     "weather",
-    "meteo"
+    "map"
   ],
   "dist": {
     "basePath": "dist",
