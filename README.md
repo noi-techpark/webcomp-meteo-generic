@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 SPDX-License-Identifier: CC0-1.0
 -->
 
-# Generic Meteorology
+# Generic Meteorology 
 
 [![REUSE Compliance](https://github.com/noi-techpark/webcomp-meteo-generic/actions/workflows/reuse.yml/badge.svg)](https://github.com/noi-techpark/odh-docs/wiki/REUSE#badges)
 [![REUSE status](https://api.reuse.software/badge/github.com/noi-techpark/webcomp-meteo-generic)](https://api.reuse.software/info/github.com/noi-techpark/webcomp-meteo-generic)
