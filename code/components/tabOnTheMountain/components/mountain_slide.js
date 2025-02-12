@@ -26,7 +26,9 @@ export function render__mountain_slide(
     Southdesc,
     Northcode,
     Northdesc,
-    Winddesc
+    Winddesc,
+    NorthImgUrl,
+    SouthImgUrl
   } = {},
   day_code
 ) {
@@ -104,11 +106,11 @@ export function render__mountain_slide(
           <h3>${p.mountain_weather[this.language_translation]}</h3>
           <div class="meteo_mountain_widget__slide_section__north_south">
             <div class="meteo_mountain_widget__slide_section__north_south__element">
-              <img src="https://www.suedtirol.info/static/img/weatherIcons/${Southcode}.svg" />
+              <img src="${SouthImgUrl}" />
               <p><strong> ${p.main_chain_of_the_alps[this.language_translation]}</strong><br />${Southdesc}</p>
             </div>
             <div class="meteo_mountain_widget__slide_section__north_south__element">
-              <img src="https://www.suedtirol.info/static/img/weatherIcons/${Northcode}.svg" />
+              <img src="${NorthImgUrl}" />
               <p><strong>${p.dolomites_ortler_range[this.language_translation]}</strong><br />${Northdesc}</p>
             </div>
           </div>
