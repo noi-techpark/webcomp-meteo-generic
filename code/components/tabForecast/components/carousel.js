@@ -14,19 +14,19 @@ function render__carousel__card(header_img_src, location, today, today_string, l
       <div class="carousel__card">
         <div class="carousel__card__header_img" style="background-image: url('${header_img_src}');"></div>
         <div class="carousel__card__body">
-          ${today && today.WeatherCode
+          ${today && today.WeatherImgUrl
             ? html`
                 <div class="carousel__card__body__weather_icon">
                   <img
                     style=""
-                    src=${`https://www.suedtirol.info/static/img/weatherIcons/${today ? today.WeatherCode : ''}.svg`}
+                    src=${today.WeatherImgUrl}
                   />
                 </div>
               `
             : null}
           <div
             class="carousel__card__body__text_container"
-            style="${today && !today.WeatherCode ? 'margin-left: 8px;' : ''}"
+            style="${today && !today.WeatherImgUrl ? 'margin-left: 8px;' : ''}"
           >
             <div class="carousel__card__body__v_align_middle">
               <p class="carousel__card__body__location">${location}</p>

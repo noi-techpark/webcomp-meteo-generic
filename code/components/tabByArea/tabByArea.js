@@ -105,7 +105,7 @@ class WeatherForecast extends LitElement {
         </div>
         <div class="forecast">
           ${slice_of_bezirksforecast.map(
-            ({ date, WeatherCode, MinTemp, MaxTemp }) => {
+            ({ date, WeatherCode, MinTemp, MaxTemp, WeatherImgUrl }) => {
               return html`
                 <div class="forecast__item">
                   <p class="forecast__item__day">
@@ -116,7 +116,7 @@ class WeatherForecast extends LitElement {
                     )}
                   </p>
                   <img
-                    src="${WEATHER_ICON_SVG_PATH}/${WeatherCode}.svg"
+                    src="${WeatherImgUrl}"
                     class="forecast__item__icon"
                   />
                   <p class="forecast__item__temp">

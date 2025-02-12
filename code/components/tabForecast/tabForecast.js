@@ -199,25 +199,27 @@ class Meteo extends LitElement {
               ${new_suedtirol_map(this.language_translation)}
               ${placeholder_mod
                 ? placeholder_places.map(
-                    ({ Id, CityName, Maxtemp, MinTemp, WeatherCode }) => {
+                    ({ Id, CityName, Maxtemp, MinTemp, WeatherCode, WeatherImgUrl}) => {
                       return this.render__location(
                         localities_class[Id],
                         CityName.split("/")[0],
                         Maxtemp,
                         MinTemp,
                         WeatherCode,
+                        WeatherImgUrl,
                         placeholder_mod
                       );
                     }
                   )
                 : localities_today.map(
-                    ({ Id, CityName, Maxtemp, MinTemp, WeatherCode }) => {
+                    ({ Id, CityName, Maxtemp, MinTemp, WeatherCode, WeatherImgUrl }) => {
                       return this.render__location(
                         localities_class[Id],
                         CityName.split("/")[0],
                         Maxtemp,
                         MinTemp,
-                        WeatherCode
+                        WeatherCode,
+                        WeatherImgUrl
                       );
                     }
                   )}
@@ -228,8 +230,8 @@ class Meteo extends LitElement {
         <div class="forecast">
           ${Forecast && this.selected_district_id === 0
             ? Forecast.slice(0, this.forecast_days).map(
-                ({ date, Weathercode, TempMinmin, TempMaxmax }) => {
-                  let weather_icon = `${WEATHER_ICON_PATH}/${Weathercode}.svg`;
+                ({ date, Weathercode, TempMinmin, TempMaxmax, WeatherImgUrl }) => {
+                  let weather_icon = `${WeatherImgUrl}`;
                   return html`
                     <div class="forecast__item">
                       <p class="forecast__item__day">
@@ -263,14 +265,14 @@ class Meteo extends LitElement {
                   this.forecast_days + 1
                 );
                 return slice_of_bezirksforecast.map(
-                  ({ date, WeatherCode, MinTemp, MaxTemp }) => {
+                  ({ date, WeatherCode, MinTemp, MaxTemp, WeatherImgUrl }) => {
                     return html`
                       <div class="forecast__item">
                         <p class="forecast__item__day">
                           ${moment(date).format("dddd")}
                         </p>
                         <img
-                          src="${WEATHER_ICON_PATH}/${WeatherCode}.svg"
+                          src="${WeatherImgUrl}"
                           class="forecast__item__icon"
                         />
                         <p class="forecast__item__temp">
