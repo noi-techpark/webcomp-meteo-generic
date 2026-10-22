@@ -21,18 +21,19 @@ p {
 .meteo_mountain_widget {
   font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
   position: relative;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 24px;
 }
 
 .meteo_mountain_widget__title {
   @include MixinH3;
   color: $black;
   text-align: center;
-  margin-top: 64px;
+  margin-top: 16px;
   margin-bottom: 0;
   @media only screen and (min-width: 768px) {
-    margin-top: 100px;
+    margin-top: 20px;
     margin-bottom: 0;
   }
 }

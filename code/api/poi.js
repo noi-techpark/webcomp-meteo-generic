@@ -19,14 +19,25 @@ export async function request__get_coordinates_from_search(query) {
       const tourismMeasuringPointsResponse = await tourismMeasuringPointsRequest.json();
       let formattedTourismMeasuringPoints = [];
       if (isArray(tourismMeasuringPointsResponse)) {
-        formattedTourismMeasuringPoints = tourismMeasuringPointsResponse.map(
-          (o) => {
+        formattedTourismMeasuringPoints = tourismMeasuringPointsResponse
+          .filter((o) => {
+            const gps = o.GpsInfo && o.GpsInfo[0];
+            return gps && gps.Latitude != null && gps.Longitude != null;
+          })
+          .map((o) => {
+            const gps = o.GpsInfo[0];
+            const names =
+              o.LocationInfo &&
+              o.LocationInfo.TvInfo &&
+              o.LocationInfo.TvInfo.Name;
+            const title =
+              (names && (names[this.language] || names.en)) || o.Shortname;
             return {
-              position: [o.Latitude, o.Longitude],
-              title: o.LocationInfo.TvInfo.Name[this.language],
+              position: [gps.Latitude, gps.Longitude],
+              title,
             };
-          }
-        );
+          })
+          .filter((o) => o.title);
       }
 
       // Mobility MeteoStation
@@ -43,13 +54,18 @@ export async function request__get_coordinates_from_search(query) {
       ) {
         formattedMobilityMeteoStationData = Object.values(
           mobilityMeteoStationResponse.data.MeteoStation.stations
-        ).map((item) => {
-          return {
-            position: [item.scoordinate.y, item.scoordinate.x],
-            title:
-              item.smetadata[`name_${this.language}`] || item.sname || "---",
-          };
-        });
+        )
+          .filter((item) => {
+            const coordinate = item.scoordinate;
+            return coordinate && coordinate.y != null && coordinate.x != null;
+          })
+          .map((item) => {
+            return {
+              position: [item.scoordinate.y, item.scoordinate.x],
+              title:
+                item.smetadata[`name_${this.language}`] || item.sname || "---",
+            };
+          });
       }
 
       // ---
@@ -69,12 +85,21 @@ export async function request__get_coordinates_from_search(query) {
 
       let formattedTourismData = [];
       if (tourismData.Items) {
-        formattedTourismData = tourismData.Items.map((item) => {
-          return {
-            position: [item.GpsInfo[0].Latitude, item.GpsInfo[0].Longitude],
-            title: item.Detail[this.language].Title,
-          };
-        });
+        formattedTourismData = tourismData.Items
+          .filter((item) => {
+            const gps = item.GpsInfo && item.GpsInfo[0];
+            return gps && gps.Latitude != null && gps.Longitude != null;
+          })
+          .map((item) => {
+            const gps = item.GpsInfo[0];
+            const detail =
+              item.Detail && (item.Detail[this.language] || item.Detail.en);
+            return {
+              position: [gps.Latitude, gps.Longitude],
+              title: detail && detail.Title,
+            };
+          })
+          .filter((item) => item.title);
       }
 
       // HereMaps
@@ -82,9 +107,11 @@ export async function request__get_coordinates_from_search(query) {
       const noOdhResultsCondition = !formattedTourismData.length;
 
       let formattedHereData = [];
-      if (process.env.HEREMAPS_API_KEY && noOdhResultsCondition) {
+      const hereMapsApiKey =
+        typeof process !== "undefined" ? process.env.HEREMAPS_API_KEY : "";
+      if (hereMapsApiKey && noOdhResultsCondition) {
         const hereResponse = await fetch(
-          `https://places.ls.hereapi.com/places/v1/browse?apiKey=${process.env.HEREMAPS_API_KEY}&in=46.31,11.26;r=${r}&q=${query}&` + ORIGIN,
+          `https://places.ls.hereapi.com/places/v1/browse?apiKey=${hereMapsApiKey}&in=46.31,11.26;r=${r}&q=${query}&` + ORIGIN,
           {
             method: "GET",
             headers: new Headers({
@@ -109,9 +136,10 @@ export async function request__get_coordinates_from_search(query) {
         "Other results": [...formattedTourismData, ...formattedHereData],
       };
     }
-    this.isLoading = false;
   } catch (error) {
     console.error(error);
     this.searchPlacesFound = {};
+  } finally {
+    this.isLoading = false;
   }
 }

@@ -45,38 +45,41 @@ export function render_details() {
   }
 
   if (CUSTOMstationCompetence === CUSTOMstationCompetenceTypes.tourism) {
-    const {
-      Shortname,
-      Temperature,
-      Altitude,
-      SnowHeight,
-      AltitudeUnitofMeasure,
-    } = this.currentStation;
+    const { Shortname, Temperature, SnowHeight, GpsInfo } = this.currentStation;
+    const gps = (GpsInfo && GpsInfo[0]) || {};
 
     data.title = Shortname;
     data.linkedTagText = "Measuring Point";
     data.measurements = [
-      {
-        tname: "Temperature",
-        name: t["temperature"][this.language],
-        value: `${Temperature}C`,
-      },
-      {
-        tname: "Altitude",
-        name: t["altitude"][this.language],
-        value: `${Altitude}${AltitudeUnitofMeasure}`,
-      },
-      {
-        tname: "SnowHeight",
-        name: t["snowHeight"][this.language],
-        value: `${SnowHeight}cm`,
-      },
-    ].filter((m) => {
-      if (this.visibleParameters && this.visibleParameters.length) {
-        return this.visibleParameters.includes(m.tname.toLowerCase());
-      }
-      return true;
-    });
+      Temperature != null
+        ? {
+            tname: "Temperature",
+            name: t["temperature"][this.language],
+            value: `${Temperature}C`,
+          }
+        : null,
+      gps.Altitude != null
+        ? {
+            tname: "Altitude",
+            name: t["altitude"][this.language],
+            value: `${gps.Altitude}${gps.AltitudeUnitofMeasure || ""}`,
+          }
+        : null,
+      SnowHeight != null
+        ? {
+            tname: "SnowHeight",
+            name: t["snowHeight"][this.language],
+            value: `${SnowHeight}cm`,
+          }
+        : null,
+    ]
+      .filter(Boolean)
+      .filter((m) => {
+        if (this.visibleParameters && this.visibleParameters.length) {
+          return this.visibleParameters.includes(m.tname.toLowerCase());
+        }
+        return true;
+      });
   }
 
   return html` <div class="details">
