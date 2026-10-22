@@ -42,12 +42,17 @@ class MeteoGeneric extends BaseMeteoGeneric {
   }
 
   async firstUpdated() {
-    if (this.currentTab === 1) {
-      initializeMap.bind(this)();
-      drawUserOnMap.bind(this)();
-      await drawStationsOnMap.bind(this)();
+    try {
+      if (this.currentTab === 1) {
+        initializeMap.bind(this)();
+        drawUserOnMap.bind(this)();
+        await drawStationsOnMap.bind(this)();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.isLoading = false;
     }
-    this.isLoading = false;
   }
 
   handleChangeTab(id) {
@@ -63,16 +68,18 @@ class MeteoGeneric extends BaseMeteoGeneric {
         }
         if (this.currentTab === 1 && oldValue !== undefined) {
           this.isLoading = true;
-          initializeMap
-            .bind(this)()
-            .then(() => {
+          const redrawMap = async () => {
+            try {
+              initializeMap.bind(this)();
               drawUserOnMap.bind(this)();
-              drawStationsOnMap
-                .bind(this)()
-                .then(() => {
-                  this.isLoading = false;
-                });
-            });
+              await drawStationsOnMap.bind(this)();
+            } catch (error) {
+              console.error(error);
+            } finally {
+              this.isLoading = false;
+            }
+          };
+          redrawMap();
         }
       }
     });
@@ -152,29 +159,8 @@ class MeteoGeneric extends BaseMeteoGeneric {
         })}
       >
         ${this.isLoading ? html`<div class="globalOverlay"></div>` : ""}
-        <div
-          class=${classMap({
-            meteo_generic__language_picker: true,
-            big_margin: this.isMobile || isSmallWidth,
-            isSmallHeight: isSmallHeight || isSmallWidth,
-          })}
-        >
-          <wc-languagepicker
-            .supportedLanguages="${LANGUAGES}"
-            .language="${this.language}"
-            .changeLanguageAction="${(language) => {
-              this.language = language;
-            }}"
-          ></wc-languagepicker>
-        </div>
-
-        <div
-          class=${classMap({
-            meteo_generic__sideBar: true,
-            isSmallWidth: isSmallWidth,
-          })}
-        >
-          <div class="meteo_generic__sideBar__tabBar">
+        <div class="meteo_generic__topBar">
+          <div class="meteo_generic__topBar__tabs">
             <wc-sidemodal-tabs
               .action="${(id) => {
                 this.detailsOpen = false;
@@ -184,56 +170,67 @@ class MeteoGeneric extends BaseMeteoGeneric {
               .elements="${filteredTabsList(this.visibleTabs, this.language)}"
             ></wc-sidemodal-tabs>
           </div>
+          <div class="meteo_generic__language_picker">
+            <wc-languagepicker
+              .supportedLanguages="${LANGUAGES}"
+              .language="${this.language}"
+              .changeLanguageAction="${(language) => {
+                this.language = language;
+              }}"
+            ></wc-languagepicker>
+          </div>
+        </div>
+
+        <div class="meteo_generic__stage">
           ${this.currentTab === 1
-            ? html`<div class="meteo_generic__sideBar__searchBar mt-4px">
-                ${render_searchPlaces.bind(this)()}
-              </div>`
+            ? html`
+                <div id="map"></div>
+                <div class="meteo_generic__panel">
+                  <div class="meteo_generic__sideBar__searchBar">
+                    ${render_searchPlaces.bind(this)()}
+                  </div>
+                  ${this.detailsOpen
+                    ? html`<div
+                        class=${classMap({
+                          meteo_generic__sideBar__details: true,
+                          isSmallWidth: isSmallWidth,
+                          isSmallHeight: isSmallHeight,
+                        })}
+                      >
+                        ${render_details.bind(this)()}
+                      </div>`
+                    : ""}
+                </div>
+                ${render__mapControls.bind(this)()}
+              `
             : ""}
-          ${this.detailsOpen
-            ? html`<div
-                class=${classMap({
-                  meteo_generic__sideBar__details: true,
-                  "mt-4px": true,
-                  isSmallWidth: isSmallWidth,
-                  isSmallHeight: isSmallHeight,
-                })}
-              >
-                ${render_details.bind(this)()}
-              </div>`
+          ${this.currentTab === 2
+            ? html`<weather-forecast-widget
+                .forecast_days="4"
+                .selected_district_id="1"
+                .language_translation="${this.language}"
+                .isSmallWidth="${isSmallWidth}"
+                .isSmallHeight="${isSmallHeight}"
+              ></weather-forecast-widget>`
+            : ""}
+          ${this.currentTab === 3 ? render__tabVideo.bind(this)() : ""}
+          ${this.currentTab === 4
+            ? html`<meteo-mountain-widget
+                .language_translation="${this.language}"
+                .isSmallWidth="${isSmallWidth}"
+                .isSmallHeight="${isSmallHeight}"
+              ></meteo-mountain-widget>`
+            : ""}
+          ${this.currentTab === 5
+            ? html`<weather-forecast-byarea
+                .forecast_days="4"
+                .selected_district_id="1"
+                .language_translation="${this.language}"
+                .isSmallWidth="${isSmallWidth}"
+                .isSmallHeight="${isSmallHeight}"
+              ></weather-forecast-byarea>`
             : ""}
         </div>
-        ${this.currentTab === 1
-          ? html`
-              <div id="map"></div>
-              ${render__mapControls.bind(this)()}
-            `
-          : ""}
-        ${this.currentTab === 2
-          ? html`<weather-forecast-widget
-              .forecast_days="4"
-              .selected_district_id="1"
-              .language_translation="${this.language}"
-              .isSmallWidth="${isSmallWidth}"
-              .isSmallHeight="${isSmallHeight}"
-            ></weather-forecast-widget>`
-          : ""}
-        ${this.currentTab === 3 ? render__tabVideo.bind(this)() : ""}
-        ${this.currentTab === 4
-          ? html`<meteo-mountain-widget
-              .language_translation="${this.language}"
-              .isSmallWidth="${isSmallWidth}"
-              .isSmallHeight="${isSmallHeight}"
-            ></meteo-mountain-widget>`
-          : ""}
-        ${this.currentTab === 5
-          ? html`<weather-forecast-byarea
-              .forecast_days="4"
-              .selected_district_id="1"
-              .language_translation="${this.language}"
-              .isSmallWidth="${isSmallWidth}"
-              .isSmallHeight="${isSmallHeight}"
-            ></weather-forecast-byarea>`
-          : ""}
       </div>
     `;
   }

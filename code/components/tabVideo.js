@@ -10,7 +10,7 @@ export function render__tabVideo() {
       ? html`
           <!-- IT --><iframe
             src="https://player.vimeo.com/video/291500549?color=FFFFFF&byline=0"
-            style="position:absolute;top:80px;left:0;width:100%;height:calc(100% - 80px);"
+            style="position:absolute;inset:0;width:100%;height:100%;border:0;"
             frameborder="0"
             webkitallowfullscreen
             mozallowfullscreen
@@ -20,7 +20,7 @@ export function render__tabVideo() {
       : html`
           <!-- DE --><iframe
             src="https://player.vimeo.com/video/291499111?color=FFFFFF&byline=0"
-            style="position:absolute;top:80px;left:0;width:100%;height:calc(100% - 80px);"
+            style="position:absolute;inset:0;width:100%;height:100%;border:0;"
             frameborder="0"
             webkitallowfullscreen
             mozallowfullscreen

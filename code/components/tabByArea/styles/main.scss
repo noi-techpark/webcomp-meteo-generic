@@ -9,15 +9,14 @@
 .meteo_widget {
   font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
   position: relative;
-  margin-top: 160px;
-  @media only screen and (min-width: 768px) {
-    margin-top: 160px;
-  }
+  margin-top: 0;
+  padding: 16px 8px 24px;
+  box-sizing: border-box;
 }
 
 .isSmallWidth {
   &.meteo_widget {
-    margin-top: 120px;
+    margin-top: 0;
   }
 }
 

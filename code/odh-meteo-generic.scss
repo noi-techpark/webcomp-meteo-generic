@@ -20,6 +20,12 @@
   }
 }
 
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .meteo_generic {
   font-family: var(
     --webcomp-routeplanner-font-family,
@@ -28,133 +34,193 @@
     sans-serif
   );
   position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: $gray-200;
+}
 
-  @media only screen and (min-width: 992px) {
-    width: var(--width);
-    height: var(--height);
-  }
+.meteo_generic__topBar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 5;
+  background: $white;
+  border-bottom: 1px solid $gray-300;
+  padding-right: 8px;
+}
+
+.meteo_generic__topBar__tabs {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.meteo_generic__language_picker {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 6;
+  padding-top: 6px;
+}
+
+.meteo_generic__stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
 }
 
 #map {
+  position: absolute;
+  inset: 0;
   z-index: 1;
   width: 100%;
-  @media only screen and (min-width: 992px) {
-    width: var(--width);
-    height: var(--height);
-  }
+  height: 100%;
 }
 
-.mobile {
-  #map {
-    width: 100vw;
-    height: calc(100vh - 80px);
-  }
-}
-
-.meteo_generic__sideBar {
+.meteo_generic__panel {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  max-height: calc(100% - 32px);
+  top: 12px;
+  left: 12px;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(380px, calc(100% - 88px));
+  max-height: calc(100% - 24px);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.meteo_generic__sideBar__searchBar {
+  background-color: $white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(20, 30, 40, 0.16);
   overflow: hidden;
-  width: calc(100% - 32px);
+  min-height: 0;
 
-  @media only screen and (min-width: 768px) {
-    width: 350px;
-  }
+  .searchBox {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 
-  &.isSmallWidth {
-    width: calc(100% - 32px);
-    width: calc(80% - 32px);
-  }
+    wc-searchbar {
+      display: block;
+      padding: 8px;
+      box-sizing: border-box;
+    }
 
-  .meteo_generic__sideBar__tabBar {
-    background-color: white;
-  }
-  .meteo_generic__sideBar__searchBar {
-    background-color: white;
-    width: 100%;
-    .searchBox {
-      .searchBox__resoult_list {
-        max-height: calc(var(--height) - 32px - 86px);
-        overflow-y: auto;
-        ul {
-          list-style: none;
-          padding-left: 8px;
-          margin: 16px 0 0 0;
-          li {
-            @include MixinParagraphRegular;
-            line-height: 18px;
-            display: flex;
-            align-items: center;
-            margin: 8px 0;
-            cursor: pointer;
-            img {
-              margin-right: 8px;
-            }
+    .searchBox__resoult_list {
+      max-height: 240px;
+      overflow-y: auto;
+      border-top: 1px solid $gray-300;
+
+      ul {
+        list-style: none;
+        padding: 8px 12px 12px;
+        margin: 0;
+
+        li {
+          @include MixinParagraphRegular;
+          line-height: 18px;
+          display: flex;
+          align-items: center;
+          margin: 0;
+          padding: 8px;
+          border-radius: 8px;
+          cursor: pointer;
+
+          img {
+            margin-right: 8px;
+          }
+
+          &:hover {
+            background: $gray-200;
           }
         }
       }
     }
   }
-
-  .meteo_generic__sideBar__details {
-    height: calc(var(--height) - 32px - 86px);
-    background-color: $white;
-    overflow-y: auto;
-
-    // &.isSmallWidth {
-    // }
-    &.isSmallHeight {
-      height: calc(var(--height) - 66px - 86px);
-    }
-
-    .header {
-      padding: 8px 16px;
-    }
-
-    .emptySet {
-      @include MixinParagraphMedium();
-      font-size: bold;
-    }
-  }
 }
 
-.meteo_generic__language_picker {
-  display: inline;
-  position: absolute;
-  right: 16px;
-  z-index: 3;
-  top: 80px;
+.meteo_generic__panel:has(.meteo_generic__sideBar__details)
+  .searchBox__resoult_list {
+  max-height: 160px;
+}
 
-  &.big_margin {
-    top: 114px;
+.meteo_generic__sideBar__details {
+  min-height: 0;
+  overflow-y: auto;
+  background-color: $white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(20, 30, 40, 0.16);
+
+  .header {
+    padding: 8px 16px;
   }
 
-  &.isSmallHeight,
-  &.isSmallWidth {
-    top: 16px;
-  }
-
-  @media only screen and (min-width: 768px) {
-    top: 16px;
+  .emptySet {
+    @include MixinParagraphMedium();
+    font-size: bold;
   }
 }
 
 .map_controls {
   position: absolute;
-  right: 16px;
-  bottom: 16px;
-  z-index: 3;
+  right: 12px;
+  bottom: 12px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  wc-button {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(20, 30, 40, 0.18);
+  }
+
+  .mt-16px,
+  .mt-4px {
+    margin-top: 0;
+  }
+}
+
+.leaflet-bottom.leaflet-right {
+  right: 60px;
+  bottom: 8px;
+  max-width: calc(100% - 76px);
+}
+
+.tab__video,
+weather-forecast-widget,
+meteo-mountain-widget,
+weather-forecast-byarea {
+  display: block;
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  background: $white;
+  box-sizing: border-box;
 }
 
 .tab__video {
-  width: var(--width);
-  height: var(--height);
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
 }
 
 .globalOverlay {

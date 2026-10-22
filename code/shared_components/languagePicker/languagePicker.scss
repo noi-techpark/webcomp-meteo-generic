@@ -10,7 +10,8 @@
 @import '../baseline/elevations.scss';
 
 .languagePicker {
-  margin-bottom: 8px;
+  position: relative;
+  margin-bottom: 0;
 
   .languagePicker__trigger {
     display: flex;
@@ -19,8 +20,14 @@
 
   .languagePicker__menu {
     @include Elevation3;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 6;
+    min-width: 112px;
     border: 1px solid $gray-300;
-    margin-top: 8px;
+    border-radius: 8px;
+    margin-top: 0;
     padding: 8px 0;
     background-color: $white;
     cursor: pointer;

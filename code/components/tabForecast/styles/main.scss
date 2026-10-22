@@ -7,10 +7,9 @@
 .meteo_widget {
   font-family: var(--w-c-font-family, Suedtirol, KievitWebPro, sans-serif);
   position: relative;
-  margin-top: 100px;
-  @media only screen and (min-width: 768px) {
-    margin-top: 86px;
-  }
+  margin-top: 0;
+  padding: 12px 12px 24px;
+  box-sizing: border-box;
 }
 
 .meteo_widget__map_container__responsive_manger {
@@ -23,10 +22,18 @@
 }
 
 .meteo_widget__map_container {
-  width: calc(100% - 16px);
+  width: 100%;
   position: relative;
-  margin-bottom: 36px;
-  padding: 8px;
+  margin-bottom: 24px;
+  padding: 0;
+  min-height: 240px;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+  }
   @media only screen and (min-width: 1200px) {
     padding: 0;
   }

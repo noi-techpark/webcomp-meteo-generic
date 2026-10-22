@@ -84,6 +84,9 @@ export async function drawStationsOnMap() {
     : [];
 
   const tourismStations = await requestTourismMeasuringpoint();
+  const tourismStationList = Array.isArray(tourismStations)
+    ? tourismStations
+    : [];
 
   const enabledStations = this.enabledStations
     ? this.enabledStations.split(",")
@@ -91,6 +94,12 @@ export async function drawStationsOnMap() {
 
   flatMobilityStations
     .filter((station) => {
+      const coordinate = station.scoordinate;
+      const hasCoordinate =
+        coordinate && coordinate.y != null && coordinate.x != null;
+      if (!hasCoordinate) {
+        return false;
+      }
       if (enabledStations.length) {
         return enabledStations.includes(station.scode);
       }
@@ -141,17 +150,24 @@ export async function drawStationsOnMap() {
       stations_layer_array.push(marker);
     });
 
-  tourismStations
+  tourismStationList
     .filter((station) => {
+      const gps = station.GpsInfo && station.GpsInfo[0];
+      const hasGps =
+        gps && gps.Latitude != null && gps.Longitude != null;
+      if (!hasGps) {
+        return false;
+      }
       if (enabledStations.length) {
         return enabledStations.includes(station.Id);
       }
       return true;
     })
     .map((station) => {
+      const gps = station.GpsInfo[0];
       const marker_position = getLatLongFromStationDetail({
-        x: station.Longitude,
-        y: station.Latitude,
+        x: gps.Longitude,
+        y: gps.Latitude,
       });
       const station_icon = Leaflet.icon({
         iconUrl: stationIcon,
